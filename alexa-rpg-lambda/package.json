@@ -1,0 +1,11 @@
+{
+  "name": "alexa_rpg_lambda",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc --skipLibCheck"
+  },
+  "author": "",
+  "license": "MIT"
+}

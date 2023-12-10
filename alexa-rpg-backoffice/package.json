@@ -1,5 +1,5 @@
 {
-  "name": "alexa_rpg",
+  "name": "alexa_rpg_backoffice",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -16,7 +16,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@types/cookie-parser": "1.4.6",
     "@types/cors": "2.8.17",
