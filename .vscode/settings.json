@@ -2,5 +2,6 @@
     "search.exclude": {
         "**/dist": true
     },
+    "eslint.workingDirectories": ["alexa-rpg-backoffice", "alexa-rpg-lambda"],
     "git.ignoreLimitWarning": true
 }

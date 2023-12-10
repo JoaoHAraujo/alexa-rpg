@@ -12,7 +12,7 @@
       "ecmaVersion": 12,
       "sourceType": "module",
       "project": "./tsconfig.json",
-      "tsconfigRootDir": "./"
+      "tsconfigRootDir": "./alexa-rpg-backoffice"
   },
   "plugins": [
       "@typescript-eslint",
