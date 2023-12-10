@@ -131,10 +131,10 @@
 		}
 	},
 	"info": {
-		"title": "alexa_rpg",
+		"title": "alexa_rpg_backoffice",
 		"version": "1.0.0",
 		"license": {
-			"name": "ISC"
+			"name": "MIT"
 		},
 		"contact": {}
 	},
@@ -182,34 +182,6 @@
 				],
 				"security": [],
 				"parameters": []
-			}
-		},
-		"/v1/health/alexa": {
-			"post": {
-				"operationId": "AlexaStatus",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Health"
-				],
-				"security": [],
-				"parameters": [],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {}
-						}
-					}
-				}
 			}
 		},
 		"/v1/story": {

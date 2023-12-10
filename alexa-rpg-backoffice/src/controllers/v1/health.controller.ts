@@ -54,22 +54,4 @@ export class HealthController extends BaseHttpController implements interfaces.C
 
     return this.ok(response);
   }
-
-  @Post('/alexa')
-  async alexaStatus(@Body() alexaRequest: any): Promise<any> {
-    console.log('arroz');
-
-    const response = {
-      version: '1.0',
-      response: {
-        outputSpeech: {
-          type: 'PlainText',
-          text: 'Your response text here.',
-        },
-        shouldEndSession: true,
-      },
-    };
-
-    return response;
-  }
 }
