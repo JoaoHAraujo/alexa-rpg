@@ -1,0 +1,289 @@
+/* tslint:disable */
+/* eslint-disable */
+// WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+import { Controller, ValidationService, FieldErrors, ValidateError, TsoaRoute, HttpStatusCodeLiteral, TsoaResponse, fetchMiddlewares } from '@tsoa/runtime';
+// WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+import { HealthController } from './../src/controllers/v1/health.controller';
+// WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+import { StoryController } from './../src/controllers/v1/story.controller';
+import { iocContainer } from './../src/server';
+import type { IocContainer, IocContainerFactory } from '@tsoa/runtime';
+import type { RequestHandler, Router } from 'express';
+
+// WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+const models: TsoaRoute.Models = {
+    "Environment": {
+        "dataType": "refEnum",
+        "enums": ["development","homolog","production"],
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "IHealthStatus": {
+        "dataType": "refObject",
+        "properties": {
+            "app": {"dataType":"string","required":true},
+            "uptime": {"dataType":"double","required":true},
+            "now": {"dataType":"string","required":true},
+            "env": {"ref":"Environment","required":true},
+            "databaseOn": {"dataType":"boolean"},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "interfaces.IHttpActionResult": {
+        "dataType": "refObject",
+        "properties": {
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "StoryModel": {
+        "dataType": "refObject",
+        "properties": {
+            "id": {"dataType":"string","required":true},
+            "title": {"dataType":"string","required":true},
+            "isActive": {"dataType":"boolean","required":true},
+            "createdAt": {"dataType":"union","subSchemas":[{"dataType":"datetime"},{"dataType":"string"}]},
+            "updatedAt": {"dataType":"union","subSchemas":[{"dataType":"datetime"},{"dataType":"string"}]},
+            "deletedAt": {"dataType":"union","subSchemas":[{"dataType":"datetime"},{"dataType":"string"}]},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "Pick_StoryModel.Exclude_keyofStoryModel.id-or-createdAt-or-updatedAt-or-deletedAt__": {
+        "dataType": "refAlias",
+        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"title":{"dataType":"string","required":true},"isActive":{"dataType":"boolean","required":true}},"validators":{}},
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "Omit_StoryModel.id-or-createdAt-or-updatedAt-or-deletedAt_": {
+        "dataType": "refAlias",
+        "type": {"ref":"Pick_StoryModel.Exclude_keyofStoryModel.id-or-createdAt-or-updatedAt-or-deletedAt__","validators":{}},
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+};
+const validationService = new ValidationService(models);
+
+// WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+export function RegisterRoutes(app: Router) {
+    // ###########################################################################################################
+    //  NOTE: If you do not see routes for all of your controllers in this file, then you might not have informed tsoa of where to look
+    //      Please look into the "controllerPathGlobs" config option described in the readme: https://github.com/lukeautry/tsoa
+    // ###########################################################################################################
+        app.get('/v1/health/status',
+            ...(fetchMiddlewares<RequestHandler>(HealthController)),
+            ...(fetchMiddlewares<RequestHandler>(HealthController.prototype.getStatus)),
+
+            async function HealthController_getStatus(request: any, response: any, next: any) {
+            const args = {
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const container: IocContainer = typeof iocContainer === 'function' ? (iocContainer as IocContainerFactory)(request) : iocContainer;
+
+                const controller: any = await container.get<HealthController>(HealthController);
+                if (typeof controller['setStatus'] === 'function') {
+                controller.setStatus(undefined);
+                }
+
+
+              const promise = controller.getStatus.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, undefined, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.get('/v1/health/status/readiness',
+            ...(fetchMiddlewares<RequestHandler>(HealthController)),
+            ...(fetchMiddlewares<RequestHandler>(HealthController.prototype.statusAll)),
+
+            async function HealthController_statusAll(request: any, response: any, next: any) {
+            const args = {
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const container: IocContainer = typeof iocContainer === 'function' ? (iocContainer as IocContainerFactory)(request) : iocContainer;
+
+                const controller: any = await container.get<HealthController>(HealthController);
+                if (typeof controller['setStatus'] === 'function') {
+                controller.setStatus(undefined);
+                }
+
+
+              const promise = controller.statusAll.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, undefined, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.post('/v1/health/alexa',
+            ...(fetchMiddlewares<RequestHandler>(HealthController)),
+            ...(fetchMiddlewares<RequestHandler>(HealthController.prototype.alexaStatus)),
+
+            async function HealthController_alexaStatus(request: any, response: any, next: any) {
+            const args = {
+                    alexaRequest: {"in":"body","name":"alexaRequest","required":true,"dataType":"any"},
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const container: IocContainer = typeof iocContainer === 'function' ? (iocContainer as IocContainerFactory)(request) : iocContainer;
+
+                const controller: any = await container.get<HealthController>(HealthController);
+                if (typeof controller['setStatus'] === 'function') {
+                controller.setStatus(undefined);
+                }
+
+
+              const promise = controller.alexaStatus.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, undefined, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.post('/v1/story',
+            ...(fetchMiddlewares<RequestHandler>(StoryController)),
+            ...(fetchMiddlewares<RequestHandler>(StoryController.prototype.create)),
+
+            async function StoryController_create(request: any, response: any, next: any) {
+            const args = {
+                    httpRequest: {"in":"body","name":"httpRequest","required":true,"ref":"Omit_StoryModel.id-or-createdAt-or-updatedAt-or-deletedAt_"},
+                    _req: {"in":"request","name":"_req","required":true,"dataType":"object"},
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const container: IocContainer = typeof iocContainer === 'function' ? (iocContainer as IocContainerFactory)(request) : iocContainer;
+
+                const controller: any = await container.get<StoryController>(StoryController);
+                if (typeof controller['setStatus'] === 'function') {
+                controller.setStatus(undefined);
+                }
+
+
+              const promise = controller.create.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, undefined, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+    function isController(object: any): object is Controller {
+        return 'getHeaders' in object && 'getStatus' in object && 'setStatus' in object;
+    }
+
+    function promiseHandler(controllerObj: any, promise: any, response: any, successStatus: any, next: any) {
+        return Promise.resolve(promise)
+            .then((data: any) => {
+                let statusCode = successStatus;
+                let headers;
+                if (isController(controllerObj)) {
+                    headers = controllerObj.getHeaders();
+                    statusCode = controllerObj.getStatus() || statusCode;
+                }
+
+                // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+                returnHandler(response, statusCode, data, headers)
+            })
+            .catch((error: any) => next(error));
+    }
+
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+    function returnHandler(response: any, statusCode?: number, data?: any, headers: any = {}) {
+        if (response.headersSent) {
+            return;
+        }
+        Object.keys(headers).forEach((name: string) => {
+            response.set(name, headers[name]);
+        });
+        if (data && typeof data.pipe === 'function' && data.readable && typeof data._read === 'function') {
+            response.status(statusCode || 200)
+            data.pipe(response);
+        } else if (data !== null && data !== undefined) {
+            response.status(statusCode || 200).json(data);
+        } else {
+            response.status(statusCode || 204).end();
+        }
+    }
+
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+    function responder(response: any): TsoaResponse<HttpStatusCodeLiteral, unknown>  {
+        return function(status, data, headers) {
+            returnHandler(response, status, data, headers);
+        };
+    };
+
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+    function getValidatedArgs(args: any, request: any, response: any): any[] {
+        const fieldErrors: FieldErrors  = {};
+        const values = Object.keys(args).map((key) => {
+            const name = args[key].name;
+            switch (args[key].in) {
+                case 'request':
+                    return request;
+                case 'query':
+                    return validationService.ValidateParam(args[key], request.query[name], name, fieldErrors, undefined, {"noImplicitAdditionalProperties":"throw-on-extras"});
+                case 'queries':
+                    return validationService.ValidateParam(args[key], request.query, name, fieldErrors, undefined, {"noImplicitAdditionalProperties":"throw-on-extras"});
+                case 'path':
+                    return validationService.ValidateParam(args[key], request.params[name], name, fieldErrors, undefined, {"noImplicitAdditionalProperties":"throw-on-extras"});
+                case 'header':
+                    return validationService.ValidateParam(args[key], request.header(name), name, fieldErrors, undefined, {"noImplicitAdditionalProperties":"throw-on-extras"});
+                case 'body':
+                    return validationService.ValidateParam(args[key], request.body, name, fieldErrors, undefined, {"noImplicitAdditionalProperties":"throw-on-extras"});
+                case 'body-prop':
+                    return validationService.ValidateParam(args[key], request.body[name], name, fieldErrors, 'body.', {"noImplicitAdditionalProperties":"throw-on-extras"});
+                case 'formData':
+                    if (args[key].dataType === 'file') {
+                        return validationService.ValidateParam(args[key], request.file, name, fieldErrors, undefined, {"noImplicitAdditionalProperties":"throw-on-extras"});
+                    } else if (args[key].dataType === 'array' && args[key].array.dataType === 'file') {
+                        return validationService.ValidateParam(args[key], request.files, name, fieldErrors, undefined, {"noImplicitAdditionalProperties":"throw-on-extras"});
+                    } else {
+                        return validationService.ValidateParam(args[key], request.body[name], name, fieldErrors, undefined, {"noImplicitAdditionalProperties":"throw-on-extras"});
+                    }
+                case 'res':
+                    return responder(response);
+            }
+        });
+
+        if (Object.keys(fieldErrors).length > 0) {
+            throw new ValidateError(fieldErrors, '');
+        }
+        return values;
+    }
+
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+}
+
+// WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa

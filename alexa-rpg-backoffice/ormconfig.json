@@ -1,0 +1,6 @@
+{
+  "cli": {
+    "entitiesDir": "./src/infra/db/entities",
+    "migrationsDir": "./src/infra/db/migrations"
+  }
+}

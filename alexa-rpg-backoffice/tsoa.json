@@ -1,0 +1,27 @@
+{
+  "entryFile": "src/app.ts",
+  "noImplicitAdditionalProperties": "throw-on-extras",
+  "controllerPathGlobs": [
+    "src/controllers/_index.ts"
+  ],
+  "spec": {
+    "outputDirectory": "build-tsoa",
+    "securityDefinitions": {
+      "token": {
+        "type": "apiKey",
+        "description": "Token necessario para autenticação",
+        "name": "token",
+        "in": "cookie"
+      }
+    },
+    "specVersion": 3
+  },
+  "routes": {
+    "routesDir": "build-tsoa",
+    "iocModule": "src/server"
+  },
+  "ignore": [
+    "*/node_modules/*",
+    "./node_modules"
+  ]
+}
