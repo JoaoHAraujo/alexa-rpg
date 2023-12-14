@@ -6,9 +6,8 @@ export const LaunchRequestHandler: RequestHandler = {
     return getRequestType(handlerInput.requestEnvelope) === 'LaunchRequest';
   },
   handle(handlerInput: HandlerInput): Response {
-    const speechText = 'Bem-vindo ao mundo mágico de Harry Potter!';
-    const repromptText = 'Sobre quem quer saber mais?';
+    const speechText = 'Bem-vindo à primeira versão da skill de histórias interativas';
 
-    return handlerInput.responseBuilder.speak(`${speechText} ${repromptText}`).reprompt(repromptText).getResponse();
+    return handlerInput.responseBuilder.speak(speechText).getResponse();
   },
 };
