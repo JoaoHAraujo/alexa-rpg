@@ -134,7 +134,7 @@
           2
       ],
       "@typescript-eslint/no-explicit-any": [
-          "error"
+          0
       ],
       "@typescript-eslint/explicit-function-return-type": [
           "off"
@@ -184,7 +184,7 @@
         }
       ],
       "@typescript-eslint/no-useless-constructor": "off",
-      "@typescript-eslint/no-unsafe-assignment": 1,
+      "@typescript-eslint/no-unsafe-assignment": 0,
       "@typescript-eslint/no-extra-semi": 2,
       "@typescript-eslint/no-unsafe-call": 1
   }

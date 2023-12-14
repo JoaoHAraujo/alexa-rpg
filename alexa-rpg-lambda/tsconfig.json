@@ -3,9 +3,8 @@
     "target": "es6",
     "moduleResolution": "node",
     "module": "CommonJS",
-    "lib": ["es6"],
+    "lib": ["es6", "DOM"],
     "sourceMap": true,
-    "outDir": "./dist",
     "strict": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
@@ -23,7 +22,8 @@
     "paths": {
       "@src/*": ["src/*"],
     },
-    "rootDirs": ["./src"],
+    "outDir": "./dist/lambda",
+    "rootDir": "./src",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
   },

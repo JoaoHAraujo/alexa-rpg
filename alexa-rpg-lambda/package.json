@@ -5,13 +5,18 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc --skipLibCheck",
-    "lint": "eslint ./src --ext .ts"
+    "lint": "eslint ./src --ext .ts",
+    "teste": "npm run copy && npm install --production && npm run copy-node-modules && npx tsc --skipLibCheck",
+    "copy": "xcopy /E /I src dist\\lambda",
+    "copy-node-modules": "xcopy /E /I node_modules dist\\lambda\\node_modules"
   },
   "author": "",
   "license": "MIT",
   "dependencies": {
     "ask-sdk-core": "2.14.0",
     "ask-sdk-model": "1.86.0",
+    "axios": "1.6.2",
+    "http-status": "1.7.3",
     "module-alias": "2.2.3",
     "reflect-metadata": "0.1.14"
   },
