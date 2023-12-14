@@ -6,7 +6,7 @@ import { TYPES } from '@src/utils/inversify-types';
 import { provideSingleton } from '@src/utils/provide-singleton';
 import { inject } from 'inversify';
 
-import { ICreateStoryUseCase } from './create-story.interface';
+import { ICreateStoryUseCase } from './create.interface';
 
 @provideSingleton(CreateStoryUseCase)
 export class CreateStoryUseCase implements ICreateStoryUseCase {

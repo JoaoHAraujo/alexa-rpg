@@ -26,6 +26,6 @@ export const DatabaseProvider = new DataSource({
   migrationsTransactionMode: 'each',
   synchronize: false,
   logging: !!getEnv()?.debug,
-  migrations: [`${join(__dirname, '../migrations/*.{js, ts}')}`],
-  entities: [`${join(__dirname, '../entities/*.entity.{js, ts}')}`],
+  migrations: [`${join(__dirname, '../migrations/*.{js,ts}')}`],
+  entities: [`${join(__dirname, '../entities/*.entity.{js,ts}')}`],
 });

@@ -13,7 +13,7 @@ export function attributeSelector<T extends ObjectLiteral>(
     const { timestamps } = options;
     const timestampAttributes = ['createdAt', 'updatedAt', 'deletedAt'];
 
-    const response = repository.metadata.columns.reduce(
+    const response = repository.metadata?.columns.reduce(
       (attributes, column) => {
         if (!timestamps && timestampAttributes.includes(column.propertyName)) {
           return attributes;

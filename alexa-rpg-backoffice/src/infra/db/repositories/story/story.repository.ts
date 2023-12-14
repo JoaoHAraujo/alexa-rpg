@@ -3,7 +3,7 @@ import { provideSingleton } from '@src/utils/provide-singleton';
 import { FindOptionsWhere, Repository } from 'typeorm';
 
 import { DatabaseProvider } from '../../config/database';
-import { StoryEntity } from '../../entities/';
+import { StoryEntity } from '../../entities';
 import { AttributeOptions, attributeSelector } from '../attribute-selector';
 import { StoryRepositoryInterface } from './story.repository.interface';
 

@@ -1,2 +1,2 @@
-export { CreateStoryUseCase } from './create-story.usecase';
-export { ICreateStoryUseCase } from './create-story.interface';
+export { CreateStoryUseCase } from './create.usecase';
+export { ICreateStoryUseCase } from './create.interface';

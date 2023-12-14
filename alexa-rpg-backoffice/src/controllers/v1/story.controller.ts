@@ -1,10 +1,10 @@
-import { ICreateStoryUseCase } from '@src/domain/usecases';
+import { ICreateStoryUseCase, IGetStoryByIdUseCase } from '@src/domain/usecases';
 import { ICustomRequest } from '@src/utils/interfaces/custom-request';
 import { TYPES } from '@src/utils/inversify-types';
 import { provideSingleton } from '@src/utils/provide-singleton';
 import { inject } from 'inversify';
 import { BaseHttpController, interfaces } from 'inversify-express-utils';
-import { Body, Post, Request, Route, Tags } from 'tsoa';
+import { Body, Get, Path, Post, Request, Route, Tags } from 'tsoa';
 
 import { StoryModel } from '../../domain/models';
 
@@ -15,6 +15,8 @@ export class StoryController extends BaseHttpController implements interfaces.Co
   constructor(
     @inject(TYPES.usecases.CreateStoryUseCase)
     private readonly createStoryUseCase: ICreateStoryUseCase,
+    @inject(TYPES.usecases.GetStoryByIdUseCase)
+    private readonly getStoryByIdUseCase: IGetStoryByIdUseCase,
   ) {
     super();
   }
@@ -25,6 +27,13 @@ export class StoryController extends BaseHttpController implements interfaces.Co
     @Request() _req: ICustomRequest,
   ): Promise<StoryModel> {
     const result = await this.createStoryUseCase.create(httpRequest);
+
+    return result;
+  }
+
+  @Get('/:idStory')
+  async getById(@Path('idStory') idStory: string): Promise<StoryModel> {
+    const result = await this.getStoryByIdUseCase.getById(idStory);
 
     return result;
   }

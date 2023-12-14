@@ -1,13 +1,13 @@
 const StoryTypes = {
   CreateStoryUseCase: 'CreateStoryUseCase',
+  GetStoryByIdUseCase: 'GetStoryByIdUseCase',
+};
+
+const RepositoryTypes = {
+  StoryRepository: 'StoryRepository',
 };
 
 export const TYPES = {
-  usecases: {
-    ...StoryTypes,
-  },
-
-  repositories: {
-    StoryRepository: 'StoryRepository',
-  },
+  usecases: { ...StoryTypes },
+  repositories: { ...RepositoryTypes },
 };
