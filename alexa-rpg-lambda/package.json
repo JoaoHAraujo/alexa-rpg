@@ -6,9 +6,8 @@
   "scripts": {
     "build": "tsc --skipLibCheck",
     "lint": "eslint ./src --ext .ts",
-    "teste": "npm run copy && npm install --production && npm run copy-node-modules && npx tsc --skipLibCheck",
-    "copy": "xcopy /E /I src dist\\lambda",
-    "copy-node-modules": "xcopy /E /I node_modules dist\\lambda\\node_modules"
+    "deploy": "tsc --skipLibCheck && npm run install-prod-deps && ask deploy",
+    "install-prod-deps": "npm install --production && xcopy /E /I node_modules dist\\node_modules /Y"
   },
   "author": "",
   "license": "MIT",

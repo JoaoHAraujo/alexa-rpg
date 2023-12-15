@@ -18,10 +18,6 @@
     "strictPropertyInitialization": false,
     "allowSyntheticDefaultImports": true,
     "allowJs": true,
-    "baseUrl": ".",
-    "paths": {
-      "@src/*": ["src/*"],
-    },
     "outDir": "./dist/lambda",
     "rootDir": "./src",
     "experimentalDecorators": true,

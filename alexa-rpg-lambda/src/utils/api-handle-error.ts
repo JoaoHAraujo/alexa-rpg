@@ -1,4 +1,4 @@
-import { ApiError } from '@src/errors';
+import { ApiError } from '../errors';
 import httpStatus from 'http-status';
 
 export class apiHandleError {
