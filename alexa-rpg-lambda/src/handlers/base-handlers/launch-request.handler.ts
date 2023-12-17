@@ -10,14 +10,13 @@ export const LaunchRequestHandler: RequestHandler = {
   },
   async handle(handlerInput: HandlerInput): Promise<Response> {
     try {
-      let speechText = 'TESTE! Bem-vindo à primeira versão da skill de histórias interativas. Escolha uma história: ';
       const stories = await StoryApi.getRanddom(2);
 
-      stories.forEach((story, index) => {
-        speechText += `${index + 1}: ${story.title}; `;
-      });
-
       handlerInput.attributesManager.setSessionAttributes({ stories });
+
+      const storyTitles = stories.map((story) => story.title).join(', ');
+
+      const speechText = `TESTE! Bem-vindo à primeira versão da skill de histórias interativas. Escolha uma história: ${storyTitles}`;
 
       const responseBuilder = handlerInput.responseBuilder
         .speak(`${speechText}`)
@@ -31,29 +30,29 @@ export const LaunchRequestHandler: RequestHandler = {
   },
 };
 
-export const StorySelectionHandler: RequestHandler = {
+export const ChooseStoryIntentHandler: RequestHandler = {
   canHandle(handlerInput: HandlerInput): boolean {
     return (
       getRequestType(handlerInput.requestEnvelope) === 'IntentRequest' &&
-      getIntentName(handlerInput.requestEnvelope) === 'StorySelectionIntent'
+      getIntentName(handlerInput.requestEnvelope) === 'ChooseStoryIntent'
     );
   },
   handle(handlerInput: HandlerInput): Response {
     try {
-      const chosenNumber = getSlotValue(handlerInput.requestEnvelope, 'number');
-      const storyChoice = chosenNumber ? parseInt(chosenNumber) : null;
-
+      const chosenStoryName = getSlotValue(handlerInput.requestEnvelope, 'storyName'); //TODO enum
       const sessionAttributes = handlerInput.attributesManager.getSessionAttributes<{ stories: StoryModel[] }>();
-      const stories = sessionAttributes.stories;
+      const stories = sessionAttributes.stories || [];
+      console.log(JSON.stringify(handlerInput, null, 2));
 
-      if (storyChoice && stories && stories[storyChoice - 1]) {
-        const chosenStory = stories[storyChoice - 1];
+      const chosenStory = stories.find((story) => story.title?.toLowerCase() === chosenStoryName?.toLowerCase());
+
+      if (chosenStory) {
         const speechOutput = `Você escolheu a história: ${chosenStory.title}`;
 
         return handlerInput.responseBuilder.speak(speechOutput).getResponse();
       } else {
         return handlerInput.responseBuilder
-          .speak('Não entendi sua resposta maluco. Escolhe de novo aí')
+          .speak(`Não entendi sua resposta maluco. Escolhe de novo aí. ${chosenStoryName}`)
           .reprompt('Tá esperando o quê, doido? Bora!')
           .getResponse();
       }

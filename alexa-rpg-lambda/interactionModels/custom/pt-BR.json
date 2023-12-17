@@ -15,16 +15,27 @@
           "samples": []
         },
         {
-          "name": "StorySelectionIntent",
-          "slots": [{ "name": "number", "type": "AMAZON.NUMBER" }],
-          "samples": ["história número {number}", "número {number}", "quero jogar a número {number}"]
+          "name": "ChooseStoryIntent",
+          "slots": [{ "name": "storyName", "type": "StoryNameType" }],
+          "samples": ["{storyName}", "História {storyName}", "Quero jogar {storyName}"]
         },
         {
           "name": "AMAZON.NavigateHomeIntent",
           "samples": []
         }
       ],
-      "types": [{ "name": "StoryNameType", "values": [] }],
+      "types": [
+        {
+          "name": "StoryNameType",
+          "values": [
+            {
+              "name": {
+                "value": "229f6e43-035d-46a5-a997-7c79191a23ca"
+              }
+            }
+          ]
+        }
+      ],
       "invocationName": "guerreiro de luz"
     }
   }

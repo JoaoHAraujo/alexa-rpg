@@ -7,9 +7,9 @@ export default class BaseEntity {
   @CreateDateColumn({ type: 'timestamptz', name: 'created_at', select: false })
   public createdAt?: Date | string;
 
-  @UpdateDateColumn({ type: 'timestamptz', name: 'updated_at' })
+  @UpdateDateColumn({ type: 'timestamptz', name: 'updated_at', select: false })
   public updatedAt?: Date | string;
 
-  @DeleteDateColumn({ type: 'timestamptz', name: 'deleted_at' })
+  @DeleteDateColumn({ type: 'timestamptz', name: 'deleted_at', select: false })
   public deletedAt?: Date | string;
 }
