@@ -1,13 +1,15 @@
-import { StoryModel } from '../../models';
-import { apiHandleError } from '../../utils';
 import axios from 'axios';
 
+import { StoryModel } from '../../models';
+import { apiHandleError } from '../../utils';
 import { IStoryApi } from './story.interface';
+
+const baseUrl = `${process.env.BACKOFFICE_URL}/story`;
 
 export const StoryApi: IStoryApi = {
   async getById(idStory: string) {
     try {
-      const { data } = await axios.get(`https://fbf3-168-205-243-14.ngrok-free.app/v1/story/${idStory}`);
+      const { data } = await axios.get(`${baseUrl}/${idStory}`);
 
       return data as StoryModel;
     } catch (err: any) {
