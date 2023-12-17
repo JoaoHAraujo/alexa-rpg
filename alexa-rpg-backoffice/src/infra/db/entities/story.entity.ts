@@ -1,7 +1,8 @@
 import { StoryModel } from '@src/domain/models';
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, OneToMany } from 'typeorm';
 
 import BaseEntity from './base-entity';
+import { SegmentEntity } from './segment.entity';
 
 @Entity('story')
 export class StoryEntity extends BaseEntity {
@@ -10,6 +11,9 @@ export class StoryEntity extends BaseEntity {
 
   @Column({ name: 'is_active' })
   public isActive: boolean;
+
+  @OneToMany(() => SegmentEntity, (segment) => segment.story)
+  public segments: SegmentEntity[];
 
   public toModel(): StoryModel {
     return {
