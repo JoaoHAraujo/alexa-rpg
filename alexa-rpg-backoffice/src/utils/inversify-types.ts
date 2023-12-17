@@ -1,6 +1,7 @@
-const StoryTypes = {
+const StoryUseCaseTypes = {
   CreateStoryUseCase: 'CreateStoryUseCase',
   GetStoryByIdUseCase: 'GetStoryByIdUseCase',
+  GetRandomStoriesUseCase: 'GetRandomStoriesUseCase',
 };
 
 const RepositoryTypes = {
@@ -8,6 +9,6 @@ const RepositoryTypes = {
 };
 
 export const TYPES = {
-  usecases: { ...StoryTypes },
+  usecases: { ...StoryUseCaseTypes },
   repositories: { ...RepositoryTypes },
 };

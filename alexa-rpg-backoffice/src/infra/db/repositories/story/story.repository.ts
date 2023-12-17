@@ -1,6 +1,6 @@
 import { StoryModel } from '@src/domain/models';
 import { provideSingleton } from '@src/utils/provide-singleton';
-import { FindOptionsWhere, Repository } from 'typeorm';
+import { FindOptionsWhere, Repository, SelectQueryBuilder } from 'typeorm';
 
 import { DatabaseProvider } from '../../config/database';
 import { StoryEntity } from '../../entities';
@@ -34,5 +34,11 @@ export class StoryRepository implements StoryRepositoryInterface {
     const result = await this.selectOne({ id }, options);
 
     return result!;
+  }
+
+  async selectRandom(limit: number, where: FindOptionsWhere<StoryEntity>): Promise<StoryModel[]> {
+    const result = await this.repository.createQueryBuilder().where(where).orderBy('RANDOM()').take(limit).getMany();
+
+    return result.map((story) => story.toModel());
   }
 }
