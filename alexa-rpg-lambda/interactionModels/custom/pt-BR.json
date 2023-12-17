@@ -15,24 +15,16 @@
           "samples": []
         },
         {
-          "slots": [],
-          "name": "HelloWorldIntent",
-          "samples": [
-            "olá",
-            "como vai você",
-            "diga oi mundo",
-            "diga oi",
-            "oi",
-            "diga olá mundo",
-            "diga olá"
-          ]
+          "name": "StorySelectionIntent",
+          "slots": [{ "name": "number", "type": "AMAZON.NUMBER" }],
+          "samples": ["história número {number}", "número {number}", "quero jogar a número {number}"]
         },
         {
           "name": "AMAZON.NavigateHomeIntent",
           "samples": []
         }
       ],
-      "types": [],
+      "types": [{ "name": "StoryNameType", "values": [] }],
       "invocationName": "guerreiro de luz"
     }
   }

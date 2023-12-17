@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc --skipLibCheck",
     "lint": "eslint ./src --ext .ts",
-    "deploy": "tsc --skipLibCheck && npm run install-prod-deps && ask deploy",
+    "deploy": "npm run build && npm run install-prod-deps && ask deploy && npm i",
     "install-prod-deps": "npm install --production && xcopy /E /I node_modules dist\\node_modules /Y"
   },
   "author": "",

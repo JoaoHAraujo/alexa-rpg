@@ -1,3 +1,5 @@
 import { RequestHandler } from 'ask-sdk-core';
 
-export const IntentHandlers: RequestHandler[] = [];
+import { StorySelectionHandler } from '../base-handlers/launch-request.handler';
+
+export const IntentHandlers: RequestHandler[] = [StorySelectionHandler];
