@@ -10,7 +10,7 @@ export const LaunchRequestHandler: RequestHandler = {
   },
   async handle(handlerInput: HandlerInput): Promise<Response> {
     try {
-      const stories = await StoryApi.getRanddom(2);
+      const stories = await StoryApi.getRandom(5);
 
       handlerInput.attributesManager.setSessionAttributes({ stories });
 
@@ -52,7 +52,7 @@ export const ChooseStoryIntentHandler: RequestHandler = {
         return handlerInput.responseBuilder.speak(speechOutput).getResponse();
       } else {
         return handlerInput.responseBuilder
-          .speak(`Não entendi sua resposta maluco. Escolhe de novo aí. ${chosenStoryName}`)
+          .speak(`Não entendi sua resposta. Escolhe de novo aí. ${chosenStoryName}`)
           .reprompt('Tá esperando o quê, doido? Bora!')
           .getResponse();
       }

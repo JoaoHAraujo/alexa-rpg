@@ -17,13 +17,13 @@ export const StoryApi: IStoryApi = {
     }
   },
 
-  async getRanddom(limit: number) {
+  async getRandom(limit: number) {
     try {
       const { data } = await axios.get<StoryModel[]>(`${baseUrl}/random`, { params: { limit } });
 
       return data;
     } catch (err: any) {
-      throw new apiHandleError(this.getRanddom.name, err);
+      throw new apiHandleError(this.getRandom.name, err);
     }
   },
 };

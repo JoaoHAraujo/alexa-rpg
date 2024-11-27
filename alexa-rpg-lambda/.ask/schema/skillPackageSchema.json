@@ -342,6 +342,19 @@
       ]
     },
     {
+      "pathElement": "routines",
+      "children": [
+        {
+          "pathElement": "triggers",
+          "children": [
+            {
+              "pathElement": "^([A-z0-9-_+\\.\\/]+\\/)*[a-z]{2}-[A-Z]{2}.(json|JSON)"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "pathElement": "robotActivity",
       "children": [
         {
