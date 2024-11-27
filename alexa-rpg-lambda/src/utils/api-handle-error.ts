@@ -1,5 +1,6 @@
-import { ApiError } from '../errors';
 import httpStatus from 'http-status';
+
+import { ApiError } from '../errors';
 
 export class apiHandleError {
   constructor(functionName: string, err: any) {
