@@ -57,6 +57,11 @@ const models: TsoaRoute.Models = {
         "type": {"ref":"Omit_TStoryModel.id-or-createdAt-or-updatedAt-or-deletedAt_","validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "TUpdateStoryInput": {
+        "dataType": "refAlias",
+        "type": {"ref":"Omit_TStoryModel.id-or-createdAt-or-updatedAt-or-deletedAt_","validators":{}},
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 };
 const validationService = new ValidationService(models);
 
@@ -210,6 +215,37 @@ export function RegisterRoutes(app: Router) {
 
 
               const promise = controller.getById.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, undefined, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.put('/v1/story/:idStory',
+            ...(fetchMiddlewares<RequestHandler>(StoryController)),
+            ...(fetchMiddlewares<RequestHandler>(StoryController.prototype.updateStory)),
+
+            async function StoryController_updateStory(request: any, response: any, next: any) {
+            const args = {
+                    idStory: {"in":"path","name":"idStory","required":true,"dataType":"string"},
+                    input: {"in":"body","name":"input","required":true,"ref":"TUpdateStoryInput"},
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const container: IocContainer = typeof iocContainer === 'function' ? (iocContainer as IocContainerFactory)(request) : iocContainer;
+
+                const controller: any = await container.get<StoryController>(StoryController);
+                if (typeof controller['setStatus'] === 'function') {
+                controller.setStatus(undefined);
+                }
+
+
+              const promise = controller.updateStory.apply(controller, validatedArgs as any);
               promiseHandler(controller, promise, response, undefined, next);
             } catch (err) {
                 return next(err);

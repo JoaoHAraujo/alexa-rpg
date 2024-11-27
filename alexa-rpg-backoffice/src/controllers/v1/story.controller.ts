@@ -1,15 +1,16 @@
 import { ICreateStoryUseCase, IGetRandomStoriesUseCase, IGetStoryByIdUseCase } from '@src/domain/usecases';
 import { IDeleteStoryUseCase } from '@src/domain/usecases/story/delete';
+import { IUpdateStoryUseCase } from '@src/domain/usecases/story/update';
 import { InvalidParamError } from '@src/errors';
 import { ICustomRequest } from '@src/utils/interfaces/custom-request';
 import { TYPES } from '@src/utils/inversify-types';
 import { provideSingleton } from '@src/utils/provide-singleton';
 import { inject } from 'inversify';
 import { BaseHttpController, interfaces } from 'inversify-express-utils';
-import { Body, Delete, Get, Path, Post, Query, Request, Route, Tags } from 'tsoa';
+import { Body, Delete, Get, Path, Post, Put, Query, Request, Route, Tags } from 'tsoa';
 import { validate } from 'uuid';
 
-import { TStoryModel, TStoryModelInput } from '../../domain/models';
+import { TStoryModel, TStoryModelInput, TUpdateStoryInput } from '../../domain/models';
 
 @Route('v1/story')
 @Tags('Story')
@@ -24,6 +25,8 @@ export class StoryController extends BaseHttpController implements interfaces.Co
     private readonly getRandomStoriesUseCase: IGetRandomStoriesUseCase,
     @inject(TYPES.usecases.DeleteStoryUseCase)
     private readonly deleteStoryUseCase: IDeleteStoryUseCase,
+    @inject(TYPES.usecases.UpdateStoryUseCase)
+    private readonly updateStoryUseCase: IUpdateStoryUseCase,
   ) {
     super();
   }
@@ -48,6 +51,13 @@ export class StoryController extends BaseHttpController implements interfaces.Co
     if (!idStory || !validate(idStory)) throw new InvalidParamError('idStory');
 
     const result = await this.getStoryByIdUseCase.getById(idStory);
+
+    return result;
+  }
+
+  @Put('/:idStory')
+  async updateStory(@Path('idStory') idStory: string, @Body() input: TUpdateStoryInput): Promise<TStoryModel> {
+    const result = await this.updateStoryUseCase.execute(idStory, input);
 
     return result;
   }

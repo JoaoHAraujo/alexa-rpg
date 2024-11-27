@@ -42,6 +42,14 @@ export class StoryRepository implements StoryRepositoryInterface {
     return result.map((story) => story.toModel());
   }
 
+  async update(id: string, data: Partial<TStoryModel>): Promise<TStoryModel> {
+    await this.repository.update({ id }, data);
+
+    const result = (await this.repository.findOne({ where: { id } }))!;
+
+    return result.toModel();
+  }
+
   async delete(id: string): Promise<void> {
     await this.repository.softDelete(id);
   }

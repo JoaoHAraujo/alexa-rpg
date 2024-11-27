@@ -1,8 +1,9 @@
 const StoryUseCaseTypes = {
   CreateStoryUseCase: 'CreateStoryUseCase',
+  DeleteStoryUseCase: 'DeleteStoryUseCase',
   GetStoryByIdUseCase: 'GetStoryByIdUseCase',
   GetRandomStoriesUseCase: 'GetRandomStoriesUseCase',
-  DeleteStoryUseCase: 'DeleteStoryUseCase',
+  UpdateStoryUseCase: 'UpdateStoryUseCase',
 };
 
 const RepositoryTypes = {
