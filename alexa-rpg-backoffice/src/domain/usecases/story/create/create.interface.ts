@@ -1,5 +1,5 @@
-import { StoryModel } from '@src/domain/models';
+import { TStoryModel, TStoryModelInput } from '@src/domain/models';
 
 export interface ICreateStoryUseCase {
-  create(data: Omit<StoryModel, 'id'>): Promise<StoryModel>;
+  create(data: TStoryModelInput): Promise<TStoryModel>;
 }

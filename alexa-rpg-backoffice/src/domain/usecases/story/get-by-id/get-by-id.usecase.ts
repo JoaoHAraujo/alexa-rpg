@@ -1,4 +1,4 @@
-import { StoryModel } from '@src/domain/models';
+import { TStoryModel } from '@src/domain/models';
 import { Entities } from '@src/enums';
 import { EntityNotFoundError } from '@src/errors';
 import { StoryRepositoryInterface } from '@src/infra/db/repositories';
@@ -15,7 +15,7 @@ export class GetStoryByIdUseCase implements IGetStoryByIdUseCase {
     private readonly storyRepository: StoryRepositoryInterface,
   ) {}
 
-  async getById(idStory: string): Promise<StoryModel> {
+  async getById(idStory: string): Promise<TStoryModel> {
     const storyExists = await this.storyRepository.selectOne({ id: idStory, isActive: true });
 
     if (!storyExists) throw new EntityNotFoundError(Entities.STORY);

@@ -1,4 +1,4 @@
-import { StoryModel } from '@src/domain/models';
+import { TStoryModel } from '@src/domain/models';
 import { Column, Entity, OneToMany } from 'typeorm';
 
 import BaseEntity from './base-entity';
@@ -15,7 +15,7 @@ export class StoryEntity extends BaseEntity {
   @OneToMany(() => SegmentEntity, (segment) => segment.story)
   public segments: SegmentEntity[];
 
-  public toModel(): StoryModel {
+  public toModel(): TStoryModel {
     return {
       id: this.id,
       title: this.title,

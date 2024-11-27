@@ -9,7 +9,7 @@ import { BaseHttpController, interfaces } from 'inversify-express-utils';
 import { Body, Delete, Get, Path, Post, Query, Request, Route, Tags } from 'tsoa';
 import { validate } from 'uuid';
 
-import { StoryModel } from '../../domain/models';
+import { TStoryModel, TStoryModelInput } from '../../domain/models';
 
 @Route('v1/story')
 @Tags('Story')
@@ -30,24 +30,21 @@ export class StoryController extends BaseHttpController implements interfaces.Co
 
   // TODO authentication ADMIN e DEVICE
   @Post()
-  async create(
-    @Body() httpRequest: Omit<StoryModel, 'id' | 'createdAt' | 'updatedAt' | 'deletedAt'>,
-    @Request() _req: ICustomRequest,
-  ): Promise<StoryModel> {
+  async create(@Body() httpRequest: TStoryModelInput, @Request() _req: ICustomRequest): Promise<TStoryModel> {
     const result = await this.createStoryUseCase.create(httpRequest);
 
     return result;
   }
 
   @Get('/random')
-  async getRandom(@Query('limit') limit = 5): Promise<StoryModel[]> {
+  async getRandom(@Query('limit') limit = 5): Promise<TStoryModel[]> {
     const response = await this.getRandomStoriesUseCase.getRandom(limit);
 
     return response;
   }
 
   @Get('/:idStory')
-  async getById(@Path('idStory') idStory: string): Promise<StoryModel> {
+  async getById(@Path('idStory') idStory: string): Promise<TStoryModel> {
     if (!idStory || !validate(idStory)) throw new InvalidParamError('idStory');
 
     const result = await this.getStoryByIdUseCase.getById(idStory);

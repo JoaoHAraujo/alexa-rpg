@@ -37,27 +37,24 @@ const models: TsoaRoute.Models = {
         "additionalProperties": false,
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "StoryModel": {
-        "dataType": "refObject",
-        "properties": {
-            "id": {"dataType":"string","required":true},
-            "title": {"dataType":"string","required":true},
-            "isActive": {"dataType":"boolean","required":true},
-            "createdAt": {"dataType":"union","subSchemas":[{"dataType":"datetime"},{"dataType":"string"}]},
-            "updatedAt": {"dataType":"union","subSchemas":[{"dataType":"datetime"},{"dataType":"string"}]},
-            "deletedAt": {"dataType":"union","subSchemas":[{"dataType":"datetime"},{"dataType":"string"}]},
-        },
-        "additionalProperties": false,
+    "TStoryModel": {
+        "dataType": "refAlias",
+        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"deletedAt":{"dataType":"union","subSchemas":[{"dataType":"datetime"},{"dataType":"string"}]},"updatedAt":{"dataType":"union","subSchemas":[{"dataType":"datetime"},{"dataType":"string"}]},"createdAt":{"dataType":"union","subSchemas":[{"dataType":"datetime"},{"dataType":"string"}]},"isActive":{"dataType":"boolean","required":true},"title":{"dataType":"string","required":true},"id":{"dataType":"string","required":true}},"validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "Pick_StoryModel.Exclude_keyofStoryModel.id-or-createdAt-or-updatedAt-or-deletedAt__": {
+    "Pick_TStoryModel.Exclude_keyofTStoryModel.id-or-createdAt-or-updatedAt-or-deletedAt__": {
         "dataType": "refAlias",
         "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"title":{"dataType":"string","required":true},"isActive":{"dataType":"boolean","required":true}},"validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "Omit_StoryModel.id-or-createdAt-or-updatedAt-or-deletedAt_": {
+    "Omit_TStoryModel.id-or-createdAt-or-updatedAt-or-deletedAt_": {
         "dataType": "refAlias",
-        "type": {"ref":"Pick_StoryModel.Exclude_keyofStoryModel.id-or-createdAt-or-updatedAt-or-deletedAt__","validators":{}},
+        "type": {"ref":"Pick_TStoryModel.Exclude_keyofTStoryModel.id-or-createdAt-or-updatedAt-or-deletedAt__","validators":{}},
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "TStoryModelInput": {
+        "dataType": "refAlias",
+        "type": {"ref":"Omit_TStoryModel.id-or-createdAt-or-updatedAt-or-deletedAt_","validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 };
@@ -134,7 +131,7 @@ export function RegisterRoutes(app: Router) {
 
             async function StoryController_create(request: any, response: any, next: any) {
             const args = {
-                    httpRequest: {"in":"body","name":"httpRequest","required":true,"ref":"Omit_StoryModel.id-or-createdAt-or-updatedAt-or-deletedAt_"},
+                    httpRequest: {"in":"body","name":"httpRequest","required":true,"ref":"TStoryModelInput"},
                     _req: {"in":"request","name":"_req","required":true,"dataType":"object"},
             };
 

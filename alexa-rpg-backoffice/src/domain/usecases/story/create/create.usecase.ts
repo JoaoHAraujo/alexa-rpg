@@ -1,4 +1,4 @@
-import { StoryModel } from '@src/domain/models';
+import { TStoryModel, TStoryModelInput } from '@src/domain/models';
 import { Entities } from '@src/enums';
 import { EntityAlreadyExistsError } from '@src/errors';
 import { StoryRepositoryInterface } from '@src/infra/db/repositories';
@@ -15,7 +15,7 @@ export class CreateStoryUseCase implements ICreateStoryUseCase {
     private readonly storyRepository: StoryRepositoryInterface,
   ) {}
 
-  async create(data: Omit<StoryModel, 'id'>): Promise<StoryModel> {
+  async create(data: TStoryModelInput): Promise<TStoryModel> {
     const storyExists = await this.storyRepository.selectOne({ title: data.title });
 
     if (storyExists) {

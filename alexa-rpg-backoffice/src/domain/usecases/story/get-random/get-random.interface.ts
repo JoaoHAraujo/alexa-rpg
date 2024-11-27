@@ -1,5 +1,5 @@
-import { StoryModel } from '@src/domain/models';
+import { TStoryModel } from '@src/domain/models';
 
 export interface IGetRandomStoriesUseCase {
-  getRandom(limit: number): Promise<StoryModel[]>;
+  getRandom(limit: number): Promise<TStoryModel[]>;
 }
