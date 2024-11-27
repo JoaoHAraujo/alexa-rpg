@@ -2,6 +2,7 @@ const StoryUseCaseTypes = {
   CreateStoryUseCase: 'CreateStoryUseCase',
   GetStoryByIdUseCase: 'GetStoryByIdUseCase',
   GetRandomStoriesUseCase: 'GetRandomStoriesUseCase',
+  DeleteStoryUseCase: 'DeleteStoryUseCase',
 };
 
 const RepositoryTypes = {

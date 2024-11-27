@@ -41,4 +41,8 @@ export class StoryRepository implements StoryRepositoryInterface {
 
     return result.map((story) => story.toModel());
   }
+
+  async delete(id: string): Promise<void> {
+    await this.repository.softDelete(id);
+  }
 }

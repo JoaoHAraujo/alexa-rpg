@@ -1,11 +1,12 @@
 import { ICreateStoryUseCase, IGetRandomStoriesUseCase, IGetStoryByIdUseCase } from '@src/domain/usecases';
+import { IDeleteStoryUseCase } from '@src/domain/usecases/story/delete';
 import { InvalidParamError } from '@src/errors';
 import { ICustomRequest } from '@src/utils/interfaces/custom-request';
 import { TYPES } from '@src/utils/inversify-types';
 import { provideSingleton } from '@src/utils/provide-singleton';
 import { inject } from 'inversify';
 import { BaseHttpController, interfaces } from 'inversify-express-utils';
-import { Body, Get, Path, Post, Query, Request, Route, Tags } from 'tsoa';
+import { Body, Delete, Get, Path, Post, Query, Request, Route, Tags } from 'tsoa';
 import { validate } from 'uuid';
 
 import { StoryModel } from '../../domain/models';
@@ -21,10 +22,13 @@ export class StoryController extends BaseHttpController implements interfaces.Co
     private readonly getStoryByIdUseCase: IGetStoryByIdUseCase,
     @inject(TYPES.usecases.GetRandomStoriesUseCase)
     private readonly getRandomStoriesUseCase: IGetRandomStoriesUseCase,
+    @inject(TYPES.usecases.DeleteStoryUseCase)
+    private readonly deleteStoryUseCase: IDeleteStoryUseCase,
   ) {
     super();
   }
 
+  // TODO authentication ADMIN e DEVICE
   @Post()
   async create(
     @Body() httpRequest: Omit<StoryModel, 'id' | 'createdAt' | 'updatedAt' | 'deletedAt'>,
@@ -49,5 +53,12 @@ export class StoryController extends BaseHttpController implements interfaces.Co
     const result = await this.getStoryByIdUseCase.getById(idStory);
 
     return result;
+  }
+
+  @Delete('/:idStory')
+  async deleteById(@Path('idStory') idStory: string): Promise<boolean> {
+    await this.deleteStoryUseCase.execute(idStory);
+
+    return true;
   }
 }
