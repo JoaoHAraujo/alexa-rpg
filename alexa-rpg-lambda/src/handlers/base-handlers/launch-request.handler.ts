@@ -52,7 +52,7 @@ export const ChooseStoryIntentHandler: RequestHandler = {
         return handlerInput.responseBuilder.speak(speechOutput).getResponse();
       } else {
         return handlerInput.responseBuilder
-          .speak(`Não entendi sua resposta. Escolhe de novo aí. ${chosenStoryName}`)
+          .speak('Não entendi sua resposta. Escolhe de novo aí.')
           .reprompt('Tá esperando o quê, doido? Bora!')
           .getResponse();
       }
