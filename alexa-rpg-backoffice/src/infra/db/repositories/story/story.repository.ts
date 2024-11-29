@@ -1,11 +1,11 @@
 import { TStoryModel } from '@src/domain/models';
 import { provideSingleton } from '@src/utils/provide-singleton';
-import { FindOptionsWhere, Repository, SelectQueryBuilder } from 'typeorm';
+import { FindOptionsWhere, Repository } from 'typeorm';
 
 import { DatabaseProvider } from '../../config/database';
 import { StoryEntity } from '../../entities';
 import { AttributeOptions, attributeSelector } from '../attribute-selector';
-import { StoryRepositoryInterface } from './story.repository.interface';
+import { StoryRepositoryInterface, TOptions } from './story.repository.interface';
 
 @provideSingleton(StoryRepository)
 export class StoryRepository implements StoryRepositoryInterface {
@@ -15,23 +15,24 @@ export class StoryRepository implements StoryRepositoryInterface {
     this.repository = DatabaseProvider.getRepository(StoryEntity);
   }
 
-  async selectOne(where: FindOptionsWhere<StoryEntity>, options?: AttributeOptions): Promise<TStoryModel | null> {
-    const timestamps = !!options?.timestamps;
+  async selectOne(where: FindOptionsWhere<StoryEntity>, options?: TOptions): Promise<TStoryModel | null> {
+    const timestamps = !!options?.attributes?.timestamps;
 
     const result = await this.repository.findOne({
       where,
+      ...(options?.relations && { relations: options?.relations }),
       select: attributeSelector(this.repository, { timestamps }),
     });
 
     return result?.toModel() ?? null;
   }
 
-  async create(data: Partial<TStoryModel>, options?: AttributeOptions): Promise<TStoryModel> {
+  async create(data: Partial<TStoryModel>, attributes?: AttributeOptions): Promise<TStoryModel> {
     const entity = this.repository.create(data);
 
     const { id } = await this.repository.save(entity);
 
-    const result = await this.selectOne({ id }, options);
+    const result = await this.selectOne({ id }, { attributes });
 
     return result!;
   }

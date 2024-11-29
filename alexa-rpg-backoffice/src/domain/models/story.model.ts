@@ -1,7 +1,10 @@
+import { TSegmentModel } from './segment.model';
+
 export type TStoryModel = {
   id: string;
   title: string;
   isActive: boolean;
+  segments?: TSegmentModel[];
   createdAt?: Date | string;
   updatedAt?: Date | string;
   deletedAt?: Date | string;

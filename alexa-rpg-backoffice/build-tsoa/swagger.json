@@ -165,6 +165,12 @@
 							}
 						]
 					},
+					"segments": {
+						"items": {
+							"$ref": "#/components/schemas/TSegmentModel"
+						},
+						"type": "array"
+					},
 					"isActive": {
 						"type": "boolean"
 					},
@@ -189,6 +195,12 @@
 					},
 					"isActive": {
 						"type": "boolean"
+					},
+					"segments": {
+						"items": {
+							"$ref": "#/components/schemas/TSegmentModel"
+						},
+						"type": "array"
 					}
 				},
 				"required": [
@@ -204,6 +216,24 @@
 			},
 			"TCreateStoryInput": {
 				"$ref": "#/components/schemas/Omit_TStoryModel.id-or-createdAt-or-updatedAt-or-deletedAt_"
+			},
+			"TGetStoryByIdResponse": {
+				"allOf": [
+					{
+						"$ref": "#/components/schemas/TStoryModel"
+					},
+					{
+						"properties": {
+							"firstSegment": {
+								"$ref": "#/components/schemas/TSegmentModel"
+							}
+						},
+						"required": [
+							"firstSegment"
+						],
+						"type": "object"
+					}
+				]
 			},
 			"TUpdateStoryInput": {
 				"$ref": "#/components/schemas/Omit_TStoryModel.id-or-createdAt-or-updatedAt-or-deletedAt_"
@@ -381,7 +411,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/TStoryModel"
+									"$ref": "#/components/schemas/TGetStoryByIdResponse"
 								}
 							}
 						}

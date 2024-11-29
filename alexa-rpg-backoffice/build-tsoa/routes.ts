@@ -61,12 +61,12 @@ const models: TsoaRoute.Models = {
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "TStoryModel": {
         "dataType": "refAlias",
-        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"deletedAt":{"dataType":"union","subSchemas":[{"dataType":"datetime"},{"dataType":"string"}]},"updatedAt":{"dataType":"union","subSchemas":[{"dataType":"datetime"},{"dataType":"string"}]},"createdAt":{"dataType":"union","subSchemas":[{"dataType":"datetime"},{"dataType":"string"}]},"isActive":{"dataType":"boolean","required":true},"title":{"dataType":"string","required":true},"id":{"dataType":"string","required":true}},"validators":{}},
+        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"deletedAt":{"dataType":"union","subSchemas":[{"dataType":"datetime"},{"dataType":"string"}]},"updatedAt":{"dataType":"union","subSchemas":[{"dataType":"datetime"},{"dataType":"string"}]},"createdAt":{"dataType":"union","subSchemas":[{"dataType":"datetime"},{"dataType":"string"}]},"segments":{"dataType":"array","array":{"dataType":"refAlias","ref":"TSegmentModel"}},"isActive":{"dataType":"boolean","required":true},"title":{"dataType":"string","required":true},"id":{"dataType":"string","required":true}},"validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "Pick_TStoryModel.Exclude_keyofTStoryModel.id-or-createdAt-or-updatedAt-or-deletedAt__": {
         "dataType": "refAlias",
-        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"title":{"dataType":"string","required":true},"isActive":{"dataType":"boolean","required":true}},"validators":{}},
+        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"title":{"dataType":"string","required":true},"isActive":{"dataType":"boolean","required":true},"segments":{"dataType":"array","array":{"dataType":"refAlias","ref":"TSegmentModel"}}},"validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "Omit_TStoryModel.id-or-createdAt-or-updatedAt-or-deletedAt_": {
@@ -77,6 +77,11 @@ const models: TsoaRoute.Models = {
     "TCreateStoryInput": {
         "dataType": "refAlias",
         "type": {"ref":"Omit_TStoryModel.id-or-createdAt-or-updatedAt-or-deletedAt_","validators":{}},
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "TGetStoryByIdResponse": {
+        "dataType": "refAlias",
+        "type": {"dataType":"intersection","subSchemas":[{"ref":"TStoryModel"},{"dataType":"nestedObjectLiteral","nestedProperties":{"firstSegment":{"ref":"TSegmentModel","required":true}}}],"validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "TUpdateStoryInput": {

@@ -5,7 +5,7 @@ import { FindOptionsWhere, Repository } from 'typeorm';
 import { DatabaseProvider } from '../../config/database';
 import { SegmentEntity } from '../../entities';
 import { AttributeOptions, attributeSelector } from '../attribute-selector';
-import { SegmentRepositoryInterface } from './segment.interface';
+import { SegmentRepositoryInterface, TOptions } from './segment.interface';
 
 @provideSingleton(SegmentRepository)
 export class SegmentRepository implements SegmentRepositoryInterface {
@@ -15,8 +15,8 @@ export class SegmentRepository implements SegmentRepositoryInterface {
     this.repository = DatabaseProvider.getRepository(SegmentEntity);
   }
 
-  async selectOne(where: FindOptionsWhere<SegmentEntity>, options?: AttributeOptions): Promise<TSegmentModel | null> {
-    const timestamps = !!options?.timestamps;
+  async selectOne(where: FindOptionsWhere<SegmentEntity>, options?: TOptions): Promise<TSegmentModel | null> {
+    const timestamps = !!options?.attributes?.timestamps;
 
     const result = await this.repository.findOne({
       where,
@@ -26,12 +26,12 @@ export class SegmentRepository implements SegmentRepositoryInterface {
     return result?.toModel() ?? null;
   }
 
-  async create(data: Partial<TSegmentModel>, options?: AttributeOptions): Promise<TSegmentModel> {
+  async create(data: Partial<TSegmentModel>, attributes?: AttributeOptions): Promise<TSegmentModel> {
     const entity = this.repository.create(data);
 
     const { id } = await this.repository.save(entity);
 
-    const result = await this.selectOne({ id });
+    const result = await this.selectOne({ id }, { attributes });
 
     return result!;
   }

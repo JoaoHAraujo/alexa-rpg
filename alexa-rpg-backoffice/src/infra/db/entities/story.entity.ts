@@ -13,13 +13,14 @@ export class StoryEntity extends BaseEntity {
   public isActive: boolean;
 
   @OneToMany(() => SegmentEntity, (segment) => segment.story)
-  public segments: SegmentEntity[];
+  public segments?: SegmentEntity[];
 
   public toModel(): TStoryModel {
     return {
       id: this.id,
       title: this.title,
       isActive: this.isActive,
+      ...(this.segments?.length && { segments: this.segments }),
       ...(this.createdAt && { createdAt: this.createdAt }),
       ...(this.updatedAt && { updatedAt: this.updatedAt }),
       ...(this.deletedAt && { deletedAt: this.deletedAt }),

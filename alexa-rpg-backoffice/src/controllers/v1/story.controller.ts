@@ -11,6 +11,7 @@ import { Body, Delete, Get, Path, Post, Put, Query, Request, Route, Tags } from 
 import { validate } from 'uuid';
 
 import { TCreateStoryInput, TStoryModel, TUpdateStoryInput } from '../../domain/models';
+import { TGetStoryByIdResponse } from '../../domain/usecases/story/get-by-id/get-by-id.interface';
 
 @Route('v1/story')
 @Tags('Story')
@@ -47,7 +48,7 @@ export class StoryController extends BaseHttpController implements interfaces.Co
   }
 
   @Get('/:idStory')
-  async getById(@Path('idStory') idStory: string): Promise<TStoryModel> {
+  async getById(@Path('idStory') idStory: string): Promise<TGetStoryByIdResponse> {
     if (!idStory || !validate(idStory)) throw new InvalidParamError('idStory');
 
     const result = await this.getStoryByIdUseCase.getById(idStory);
