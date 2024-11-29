@@ -7,6 +7,6 @@ export type TStoryModel = {
   deletedAt?: Date | string;
 };
 
-export type TStoryModelInput = Omit<TStoryModel, 'id' | 'createdAt' | 'updatedAt' | 'deletedAt'>;
+export type TCreateStoryInput = Omit<TStoryModel, 'id' | 'createdAt' | 'updatedAt' | 'deletedAt'>;
 
 export type TUpdateStoryInput = Omit<TStoryModel, 'id' | 'createdAt' | 'updatedAt' | 'deletedAt'>;

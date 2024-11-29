@@ -10,7 +10,7 @@ import { BaseHttpController, interfaces } from 'inversify-express-utils';
 import { Body, Delete, Get, Path, Post, Put, Query, Request, Route, Tags } from 'tsoa';
 import { validate } from 'uuid';
 
-import { TStoryModel, TStoryModelInput, TUpdateStoryInput } from '../../domain/models';
+import { TCreateStoryInput, TStoryModel, TUpdateStoryInput } from '../../domain/models';
 
 @Route('v1/story')
 @Tags('Story')
@@ -31,9 +31,9 @@ export class StoryController extends BaseHttpController implements interfaces.Co
     super();
   }
 
-  // TODO authentication ADMIN e DEVICE
+  // TODO authentication ADMIN and DEVICE
   @Post()
-  async create(@Body() httpRequest: TStoryModelInput, @Request() _req: ICustomRequest): Promise<TStoryModel> {
+  async create(@Body() httpRequest: TCreateStoryInput, @Request() _req: ICustomRequest): Promise<TStoryModel> {
     const result = await this.createStoryUseCase.create(httpRequest);
 
     return result;

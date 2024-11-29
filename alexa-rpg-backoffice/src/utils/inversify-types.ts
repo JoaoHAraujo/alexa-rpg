@@ -1,4 +1,8 @@
 const StoryUseCaseTypes = {
+  // Segment
+  CreateSegmentUseCase: 'CreateSegmentUseCase',
+
+  // Story
   CreateStoryUseCase: 'CreateStoryUseCase',
   DeleteStoryUseCase: 'DeleteStoryUseCase',
   GetStoryByIdUseCase: 'GetStoryByIdUseCase',
@@ -8,6 +12,7 @@ const StoryUseCaseTypes = {
 
 const RepositoryTypes = {
   StoryRepository: 'StoryRepository',
+  SegmentRepository: 'SegmentRepository',
 };
 
 export const TYPES = {
