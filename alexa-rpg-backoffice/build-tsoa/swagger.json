@@ -334,6 +334,37 @@
 				}
 			}
 		},
+		"/v1/segment/{idSegment}": {
+			"delete": {
+				"operationId": "Delete",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "boolean"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Segment"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "idSegment",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
 		"/v1/story": {
 			"post": {
 				"operationId": "Create",

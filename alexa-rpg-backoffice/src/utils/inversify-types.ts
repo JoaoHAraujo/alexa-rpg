@@ -1,6 +1,7 @@
 const StoryUseCaseTypes = {
   // Segment
   CreateSegmentUseCase: 'CreateSegmentUseCase',
+  DeleteSegmentUseCase: 'DeleteSegmentUseCase',
 
   // Story
   CreateStoryUseCase: 'CreateStoryUseCase',
