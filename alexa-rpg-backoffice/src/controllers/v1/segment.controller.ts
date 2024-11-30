@@ -1,4 +1,4 @@
-import { IDeleteSegmentUseCase, IGetSegmentByIdUseCase } from '@src/domain/usecases';
+import { IDeleteSegmentUseCase, IGetSegmentByIdUseCase, IMakeSegmentFirstUseCase } from '@src/domain/usecases';
 import { ICreateSegmentUseCase } from '@src/domain/usecases/segment/create';
 import { IUpdateSegmentUseCase } from '@src/domain/usecases/segment/update';
 import { ICustomRequest } from '@src/utils/interfaces/custom-request';
@@ -6,7 +6,7 @@ import { TYPES } from '@src/utils/inversify-types';
 import { provideSingleton } from '@src/utils/provide-singleton';
 import { inject } from 'inversify';
 import { BaseHttpController, interfaces } from 'inversify-express-utils';
-import { Body, Delete, Get, Path, Post, Put, Request, Route, Tags } from 'tsoa';
+import { Body, Delete, Get, Patch, Path, Post, Put, Request, Route, Tags } from 'tsoa';
 
 import { TCreateSegmentInput, TSegmentModel, TUpdateSegmentInput } from '../../domain/models';
 
@@ -23,6 +23,8 @@ export class SegmentController extends BaseHttpController implements interfaces.
     private readonly getSegmentByIdUseCase: IGetSegmentByIdUseCase,
     @inject(TYPES.usecases.UpdateSegmentUseCase)
     private readonly updateSegmentUseCase: IUpdateSegmentUseCase,
+    @inject(TYPES.usecases.MakeSegmentFirstUseCase)
+    private readonly makeFirstSegmentUseCase: IMakeSegmentFirstUseCase,
   ) {
     super();
   }
@@ -42,7 +44,7 @@ export class SegmentController extends BaseHttpController implements interfaces.
     return result;
   }
 
-  @Put(':idSegment')
+  @Put('/:idSegment')
   async update(
     @Path('idSegment') idSegment: string,
     @Body() body: TUpdateSegmentInput,
@@ -51,6 +53,13 @@ export class SegmentController extends BaseHttpController implements interfaces.
     const response = await this.updateSegmentUseCase.execute(idSegment, body);
 
     return response;
+  }
+
+  @Patch('/:idSegment')
+  async makeFirstSegment(@Path('idSegment') idSegment: string): Promise<boolean> {
+    await this.makeFirstSegmentUseCase.execute(idSegment);
+
+    return true;
   }
 
   @Delete('/:idSegment')
