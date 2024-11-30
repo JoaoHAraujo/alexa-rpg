@@ -1,13 +1,14 @@
 import { IDeleteSegmentUseCase, IGetSegmentByIdUseCase } from '@src/domain/usecases';
 import { ICreateSegmentUseCase } from '@src/domain/usecases/segment/create';
+import { IUpdateSegmentUseCase } from '@src/domain/usecases/segment/update';
 import { ICustomRequest } from '@src/utils/interfaces/custom-request';
 import { TYPES } from '@src/utils/inversify-types';
 import { provideSingleton } from '@src/utils/provide-singleton';
 import { inject } from 'inversify';
 import { BaseHttpController, interfaces } from 'inversify-express-utils';
-import { Body, Delete, Get, Path, Post, Request, Route, Tags } from 'tsoa';
+import { Body, Delete, Get, Path, Post, Put, Request, Route, Tags } from 'tsoa';
 
-import { TCreateSegmentInput, TSegmentModel } from '../../domain/models';
+import { TCreateSegmentInput, TSegmentModel, TUpdateSegmentInput } from '../../domain/models';
 
 @Route('v1/segment')
 @Tags('Segment')
@@ -20,6 +21,8 @@ export class SegmentController extends BaseHttpController implements interfaces.
     private readonly deleteSegmentUseCase: IDeleteSegmentUseCase,
     @inject(TYPES.usecases.GetSegmentByIdUseCase)
     private readonly getSegmentByIdUseCase: IGetSegmentByIdUseCase,
+    @inject(TYPES.usecases.UpdateSegmentUseCase)
+    private readonly updateSegmentUseCase: IUpdateSegmentUseCase,
   ) {
     super();
   }
@@ -37,6 +40,17 @@ export class SegmentController extends BaseHttpController implements interfaces.
     const result = await this.createSegmentUseCase.execute(body);
 
     return result;
+  }
+
+  @Put(':idSegment')
+  async update(
+    @Path('idSegment') idSegment: string,
+    @Body() body: TUpdateSegmentInput,
+    @Request() _req: ICustomRequest,
+  ): Promise<TSegmentModel> {
+    const response = await this.updateSegmentUseCase.execute(idSegment, body);
+
+    return response;
   }
 
   @Delete('/:idSegment')

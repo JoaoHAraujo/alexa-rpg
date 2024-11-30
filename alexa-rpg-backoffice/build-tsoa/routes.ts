@@ -59,6 +59,16 @@ const models: TsoaRoute.Models = {
         "type": {"ref":"Omit_TSegmentModel.id-or-createdAt-or-updatedAt-or-deletedAt_","validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "Pick_TSegmentModel.narrative_": {
+        "dataType": "refAlias",
+        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"narrative":{"dataType":"string","required":true}},"validators":{}},
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "TUpdateSegmentInput": {
+        "dataType": "refAlias",
+        "type": {"ref":"Pick_TSegmentModel.narrative_","validators":{}},
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "TStoryModel": {
         "dataType": "refAlias",
         "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"deletedAt":{"dataType":"union","subSchemas":[{"dataType":"datetime"},{"dataType":"string"}]},"updatedAt":{"dataType":"union","subSchemas":[{"dataType":"datetime"},{"dataType":"string"}]},"createdAt":{"dataType":"union","subSchemas":[{"dataType":"datetime"},{"dataType":"string"}]},"segments":{"dataType":"array","array":{"dataType":"refAlias","ref":"TSegmentModel"}},"isActive":{"dataType":"boolean","required":true},"title":{"dataType":"string","required":true},"id":{"dataType":"string","required":true}},"validators":{}},
@@ -212,6 +222,38 @@ export function RegisterRoutes(app: Router) {
 
 
               const promise = controller.create.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, undefined, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.put('/v1/segment/:idSegment',
+            ...(fetchMiddlewares<RequestHandler>(SegmentController)),
+            ...(fetchMiddlewares<RequestHandler>(SegmentController.prototype.update)),
+
+            async function SegmentController_update(request: any, response: any, next: any) {
+            const args = {
+                    idSegment: {"in":"path","name":"idSegment","required":true,"dataType":"string"},
+                    body: {"in":"body","name":"body","required":true,"ref":"TUpdateSegmentInput"},
+                    _req: {"in":"request","name":"_req","required":true,"dataType":"object"},
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const container: IocContainer = typeof iocContainer === 'function' ? (iocContainer as IocContainerFactory)(request) : iocContainer;
+
+                const controller: any = await container.get<SegmentController>(SegmentController);
+                if (typeof controller['setStatus'] === 'function') {
+                controller.setStatus(undefined);
+                }
+
+
+              const promise = controller.update.apply(controller, validatedArgs as any);
               promiseHandler(controller, promise, response, undefined, next);
             } catch (err) {
                 return next(err);

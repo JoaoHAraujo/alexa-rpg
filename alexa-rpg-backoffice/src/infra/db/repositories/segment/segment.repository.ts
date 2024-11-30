@@ -39,4 +39,12 @@ export class SegmentRepository implements SegmentRepositoryInterface {
   async delete(id: string): Promise<void> {
     await this.repository.softDelete({ id });
   }
+
+  async update(id: string, data: Partial<TSegmentModel>): Promise<TSegmentModel> {
+    await this.repository.update({ id }, data);
+
+    const result = await this.selectOne({ id });
+
+    return result!;
+  }
 }

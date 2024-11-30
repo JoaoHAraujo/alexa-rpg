@@ -9,3 +9,4 @@ export type TSegmentModel = {
 };
 
 export type TCreateSegmentInput = Omit<TSegmentModel, 'id' | 'createdAt' | 'updatedAt' | 'deletedAt'>;
+export type TUpdateSegmentInput = Pick<TSegmentModel, 'narrative'>;
