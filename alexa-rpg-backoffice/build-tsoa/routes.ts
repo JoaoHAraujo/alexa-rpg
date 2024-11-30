@@ -44,19 +44,19 @@ const models: TsoaRoute.Models = {
         "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"deletedAt":{"dataType":"union","subSchemas":[{"dataType":"datetime"},{"dataType":"string"}]},"updatedAt":{"dataType":"union","subSchemas":[{"dataType":"datetime"},{"dataType":"string"}]},"createdAt":{"dataType":"union","subSchemas":[{"dataType":"datetime"},{"dataType":"string"}]},"isFirst":{"dataType":"boolean","required":true},"narrative":{"dataType":"string","required":true},"idStory":{"dataType":"string","required":true},"id":{"dataType":"string","required":true}},"validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "Pick_TSegmentModel.Exclude_keyofTSegmentModel.id-or-createdAt-or-updatedAt-or-deletedAt__": {
+    "Pick_TSegmentModel.Exclude_keyofTSegmentModel.id-or-isFirst-or-createdAt-or-updatedAt-or-deletedAt__": {
         "dataType": "refAlias",
-        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"idStory":{"dataType":"string","required":true},"narrative":{"dataType":"string","required":true},"isFirst":{"dataType":"boolean","required":true}},"validators":{}},
+        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"idStory":{"dataType":"string","required":true},"narrative":{"dataType":"string","required":true}},"validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "Omit_TSegmentModel.id-or-createdAt-or-updatedAt-or-deletedAt_": {
+    "Omit_TSegmentModel.id-or-isFirst-or-createdAt-or-updatedAt-or-deletedAt_": {
         "dataType": "refAlias",
-        "type": {"ref":"Pick_TSegmentModel.Exclude_keyofTSegmentModel.id-or-createdAt-or-updatedAt-or-deletedAt__","validators":{}},
+        "type": {"ref":"Pick_TSegmentModel.Exclude_keyofTSegmentModel.id-or-isFirst-or-createdAt-or-updatedAt-or-deletedAt__","validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "TCreateSegmentInput": {
         "dataType": "refAlias",
-        "type": {"ref":"Omit_TSegmentModel.id-or-createdAt-or-updatedAt-or-deletedAt_","validators":{}},
+        "type": {"ref":"Omit_TSegmentModel.id-or-isFirst-or-createdAt-or-updatedAt-or-deletedAt_","validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "Pick_TSegmentModel.narrative_": {

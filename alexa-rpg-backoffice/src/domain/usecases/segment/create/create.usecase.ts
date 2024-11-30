@@ -25,12 +25,9 @@ export class CreateSegmentUseCase implements ICreateSegmentUseCase {
 
     if (!story) throw new EntityNotFoundError(Entities.STORY);
 
-    if (alreadyHasFirstSegment)
-      throw new EntityAlreadyExistsError(
-        `${Entities.STORY} already has a first segment. You can create it as a non first segment and update it later`,
-      );
+    const isFirst = !alreadyHasFirstSegment?.isFirst;
 
-    const segment = await this.segmentRepository.create(input);
+    const segment = await this.segmentRepository.create({ ...input, isFirst });
 
     return segment;
   }

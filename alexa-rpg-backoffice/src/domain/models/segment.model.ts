@@ -8,5 +8,5 @@ export type TSegmentModel = {
   deletedAt?: Date | string;
 };
 
-export type TCreateSegmentInput = Omit<TSegmentModel, 'id' | 'createdAt' | 'updatedAt' | 'deletedAt'>;
+export type TCreateSegmentInput = Omit<TSegmentModel, 'id' | 'isFirst' | 'createdAt' | 'updatedAt' | 'deletedAt'>;
 export type TUpdateSegmentInput = Pick<TSegmentModel, 'narrative'>;
