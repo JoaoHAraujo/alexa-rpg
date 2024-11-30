@@ -157,6 +157,36 @@ export function RegisterRoutes(app: Router) {
             }
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.get('/v1/segment/:idSegment',
+            ...(fetchMiddlewares<RequestHandler>(SegmentController)),
+            ...(fetchMiddlewares<RequestHandler>(SegmentController.prototype.getById)),
+
+            async function SegmentController_getById(request: any, response: any, next: any) {
+            const args = {
+                    idSegment: {"in":"path","name":"idSegment","required":true,"dataType":"string"},
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const container: IocContainer = typeof iocContainer === 'function' ? (iocContainer as IocContainerFactory)(request) : iocContainer;
+
+                const controller: any = await container.get<SegmentController>(SegmentController);
+                if (typeof controller['setStatus'] === 'function') {
+                controller.setStatus(undefined);
+                }
+
+
+              const promise = controller.getById.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, undefined, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         app.post('/v1/segment',
             ...(fetchMiddlewares<RequestHandler>(SegmentController)),
             ...(fetchMiddlewares<RequestHandler>(SegmentController.prototype.create)),
