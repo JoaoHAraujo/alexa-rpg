@@ -9,6 +9,11 @@ export class AddActionTable1734141118466 implements MigrationInterface {
         name: 'action',
         columns: [
           {
+            name: 'id_story',
+            type: 'uuid',
+            isNullable: false,
+          },
+          {
             name: 'id_origin_segment',
             type: 'uuid',
             isNullable: false,

@@ -45,7 +45,7 @@ export class CreateActionUseCase implements ICreateActionUseCase {
       throw new InvalidParamError(`Some segment relations were not found: ${idsNotFound}`);
     }
 
-    const actionSaved = await this.actionRepository.create(data);
+    const actionSaved = await this.actionRepository.create({ ...data, idStory: originSegmentExists.idStory });
 
     return actionSaved;
   }
