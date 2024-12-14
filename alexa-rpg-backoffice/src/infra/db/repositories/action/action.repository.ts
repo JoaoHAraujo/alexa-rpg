@@ -15,6 +15,18 @@ export class ActionRepository implements ActionRepositoryInterface {
     this.repository = DatabaseProvider.getRepository(ActionEntity);
   }
 
+  async selectMany(where: FindOptionsWhere<ActionEntity>, options?: TOptions): Promise<TActionModel[]> {
+    const timestamps = !!options?.attributes?.timestamps;
+
+    const result = await this.repository.find({
+      where,
+      select: attributeSelector(this.repository, { timestamps }),
+      ...(options?.relations?.length && { relations: options.relations }),
+    });
+
+    return result.map((i) => i.toModel());
+  }
+
   async selectOne(where: FindOptionsWhere<ActionEntity>, options?: TOptions): Promise<TActionModel | null> {
     const timestamps = !!options?.attributes?.timestamps;
 
