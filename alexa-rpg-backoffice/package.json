@@ -11,8 +11,13 @@
     "build": "npm run tsoa && tsc --skipLibCheck",
     "start": "node dist/src/index.js",
     "compose": "npm run build && docker-compose up --build -d",
-    "compose:down": "docker-compose down",
-    "compose:up": "docker-compose up"
+    "compose:db": "npm run build && docker-compose up postgres --build -d",
+    "compose:app": "npm run build && docker-compose up alexa-rpg-app --build -d",
+    
+
+    "compose:stop": "npm run compose:stop-app && npm run compose:stop-db",
+    "compose:stop-app": "docker stop alexa-rpg-app",
+    "compose:stop-db": "docker stop alexa-rpg"
   },
   "keywords": [],
   "author": "",

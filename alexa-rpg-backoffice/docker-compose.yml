@@ -26,10 +26,10 @@ services:
     environment:
       NODE_ENV: 'production'
       APP_NAME: 'alexa_rpg'
-      DEBUG: 'true'
+      DEBUG: 'false'
       PORT: '3000'
 
-      DATABASE_HOST: 'postgres'
+      DATABASE_HOST: 'alexa-rpg'
       DATABASE_NAME: 'alexa-rpg-dev'
       DATABASE_USER: 'postgres'
       DATABASE_PASSWORD: 'uXAPlTPNR2vw1'
