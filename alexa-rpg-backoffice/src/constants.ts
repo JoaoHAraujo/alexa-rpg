@@ -18,20 +18,23 @@ export class Constants {
     password: string;
     port: number;
   };
+  actionLimit: number;
 
   constructor(props: { [key: string]: string }) {
     this.env = props.NODE_ENV as Environment;
     this.debug = props.DEBUG === 'true';
     this.appName = props.APP_NAME;
-    this.port = parseInt(props.PORT, 10);
+    this.port = parseInt(props.PORT);
 
     this.database = {
       host: props.DATABASE_HOST,
       name: props.DATABASE_NAME,
       user: props.DATABASE_USER,
       password: props.DATABASE_PASSWORD,
-      port: parseInt(props.DATABASE_PORT, 10),
+      port: parseInt(props.DATABASE_PORT),
     };
+
+    this.actionLimit = parseInt(props.ACTION_LIMIT) || 4;
   }
 }
 

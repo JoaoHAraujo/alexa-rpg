@@ -6,6 +6,130 @@
 		"requestBodies": {},
 		"responses": {},
 		"schemas": {
+			"TBaseModel": {
+				"properties": {
+					"deletedAt": {
+						"anyOf": [
+							{
+								"type": "string",
+								"format": "date-time"
+							},
+							{
+								"type": "string"
+							}
+						]
+					},
+					"updatedAt": {
+						"anyOf": [
+							{
+								"type": "string",
+								"format": "date-time"
+							},
+							{
+								"type": "string"
+							}
+						]
+					},
+					"createdAt": {
+						"anyOf": [
+							{
+								"type": "string",
+								"format": "date-time"
+							},
+							{
+								"type": "string"
+							}
+						]
+					},
+					"id": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"id"
+				],
+				"type": "object"
+			},
+			"TActionModel": {
+				"allOf": [
+					{
+						"$ref": "#/components/schemas/TBaseModel"
+					},
+					{
+						"properties": {
+							"description": {
+								"type": "string"
+							},
+							"successRate": {
+								"type": "number",
+								"format": "double"
+							},
+							"idSegmentFailure": {
+								"type": "string"
+							},
+							"idSegmentSuccess": {
+								"type": "string"
+							},
+							"idOriginSegment": {
+								"type": "string"
+							}
+						},
+						"required": [
+							"description",
+							"successRate",
+							"idSegmentSuccess",
+							"idOriginSegment"
+						],
+						"type": "object"
+					}
+				]
+			},
+			"Pick_TActionModel.Exclude_keyofTActionModel.id-or-idOriginSegment-or-createdAt-or-updatedAt-or-deletedAt__": {
+				"properties": {
+					"idSegmentSuccess": {
+						"type": "string"
+					},
+					"idSegmentFailure": {
+						"type": "string"
+					},
+					"successRate": {
+						"type": "number",
+						"format": "double"
+					},
+					"description": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"idSegmentSuccess",
+					"successRate",
+					"description"
+				],
+				"type": "object",
+				"description": "From T, pick a set of properties whose keys are in the union K"
+			},
+			"Omit_TActionModel.id-or-idOriginSegment-or-createdAt-or-updatedAt-or-deletedAt_": {
+				"$ref": "#/components/schemas/Pick_TActionModel.Exclude_keyofTActionModel.id-or-idOriginSegment-or-createdAt-or-updatedAt-or-deletedAt__",
+				"description": "Construct a type with the properties of T except for those in type K."
+			},
+			"TCreateActionInput": {
+				"properties": {
+					"actions": {
+						"items": {
+							"$ref": "#/components/schemas/Omit_TActionModel.id-or-idOriginSegment-or-createdAt-or-updatedAt-or-deletedAt_"
+						},
+						"type": "array"
+					},
+					"idOriginSegment": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"actions",
+					"idOriginSegment"
+				],
+				"type": "object"
+			},
 			"Environment": {
 				"enum": [
 					"development",
@@ -48,60 +172,30 @@
 				"additionalProperties": false
 			},
 			"TSegmentModel": {
-				"properties": {
-					"deletedAt": {
-						"anyOf": [
-							{
-								"type": "string",
-								"format": "date-time"
+				"allOf": [
+					{
+						"$ref": "#/components/schemas/TBaseModel"
+					},
+					{
+						"properties": {
+							"isFirst": {
+								"type": "boolean"
 							},
-							{
+							"narrative": {
+								"type": "string"
+							},
+							"idStory": {
 								"type": "string"
 							}
-						]
-					},
-					"updatedAt": {
-						"anyOf": [
-							{
-								"type": "string",
-								"format": "date-time"
-							},
-							{
-								"type": "string"
-							}
-						]
-					},
-					"createdAt": {
-						"anyOf": [
-							{
-								"type": "string",
-								"format": "date-time"
-							},
-							{
-								"type": "string"
-							}
-						]
-					},
-					"isFirst": {
-						"type": "boolean"
-					},
-					"narrative": {
-						"type": "string"
-					},
-					"idStory": {
-						"type": "string"
-					},
-					"id": {
-						"type": "string"
+						},
+						"required": [
+							"isFirst",
+							"narrative",
+							"idStory"
+						],
+						"type": "object"
 					}
-				},
-				"required": [
-					"isFirst",
-					"narrative",
-					"idStory",
-					"id"
-				],
-				"type": "object"
+				]
 			},
 			"Pick_TSegmentModel.Exclude_keyofTSegmentModel.id-or-isFirst-or-createdAt-or-updatedAt-or-deletedAt__": {
 				"properties": {
@@ -142,62 +236,32 @@
 				"$ref": "#/components/schemas/Pick_TSegmentModel.narrative_"
 			},
 			"TStoryModel": {
-				"properties": {
-					"deletedAt": {
-						"anyOf": [
-							{
-								"type": "string",
-								"format": "date-time"
+				"allOf": [
+					{
+						"$ref": "#/components/schemas/TBaseModel"
+					},
+					{
+						"properties": {
+							"segments": {
+								"items": {
+									"$ref": "#/components/schemas/TSegmentModel"
+								},
+								"type": "array"
 							},
-							{
+							"isActive": {
+								"type": "boolean"
+							},
+							"title": {
 								"type": "string"
 							}
-						]
-					},
-					"updatedAt": {
-						"anyOf": [
-							{
-								"type": "string",
-								"format": "date-time"
-							},
-							{
-								"type": "string"
-							}
-						]
-					},
-					"createdAt": {
-						"anyOf": [
-							{
-								"type": "string",
-								"format": "date-time"
-							},
-							{
-								"type": "string"
-							}
-						]
-					},
-					"segments": {
-						"items": {
-							"$ref": "#/components/schemas/TSegmentModel"
 						},
-						"type": "array"
-					},
-					"isActive": {
-						"type": "boolean"
-					},
-					"title": {
-						"type": "string"
-					},
-					"id": {
-						"type": "string"
+						"required": [
+							"isActive",
+							"title"
+						],
+						"type": "object"
 					}
-				},
-				"required": [
-					"isActive",
-					"title",
-					"id"
-				],
-				"type": "object"
+				]
 			},
 			"Pick_TStoryModel.Exclude_keyofTStoryModel.id-or-createdAt-or-updatedAt-or-deletedAt__": {
 				"properties": {
@@ -269,6 +333,41 @@
 	},
 	"openapi": "3.0.0",
 	"paths": {
+		"/v1/action": {
+			"post": {
+				"operationId": "Create",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/TActionModel"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Action"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/TCreateActionInput"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/v1/health/status": {
 			"get": {
 				"operationId": "GetStatus",

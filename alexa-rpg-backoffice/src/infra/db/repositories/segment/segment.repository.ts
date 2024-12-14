@@ -21,9 +21,22 @@ export class SegmentRepository implements SegmentRepositoryInterface {
     const result = await this.repository.findOne({
       where,
       select: attributeSelector(this.repository, { timestamps }),
+      ...(options?.relations?.length && { relations: options.relations }),
     });
 
     return result?.toModel() ?? null;
+  }
+
+  async selectMany(where: FindOptionsWhere<SegmentEntity>, options?: TOptions): Promise<TSegmentModel[]> {
+    const timestamps = !!options?.attributes?.timestamps;
+
+    const result = await this.repository.find({
+      where,
+      select: attributeSelector(this.repository, { timestamps }),
+      ...(options?.relations?.length && { relations: options.relations }),
+    });
+
+    return result.map((i) => i.toModel());
   }
 
   async create(data: Partial<TSegmentModel>, attributes?: AttributeOptions): Promise<TSegmentModel> {

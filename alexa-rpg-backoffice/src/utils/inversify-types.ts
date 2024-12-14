@@ -1,4 +1,7 @@
 const StoryUseCaseTypes = {
+  // Action
+  CreateBulkActionUseCase: 'CreateBulkActionUseCase',
+
   // Segment
   CreateSegmentUseCase: 'CreateSegmentUseCase',
   DeleteSegmentUseCase: 'DeleteSegmentUseCase',
@@ -17,6 +20,7 @@ const StoryUseCaseTypes = {
 const RepositoryTypes = {
   StoryRepository: 'StoryRepository',
   SegmentRepository: 'SegmentRepository',
+  ActionRepository: 'ActionRepository',
 };
 
 export const TYPES = {

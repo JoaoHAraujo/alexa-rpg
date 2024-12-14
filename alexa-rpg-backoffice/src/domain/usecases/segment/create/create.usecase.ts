@@ -1,6 +1,6 @@
 import { TCreateSegmentInput, TSegmentModel } from '@src/domain/models';
 import { Entities } from '@src/enums';
-import { EntityAlreadyExistsError, EntityNotFoundError } from '@src/errors';
+import { EntityNotFoundError } from '@src/errors';
 import { SegmentRepositoryInterface, StoryRepositoryInterface } from '@src/infra/db/repositories';
 import { TYPES } from '@src/utils/inversify-types';
 import { provideSingleton } from '@src/utils/provide-singleton';

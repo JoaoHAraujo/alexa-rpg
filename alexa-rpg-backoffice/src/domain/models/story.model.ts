@@ -1,13 +1,10 @@
+import { TBaseModel } from './base.model';
 import { TSegmentModel } from './segment.model';
 
-export type TStoryModel = {
-  id: string;
+export type TStoryModel = TBaseModel & {
   title: string;
   isActive: boolean;
   segments?: TSegmentModel[];
-  createdAt?: Date | string;
-  updatedAt?: Date | string;
-  deletedAt?: Date | string;
 };
 
 export type TCreateStoryInput = Omit<TStoryModel, 'id' | 'createdAt' | 'updatedAt' | 'deletedAt'>;
