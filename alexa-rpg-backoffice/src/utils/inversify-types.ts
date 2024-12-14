@@ -1,6 +1,6 @@
 const StoryUseCaseTypes = {
   // Action
-  CreateBulkActionUseCase: 'CreateBulkActionUseCase',
+  CreateActionUseCase: 'CreateActionUseCase',
 
   // Segment
   CreateSegmentUseCase: 'CreateSegmentUseCase',

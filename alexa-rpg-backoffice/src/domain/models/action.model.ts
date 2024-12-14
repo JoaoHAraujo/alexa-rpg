@@ -8,7 +8,4 @@ export type TActionModel = TBaseModel & {
   description: string;
 };
 
-export type TCreateActionInput = {
-  idOriginSegment: string;
-  actions: Array<Omit<TActionModel, 'id' | 'idOriginSegment' | 'createdAt' | 'updatedAt' | 'deletedAt'>>;
-};
+export type TCreateActionInput = Omit<TActionModel, 'id' | 'createdAt' | 'updatedAt' | 'deletedAt'>;

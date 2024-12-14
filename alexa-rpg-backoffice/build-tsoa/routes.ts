@@ -27,19 +27,19 @@ const models: TsoaRoute.Models = {
         "type": {"dataType":"intersection","subSchemas":[{"ref":"TBaseModel"},{"dataType":"nestedObjectLiteral","nestedProperties":{"description":{"dataType":"string","required":true},"successRate":{"dataType":"double","required":true},"idSegmentFailure":{"dataType":"string"},"idSegmentSuccess":{"dataType":"string","required":true},"idOriginSegment":{"dataType":"string","required":true}}}],"validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "Pick_TActionModel.Exclude_keyofTActionModel.id-or-idOriginSegment-or-createdAt-or-updatedAt-or-deletedAt__": {
+    "Pick_TActionModel.Exclude_keyofTActionModel.id-or-createdAt-or-updatedAt-or-deletedAt__": {
         "dataType": "refAlias",
-        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"idSegmentSuccess":{"dataType":"string","required":true},"idSegmentFailure":{"dataType":"string"},"successRate":{"dataType":"double","required":true},"description":{"dataType":"string","required":true}},"validators":{}},
+        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"idOriginSegment":{"dataType":"string","required":true},"idSegmentSuccess":{"dataType":"string","required":true},"idSegmentFailure":{"dataType":"string"},"successRate":{"dataType":"double","required":true},"description":{"dataType":"string","required":true}},"validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "Omit_TActionModel.id-or-idOriginSegment-or-createdAt-or-updatedAt-or-deletedAt_": {
+    "Omit_TActionModel.id-or-createdAt-or-updatedAt-or-deletedAt_": {
         "dataType": "refAlias",
-        "type": {"ref":"Pick_TActionModel.Exclude_keyofTActionModel.id-or-idOriginSegment-or-createdAt-or-updatedAt-or-deletedAt__","validators":{}},
+        "type": {"ref":"Pick_TActionModel.Exclude_keyofTActionModel.id-or-createdAt-or-updatedAt-or-deletedAt__","validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "TCreateActionInput": {
         "dataType": "refAlias",
-        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"actions":{"dataType":"array","array":{"dataType":"refAlias","ref":"Omit_TActionModel.id-or-idOriginSegment-or-createdAt-or-updatedAt-or-deletedAt_"},"required":true},"idOriginSegment":{"dataType":"string","required":true}},"validators":{}},
+        "type": {"ref":"Omit_TActionModel.id-or-createdAt-or-updatedAt-or-deletedAt_","validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "Environment": {

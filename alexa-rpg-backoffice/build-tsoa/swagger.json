@@ -84,8 +84,11 @@
 					}
 				]
 			},
-			"Pick_TActionModel.Exclude_keyofTActionModel.id-or-idOriginSegment-or-createdAt-or-updatedAt-or-deletedAt__": {
+			"Pick_TActionModel.Exclude_keyofTActionModel.id-or-createdAt-or-updatedAt-or-deletedAt__": {
 				"properties": {
+					"idOriginSegment": {
+						"type": "string"
+					},
 					"idSegmentSuccess": {
 						"type": "string"
 					},
@@ -101,6 +104,7 @@
 					}
 				},
 				"required": [
+					"idOriginSegment",
 					"idSegmentSuccess",
 					"successRate",
 					"description"
@@ -108,27 +112,12 @@
 				"type": "object",
 				"description": "From T, pick a set of properties whose keys are in the union K"
 			},
-			"Omit_TActionModel.id-or-idOriginSegment-or-createdAt-or-updatedAt-or-deletedAt_": {
-				"$ref": "#/components/schemas/Pick_TActionModel.Exclude_keyofTActionModel.id-or-idOriginSegment-or-createdAt-or-updatedAt-or-deletedAt__",
+			"Omit_TActionModel.id-or-createdAt-or-updatedAt-or-deletedAt_": {
+				"$ref": "#/components/schemas/Pick_TActionModel.Exclude_keyofTActionModel.id-or-createdAt-or-updatedAt-or-deletedAt__",
 				"description": "Construct a type with the properties of T except for those in type K."
 			},
 			"TCreateActionInput": {
-				"properties": {
-					"actions": {
-						"items": {
-							"$ref": "#/components/schemas/Omit_TActionModel.id-or-idOriginSegment-or-createdAt-or-updatedAt-or-deletedAt_"
-						},
-						"type": "array"
-					},
-					"idOriginSegment": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"actions",
-					"idOriginSegment"
-				],
-				"type": "object"
+				"$ref": "#/components/schemas/Omit_TActionModel.id-or-createdAt-or-updatedAt-or-deletedAt_"
 			},
 			"Environment": {
 				"enum": [
@@ -342,10 +331,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"items": {
-										"$ref": "#/components/schemas/TActionModel"
-									},
-									"type": "array"
+									"$ref": "#/components/schemas/TActionModel"
 								}
 							}
 						}
