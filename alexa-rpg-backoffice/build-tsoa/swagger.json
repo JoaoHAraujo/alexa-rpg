@@ -69,6 +69,12 @@
 							"isFirst": {
 								"type": "boolean"
 							},
+							"tags": {
+								"items": {
+									"type": "string"
+								},
+								"type": "array"
+							},
 							"narrative": {
 								"type": "string"
 							},
@@ -78,6 +84,7 @@
 						},
 						"required": [
 							"isFirst",
+							"tags",
 							"narrative",
 							"idStory"
 						],
@@ -129,6 +136,12 @@
 							"originSegment": {
 								"$ref": "#/components/schemas/TSegmentModel"
 							},
+							"tags": {
+								"items": {
+									"type": "string"
+								},
+								"type": "array"
+							},
 							"description": {
 								"type": "string"
 							},
@@ -150,6 +163,7 @@
 							}
 						},
 						"required": [
+							"tags",
 							"description",
 							"successRate",
 							"idSegmentSuccess",
@@ -178,6 +192,12 @@
 					"description": {
 						"type": "string"
 					},
+					"tags": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
 					"originSegment": {
 						"$ref": "#/components/schemas/TSegmentModel"
 					},
@@ -192,7 +212,8 @@
 					"idOriginSegment",
 					"idSegmentSuccess",
 					"successRate",
-					"description"
+					"description",
+					"tags"
 				],
 				"type": "object",
 				"description": "From T, pick a set of properties whose keys are in the union K"
@@ -250,6 +271,12 @@
 					"idStory": {
 						"type": "string"
 					},
+					"tags": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
 					"narrative": {
 						"type": "string"
 					},
@@ -265,6 +292,7 @@
 				},
 				"required": [
 					"idStory",
+					"tags",
 					"narrative"
 				],
 				"type": "object",

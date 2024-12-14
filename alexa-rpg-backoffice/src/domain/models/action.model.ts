@@ -8,6 +8,7 @@ export type TActionModel = TBaseModel & {
   idSegmentFailure?: string;
   successRate: number;
   description: string;
+  tags: string[];
   originSegment?: TSegmentModel;
   segmentSuccess?: TSegmentModel;
   segmentFailure?: TSegmentModel;

@@ -24,7 +24,7 @@ const models: TsoaRoute.Models = {
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "TSegmentModel": {
         "dataType": "refAlias",
-        "type": {"dataType":"intersection","subSchemas":[{"ref":"TBaseModel"},{"dataType":"nestedObjectLiteral","nestedProperties":{"actions":{"dataType":"array","array":{"dataType":"refAlias","ref":"TActionModel"}},"story":{"ref":"TStoryModel"},"isFirst":{"dataType":"boolean","required":true},"narrative":{"dataType":"string","required":true},"idStory":{"dataType":"string","required":true}}}],"validators":{}},
+        "type": {"dataType":"intersection","subSchemas":[{"ref":"TBaseModel"},{"dataType":"nestedObjectLiteral","nestedProperties":{"actions":{"dataType":"array","array":{"dataType":"refAlias","ref":"TActionModel"}},"story":{"ref":"TStoryModel"},"isFirst":{"dataType":"boolean","required":true},"tags":{"dataType":"array","array":{"dataType":"string"},"required":true},"narrative":{"dataType":"string","required":true},"idStory":{"dataType":"string","required":true}}}],"validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "TStoryModel": {
@@ -34,12 +34,12 @@ const models: TsoaRoute.Models = {
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "TActionModel": {
         "dataType": "refAlias",
-        "type": {"dataType":"intersection","subSchemas":[{"ref":"TBaseModel"},{"dataType":"nestedObjectLiteral","nestedProperties":{"segmentFailure":{"ref":"TSegmentModel"},"segmentSuccess":{"ref":"TSegmentModel"},"originSegment":{"ref":"TSegmentModel"},"description":{"dataType":"string","required":true},"successRate":{"dataType":"double","required":true},"idSegmentFailure":{"dataType":"string"},"idSegmentSuccess":{"dataType":"string","required":true},"idOriginSegment":{"dataType":"string","required":true},"idStory":{"dataType":"string","required":true}}}],"validators":{}},
+        "type": {"dataType":"intersection","subSchemas":[{"ref":"TBaseModel"},{"dataType":"nestedObjectLiteral","nestedProperties":{"segmentFailure":{"ref":"TSegmentModel"},"segmentSuccess":{"ref":"TSegmentModel"},"originSegment":{"ref":"TSegmentModel"},"tags":{"dataType":"array","array":{"dataType":"string"},"required":true},"description":{"dataType":"string","required":true},"successRate":{"dataType":"double","required":true},"idSegmentFailure":{"dataType":"string"},"idSegmentSuccess":{"dataType":"string","required":true},"idOriginSegment":{"dataType":"string","required":true},"idStory":{"dataType":"string","required":true}}}],"validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "Pick_TActionModel.Exclude_keyofTActionModel.id-or-idStory-or-createdAt-or-updatedAt-or-deletedAt__": {
         "dataType": "refAlias",
-        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"idOriginSegment":{"dataType":"string","required":true},"idSegmentSuccess":{"dataType":"string","required":true},"idSegmentFailure":{"dataType":"string"},"successRate":{"dataType":"double","required":true},"description":{"dataType":"string","required":true},"originSegment":{"ref":"TSegmentModel"},"segmentSuccess":{"ref":"TSegmentModel"},"segmentFailure":{"ref":"TSegmentModel"}},"validators":{}},
+        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"idOriginSegment":{"dataType":"string","required":true},"idSegmentSuccess":{"dataType":"string","required":true},"idSegmentFailure":{"dataType":"string"},"successRate":{"dataType":"double","required":true},"description":{"dataType":"string","required":true},"tags":{"dataType":"array","array":{"dataType":"string"},"required":true},"originSegment":{"ref":"TSegmentModel"},"segmentSuccess":{"ref":"TSegmentModel"},"segmentFailure":{"ref":"TSegmentModel"}},"validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "Omit_TActionModel.id-or-idStory-or-createdAt-or-updatedAt-or-deletedAt_": {
@@ -78,7 +78,7 @@ const models: TsoaRoute.Models = {
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "Pick_TSegmentModel.Exclude_keyofTSegmentModel.id-or-isFirst-or-createdAt-or-updatedAt-or-deletedAt__": {
         "dataType": "refAlias",
-        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"idStory":{"dataType":"string","required":true},"narrative":{"dataType":"string","required":true},"story":{"ref":"TStoryModel"},"actions":{"dataType":"array","array":{"dataType":"refAlias","ref":"TActionModel"}}},"validators":{}},
+        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"idStory":{"dataType":"string","required":true},"tags":{"dataType":"array","array":{"dataType":"string"},"required":true},"narrative":{"dataType":"string","required":true},"story":{"ref":"TStoryModel"},"actions":{"dataType":"array","array":{"dataType":"refAlias","ref":"TActionModel"}}},"validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "Omit_TSegmentModel.id-or-isFirst-or-createdAt-or-updatedAt-or-deletedAt_": {

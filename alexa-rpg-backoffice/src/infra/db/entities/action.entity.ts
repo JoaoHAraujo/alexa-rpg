@@ -22,6 +22,9 @@ export class ActionEntity extends BaseEntity {
   @Column({ name: 'success_rate', type: 'int4' })
   public successRate: number;
 
+  @Column({ name: 'tags', array: true, type: 'varchar' })
+  public tags: string[];
+
   @Column({ name: 'description', type: 'varchar' })
   public description: string;
 
@@ -50,6 +53,7 @@ export class ActionEntity extends BaseEntity {
       idSegmentFailure: this.idSegmentFailure,
       successRate: this.successRate,
       description: this.description,
+      tags: this.tags,
       ...(this.story && { story: this.story.toModel() }),
       ...(this.originSegment && { originSegment: this.originSegment.toModel() }),
       ...(this.segmentSuccess && { segmentSuccess: this.segmentSuccess.toModel() }),

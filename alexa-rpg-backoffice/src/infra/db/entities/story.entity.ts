@@ -4,6 +4,7 @@ import { Column, Entity, OneToMany } from 'typeorm';
 import { ActionEntity } from './action.entity';
 import BaseEntity from './base-entity';
 import { SegmentEntity } from './segment.entity';
+import { TagEntity } from './tag.entity';
 
 @Entity('story')
 export class StoryEntity extends BaseEntity {
@@ -19,6 +20,9 @@ export class StoryEntity extends BaseEntity {
   @OneToMany(() => ActionEntity, (action) => action.story)
   public actions?: ActionEntity[];
 
+  @OneToMany(() => TagEntity, (tag) => tag.story)
+  public tags?: TagEntity[];
+
   public toModel(): TStoryModel {
     return {
       id: this.id,
@@ -26,6 +30,7 @@ export class StoryEntity extends BaseEntity {
       isActive: this.isActive,
       ...(this.actions?.length && { actions: this.actions.map((i) => i.toModel()) }),
       ...(this.segments?.length && { segments: this.segments.map((i) => i.toModel()) }),
+      ...(this.tags?.length && { tags: this.tags.map((i) => i.toModel()) }),
       ...(this.createdAt && { createdAt: this.createdAt }),
       ...(this.updatedAt && { updatedAt: this.updatedAt }),
       ...(this.deletedAt && { deletedAt: this.deletedAt }),

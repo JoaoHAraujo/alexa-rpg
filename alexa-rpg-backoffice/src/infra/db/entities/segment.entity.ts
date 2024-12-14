@@ -10,6 +10,9 @@ export class SegmentEntity extends BaseEntity {
   @Column({ name: 'narrative' })
   public narrative: string;
 
+  @Column({ name: 'tags', array: true, type: 'varchar' })
+  public tags: string[];
+
   @Column({ name: 'is_first', default: false })
   public isFirst: boolean;
 
@@ -27,6 +30,7 @@ export class SegmentEntity extends BaseEntity {
     return {
       id: this.id,
       narrative: this.narrative,
+      tags: this.tags,
       isFirst: this.isFirst,
       idStory: this.idStory,
       ...(this.story && { story: this.story.toModel() }),
