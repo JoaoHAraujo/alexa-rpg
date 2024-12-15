@@ -18,8 +18,9 @@ const StoryUseCaseTypes = {
   UpdateStoryUseCase: 'UpdateStoryUseCase',
 
   // Tag
-  SelectTagPaginationUseCase: 'SelectTagPaginationUseCase',
   CreateResultingTagUseCase: 'CreateResultingTagUseCase',
+  DeleteDepreciatedTagUseCase: 'DeleteDepreciatedTagUseCase',
+  SelectTagPaginationUseCase: 'SelectTagPaginationUseCase',
 };
 
 const RepositoryTypes = {

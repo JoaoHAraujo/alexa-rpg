@@ -17,4 +17,5 @@ export interface TagRepositoryInterface {
   selectOne(where: FindOptionsWhere<TagEntity>, options?: TOptions): Promise<TTagModel | null>;
   selectMany(where: FindOptionsWhere<TagEntity>, options?: TOptions): Promise<TTagModel[]>;
   bulkCreate(data: Array<Partial<TTagModel>>): Promise<TTagModel[]>;
+  bulkDelete(where: FindOptionsWhere<TagEntity>): Promise<void>;
 }

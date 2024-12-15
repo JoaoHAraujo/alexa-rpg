@@ -73,4 +73,8 @@ export class TagRepository implements TagRepositoryInterface {
 
     return actionsSaved.map((action) => action.toModel());
   }
+
+  async bulkDelete(where: FindOptionsWhere<TagEntity>): Promise<void> {
+    await this.repository.softDelete(where);
+  }
 }
