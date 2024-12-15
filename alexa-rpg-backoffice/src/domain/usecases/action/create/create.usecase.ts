@@ -1,6 +1,6 @@
 import { getEnv } from '@src/constants';
 import { TActionModel, TCreateActionInput } from '@src/domain/models';
-import { Entities } from '@src/enums';
+import { Entities, TagTypes } from '@src/enums';
 import { EntityNotFoundError, InvalidParamError } from '@src/errors';
 import { SegmentRepositoryInterface } from '@src/infra/db/repositories';
 import { ActionRepositoryInterface } from '@src/infra/db/repositories/action';
@@ -9,6 +9,7 @@ import { provideSingleton } from '@src/utils/provide-singleton';
 import { inject } from 'inversify';
 import { In } from 'typeorm';
 
+import { ICreateResultingTagUseCase } from '../../tag';
 import { ICreateActionUseCase } from './create.interface';
 
 @provideSingleton(CreateActionUseCase)
@@ -18,6 +19,8 @@ export class CreateActionUseCase implements ICreateActionUseCase {
     private readonly actionRepository: ActionRepositoryInterface,
     @inject(TYPES.repositories.SegmentRepository)
     private readonly segmentRepository: SegmentRepositoryInterface,
+    @inject(TYPES.usecases.CreateResultingTagUseCase)
+    private createResultingTagUseCase: ICreateResultingTagUseCase,
   ) {}
 
   async execute(data: TCreateActionInput): Promise<TActionModel> {
@@ -45,7 +48,10 @@ export class CreateActionUseCase implements ICreateActionUseCase {
       throw new InvalidParamError(`Some segment relations were not found: ${idsNotFound}`);
     }
 
-    const actionSaved = await this.actionRepository.create({ ...data, idStory: originSegmentExists.idStory });
+    const [actionSaved] = await Promise.all([
+      this.actionRepository.create({ ...data, idStory: originSegmentExists.idStory }),
+      this.createResultingTagUseCase.execute(originSegmentExists.idStory, data.tags, TagTypes.ACTION),
+    ]);
 
     return actionSaved;
   }
