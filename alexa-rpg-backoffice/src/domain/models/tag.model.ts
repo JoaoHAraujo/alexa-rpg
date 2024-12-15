@@ -1,5 +1,4 @@
-import { TagTypes } from '@src/enums';
-
+import { TagTypes } from '../../enums';
 import { TBaseModel } from './base.model';
 import { TStoryModel } from './story.model';
 

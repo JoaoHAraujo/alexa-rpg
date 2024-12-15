@@ -21,7 +21,6 @@ export function formatPagination<T>(data: TFormatPaginationInput<T>): TPaginatio
 export type TPaginationParams<T> = {
   page: number;
   pageSize: number;
-  currentPage: number;
   order?: { orderBy: keyof T; isDesc: 'true' | 'false' };
 };
 
@@ -41,13 +40,11 @@ type TPaginationOptions = {
 export function makePagination<T>(params: TPaginationParams<T>): TPaginationOptions {
   const { page = 1, pageSize = 30, order } = params;
 
-  const options = {
+  return {
     skip: (page - 1) * pageSize,
     take: pageSize,
     ...(order && {
       order: { [order.orderBy ?? 'createdAt']: order.isDesc === 'true' ? OrderType.DESC : OrderType.ASC },
     }),
   };
-
-  return options;
 }

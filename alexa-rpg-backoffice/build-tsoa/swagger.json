@@ -92,6 +92,13 @@
 					}
 				]
 			},
+			"TagTypes": {
+				"enum": [
+					"SEGMENT",
+					"ACTION"
+				],
+				"type": "string"
+			},
 			"TStoryModel": {
 				"allOf": [
 					{
@@ -99,6 +106,12 @@
 					},
 					{
 						"properties": {
+							"tags": {
+								"items": {
+									"$ref": "#/components/schemas/TTagModel"
+								},
+								"type": "array"
+							},
 							"segments": {
 								"items": {
 									"$ref": "#/components/schemas/TSegmentModel"
@@ -115,6 +128,36 @@
 						"required": [
 							"isActive",
 							"title"
+						],
+						"type": "object"
+					}
+				]
+			},
+			"TTagModel": {
+				"allOf": [
+					{
+						"$ref": "#/components/schemas/TBaseModel"
+					},
+					{
+						"properties": {
+							"story": {
+								"$ref": "#/components/schemas/TStoryModel"
+							},
+							"idStory": {
+								"type": "string"
+							},
+							"type": {
+								"$ref": "#/components/schemas/TagTypes"
+							},
+							"name": {
+								"type": "string"
+							}
+						},
+						"required": [
+							"story",
+							"idStory",
+							"type",
+							"name"
 						],
 						"type": "object"
 					}
@@ -322,6 +365,12 @@
 			},
 			"Pick_TStoryModel.Exclude_keyofTStoryModel.id-or-createdAt-or-updatedAt-or-deletedAt__": {
 				"properties": {
+					"tags": {
+						"items": {
+							"$ref": "#/components/schemas/TTagModel"
+						},
+						"type": "array"
+					},
 					"title": {
 						"type": "string"
 					},
@@ -369,6 +418,56 @@
 			},
 			"TUpdateStoryInput": {
 				"$ref": "#/components/schemas/Omit_TStoryModel.id-or-createdAt-or-updatedAt-or-deletedAt_"
+			},
+			"TPagination_TTagModel_": {
+				"properties": {
+					"pagination": {
+						"properties": {
+							"hasPreviousPage": {
+								"type": "boolean"
+							},
+							"hasNextPage": {
+								"type": "boolean"
+							},
+							"totalPages": {
+								"type": "number",
+								"format": "double"
+							},
+							"pageSize": {
+								"type": "number",
+								"format": "double"
+							},
+							"page": {
+								"type": "number",
+								"format": "double"
+							},
+							"totalRows": {
+								"type": "number",
+								"format": "double"
+							}
+						},
+						"required": [
+							"hasPreviousPage",
+							"hasNextPage",
+							"totalPages",
+							"pageSize",
+							"page",
+							"totalRows"
+						],
+						"type": "object"
+					},
+					"rows": {
+						"items": {
+							"$ref": "#/components/schemas/TTagModel"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"pagination",
+					"rows"
+				],
+				"type": "object"
 			}
 		},
 		"securitySchemes": {
@@ -827,6 +926,98 @@
 						"required": true,
 						"schema": {
 							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/v1/tag/{idStory}": {
+			"get": {
+				"operationId": "SelectPagination",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/TPagination_TTagModel_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Tag"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "idStory",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "name",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "type",
+						"required": false,
+						"schema": {
+							"$ref": "#/components/schemas/TagTypes"
+						}
+					},
+					{
+						"in": "query",
+						"name": "page",
+						"required": false,
+						"schema": {
+							"default": 1,
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "pageSize",
+						"required": false,
+						"schema": {
+							"default": 30,
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "orderBy",
+						"required": false,
+						"schema": {
+							"type": "string",
+							"enum": [
+								"name",
+								"type",
+								"createdAt"
+							]
+						}
+					},
+					{
+						"in": "query",
+						"name": "isDesc",
+						"required": false,
+						"schema": {
+							"type": "string",
+							"enum": [
+								"true",
+								"false"
+							]
 						}
 					}
 				]

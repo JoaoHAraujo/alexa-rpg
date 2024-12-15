@@ -16,12 +16,16 @@ const StoryUseCaseTypes = {
   GetStoryByIdUseCase: 'GetStoryByIdUseCase',
   GetRandomStoriesUseCase: 'GetRandomStoriesUseCase',
   UpdateStoryUseCase: 'UpdateStoryUseCase',
+
+  // Tag
+  SelectTagPaginationUseCase: 'SelectTagPaginationUseCase',
 };
 
 const RepositoryTypes = {
-  StoryRepository: 'StoryRepository',
-  SegmentRepository: 'SegmentRepository',
   ActionRepository: 'ActionRepository',
+  SegmentRepository: 'SegmentRepository',
+  StoryRepository: 'StoryRepository',
+  TagRepository: 'TagRepository',
 };
 
 export const TYPES = {

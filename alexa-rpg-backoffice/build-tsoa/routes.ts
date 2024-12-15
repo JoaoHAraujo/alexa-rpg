@@ -10,6 +10,8 @@ import { HealthController } from './../src/controllers/v1/health.controller';
 import { SegmentController } from './../src/controllers/v1/segment.controller';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 import { StoryController } from './../src/controllers/v1/story.controller';
+// WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+import { TagController } from './../src/controllers/v1/tag.controller';
 import { iocContainer } from './../src/server';
 import type { IocContainer, IocContainerFactory } from '@tsoa/runtime';
 import type { RequestHandler, Router } from 'express';
@@ -27,9 +29,19 @@ const models: TsoaRoute.Models = {
         "type": {"dataType":"intersection","subSchemas":[{"ref":"TBaseModel"},{"dataType":"nestedObjectLiteral","nestedProperties":{"actions":{"dataType":"array","array":{"dataType":"refAlias","ref":"TActionModel"}},"story":{"ref":"TStoryModel"},"isFirst":{"dataType":"boolean","required":true},"tags":{"dataType":"array","array":{"dataType":"string"},"required":true},"narrative":{"dataType":"string","required":true},"idStory":{"dataType":"string","required":true}}}],"validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "TagTypes": {
+        "dataType": "refEnum",
+        "enums": ["SEGMENT","ACTION"],
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "TStoryModel": {
         "dataType": "refAlias",
-        "type": {"dataType":"intersection","subSchemas":[{"ref":"TBaseModel"},{"dataType":"nestedObjectLiteral","nestedProperties":{"segments":{"dataType":"array","array":{"dataType":"refAlias","ref":"TSegmentModel"}},"isActive":{"dataType":"boolean","required":true},"title":{"dataType":"string","required":true}}}],"validators":{}},
+        "type": {"dataType":"intersection","subSchemas":[{"ref":"TBaseModel"},{"dataType":"nestedObjectLiteral","nestedProperties":{"tags":{"dataType":"array","array":{"dataType":"refAlias","ref":"TTagModel"}},"segments":{"dataType":"array","array":{"dataType":"refAlias","ref":"TSegmentModel"}},"isActive":{"dataType":"boolean","required":true},"title":{"dataType":"string","required":true}}}],"validators":{}},
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "TTagModel": {
+        "dataType": "refAlias",
+        "type": {"dataType":"intersection","subSchemas":[{"ref":"TBaseModel"},{"dataType":"nestedObjectLiteral","nestedProperties":{"story":{"ref":"TStoryModel","required":true},"idStory":{"dataType":"string","required":true},"type":{"ref":"TagTypes","required":true},"name":{"dataType":"string","required":true}}}],"validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "TActionModel": {
@@ -103,7 +115,7 @@ const models: TsoaRoute.Models = {
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "Pick_TStoryModel.Exclude_keyofTStoryModel.id-or-createdAt-or-updatedAt-or-deletedAt__": {
         "dataType": "refAlias",
-        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"title":{"dataType":"string","required":true},"isActive":{"dataType":"boolean","required":true},"segments":{"dataType":"array","array":{"dataType":"refAlias","ref":"TSegmentModel"}}},"validators":{}},
+        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"tags":{"dataType":"array","array":{"dataType":"refAlias","ref":"TTagModel"}},"title":{"dataType":"string","required":true},"isActive":{"dataType":"boolean","required":true},"segments":{"dataType":"array","array":{"dataType":"refAlias","ref":"TSegmentModel"}}},"validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "Omit_TStoryModel.id-or-createdAt-or-updatedAt-or-deletedAt_": {
@@ -124,6 +136,11 @@ const models: TsoaRoute.Models = {
     "TUpdateStoryInput": {
         "dataType": "refAlias",
         "type": {"ref":"Omit_TStoryModel.id-or-createdAt-or-updatedAt-or-deletedAt_","validators":{}},
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "TPagination_TTagModel_": {
+        "dataType": "refAlias",
+        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"pagination":{"dataType":"nestedObjectLiteral","nestedProperties":{"hasPreviousPage":{"dataType":"boolean","required":true},"hasNextPage":{"dataType":"boolean","required":true},"totalPages":{"dataType":"double","required":true},"pageSize":{"dataType":"double","required":true},"page":{"dataType":"double","required":true},"totalRows":{"dataType":"double","required":true}},"required":true},"rows":{"dataType":"array","array":{"dataType":"refAlias","ref":"TTagModel"},"required":true}},"validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 };
@@ -555,6 +572,42 @@ export function RegisterRoutes(app: Router) {
 
 
               const promise = controller.deleteById.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, undefined, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.get('/v1/tag/:idStory',
+            ...(fetchMiddlewares<RequestHandler>(TagController)),
+            ...(fetchMiddlewares<RequestHandler>(TagController.prototype.selectPagination)),
+
+            async function TagController_selectPagination(request: any, response: any, next: any) {
+            const args = {
+                    idStory: {"in":"path","name":"idStory","required":true,"dataType":"string"},
+                    name: {"in":"query","name":"name","dataType":"string"},
+                    type: {"in":"query","name":"type","ref":"TagTypes"},
+                    page: {"default":1,"in":"query","name":"page","dataType":"double"},
+                    pageSize: {"default":30,"in":"query","name":"pageSize","dataType":"double"},
+                    orderBy: {"in":"query","name":"orderBy","dataType":"union","subSchemas":[{"dataType":"enum","enums":["name"]},{"dataType":"enum","enums":["type"]},{"dataType":"enum","enums":["createdAt"]}]},
+                    isDesc: {"in":"query","name":"isDesc","dataType":"union","subSchemas":[{"dataType":"enum","enums":["true"]},{"dataType":"enum","enums":["false"]}]},
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const container: IocContainer = typeof iocContainer === 'function' ? (iocContainer as IocContainerFactory)(request) : iocContainer;
+
+                const controller: any = await container.get<TagController>(TagController);
+                if (typeof controller['setStatus'] === 'function') {
+                controller.setStatus(undefined);
+                }
+
+
+              const promise = controller.selectPagination.apply(controller, validatedArgs as any);
               promiseHandler(controller, promise, response, undefined, next);
             } catch (err) {
                 return next(err);

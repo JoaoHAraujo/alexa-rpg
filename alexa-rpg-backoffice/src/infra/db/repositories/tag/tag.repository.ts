@@ -1,9 +1,9 @@
 import { TTagModel } from '@src/domain/models';
-import { TPagination } from '@src/utils/interfaces/pagination';
 import { formatPagination, makePagination, TPaginationParams } from '@src/utils/pagination';
 import { provideSingleton } from '@src/utils/provide-singleton';
 import { FindOptionsWhere, Repository } from 'typeorm';
 
+import { TPagination } from '../../../../utils/interfaces/pagination';
 import { DatabaseProvider } from '../../config/database';
 import { TagEntity } from '../../entities';
 import { attributeSelector } from '../attribute-selector';
@@ -19,8 +19,8 @@ export class TagRepository implements TagRepositoryInterface {
 
   async selectPagination(
     where: FindOptionsWhere<TagEntity>,
-    options: TOptions,
     paginationParams: TPaginationParams<TagEntity>,
+    options?: TOptions,
   ): Promise<TPagination<TTagModel>> {
     const timestamps = !!options?.attributes?.timestamps;
 
@@ -36,7 +36,7 @@ export class TagRepository implements TagRepositoryInterface {
 
     return formatPagination({
       totalRows,
-      currentPage: paginationParams.currentPage,
+      currentPage: paginationParams.page,
       pageSize: paginationParams.pageSize,
       rows: rows.map((i) => i.toModel()),
     });

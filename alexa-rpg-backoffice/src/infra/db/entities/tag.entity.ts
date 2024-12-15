@@ -1,7 +1,7 @@
 import { TTagModel } from '@src/domain/models';
-import { TagTypes } from '@src/enums';
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 
+import { TagTypes } from '../../../enums';
 import BaseEntity from './base-entity';
 import { StoryEntity } from './story.entity';
 
@@ -13,7 +13,7 @@ export class TagEntity extends BaseEntity {
   @Column({ name: 'type', type: 'varchar', enum: TagTypes })
   public type: TagTypes;
 
-  @Column({ name: 'idStory', type: 'uuid' })
+  @Column({ name: 'id_story', type: 'uuid' })
   public idStory: string;
 
   @ManyToOne(() => StoryEntity, () => TagEntity)
