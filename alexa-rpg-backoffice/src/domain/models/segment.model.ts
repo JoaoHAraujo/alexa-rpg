@@ -11,5 +11,8 @@ export type TSegmentModel = TBaseModel & {
   actions?: TActionModel[];
 };
 
-export type TCreateSegmentInput = Omit<TSegmentModel, 'id' | 'isFirst' | 'createdAt' | 'updatedAt' | 'deletedAt'>;
+export type TCreateSegmentInput = Omit<
+  TSegmentModel,
+  'id' | 'isFirst' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'story' | 'actions'
+>;
 export type TUpdateSegmentInput = Pick<TSegmentModel, 'narrative'>;

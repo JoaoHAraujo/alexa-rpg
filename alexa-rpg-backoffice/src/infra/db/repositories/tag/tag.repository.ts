@@ -41,4 +41,36 @@ export class TagRepository implements TagRepositoryInterface {
       rows: rows.map((i) => i.toModel()),
     });
   }
+
+  async selectOne(where: FindOptionsWhere<TagEntity>, options?: TOptions): Promise<TTagModel | null> {
+    const timestamps = !!options?.attributes?.timestamps;
+
+    const result = await this.repository.findOne({
+      where,
+      ...(options?.relations && { relations: options?.relations }),
+      select: attributeSelector(this.repository, { timestamps }),
+    });
+
+    return result?.toModel() ?? null;
+  }
+
+  async selectMany(where: FindOptionsWhere<TagEntity>, options?: TOptions): Promise<TTagModel[]> {
+    const timestamps = !!options?.attributes?.timestamps;
+
+    const result = await this.repository.find({
+      where,
+      select: attributeSelector(this.repository, { timestamps }),
+      ...(options?.relations?.length && { relations: options.relations }),
+    });
+
+    return result.map((i) => i.toModel());
+  }
+
+  async bulkCreate(data: Array<Partial<TTagModel>>): Promise<TTagModel[]> {
+    const entities = this.repository.create(data);
+
+    const actionsSaved = await this.repository.save(entities);
+
+    return actionsSaved.map((action) => action.toModel());
+  }
 }

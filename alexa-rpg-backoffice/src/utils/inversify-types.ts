@@ -19,6 +19,7 @@ const StoryUseCaseTypes = {
 
   // Tag
   SelectTagPaginationUseCase: 'SelectTagPaginationUseCase',
+  CreateResultingTagUseCase: 'CreateResultingTagUseCase',
 };
 
 const RepositoryTypes = {

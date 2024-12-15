@@ -1,11 +1,12 @@
 import { TCreateSegmentInput, TSegmentModel } from '@src/domain/models';
-import { Entities } from '@src/enums';
+import { Entities, TagTypes } from '@src/enums';
 import { EntityNotFoundError } from '@src/errors';
 import { SegmentRepositoryInterface, StoryRepositoryInterface } from '@src/infra/db/repositories';
 import { TYPES } from '@src/utils/inversify-types';
 import { provideSingleton } from '@src/utils/provide-singleton';
 import { inject } from 'inversify';
 
+import { ICreateResultingTagUseCase } from '../../tag';
 import { ICreateSegmentUseCase } from './create.interface';
 
 @provideSingleton(CreateSegmentUseCase)
@@ -15,6 +16,8 @@ export class CreateSegmentUseCase implements ICreateSegmentUseCase {
     private readonly storyRepository: StoryRepositoryInterface,
     @inject(TYPES.repositories.SegmentRepository)
     private readonly segmentRepository: SegmentRepositoryInterface,
+    @inject(TYPES.usecases.CreateResultingTagUseCase)
+    private createResultingTagUseCase: ICreateResultingTagUseCase,
   ) {}
 
   async execute(input: TCreateSegmentInput): Promise<TSegmentModel> {
@@ -27,7 +30,10 @@ export class CreateSegmentUseCase implements ICreateSegmentUseCase {
 
     const isFirst = !alreadyHasFirstSegment?.isFirst;
 
-    const segment = await this.segmentRepository.create({ ...input, isFirst });
+    const [segment] = await Promise.all([
+      this.segmentRepository.create({ ...input, isFirst }),
+      this.createResultingTagUseCase.execute(input.idStory, input.tags, TagTypes.SEGMENT),
+    ]);
 
     return segment;
   }

@@ -14,4 +14,7 @@ export interface TagRepositoryInterface {
     paginationOptions: TPaginationParams<TagEntity>,
     options?: TOptions,
   ): Promise<TPagination<TTagModel>>;
+  selectOne(where: FindOptionsWhere<TagEntity>, options?: TOptions): Promise<TTagModel | null>;
+  selectMany(where: FindOptionsWhere<TagEntity>, options?: TOptions): Promise<TTagModel[]>;
+  bulkCreate(data: Array<Partial<TTagModel>>): Promise<TTagModel[]>;
 }
