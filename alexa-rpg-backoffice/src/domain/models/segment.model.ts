@@ -15,4 +15,4 @@ export type TCreateSegmentInput = Omit<
   TSegmentModel,
   'id' | 'isFirst' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'story' | 'actions'
 >;
-export type TUpdateSegmentInput = Pick<TSegmentModel, 'narrative'>;
+export type TUpdateSegmentInput = Pick<TSegmentModel, 'narrative' | 'tags'>;

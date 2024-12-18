@@ -339,20 +339,27 @@
 			"TCreateSegmentInput": {
 				"$ref": "#/components/schemas/Omit_TSegmentModel.id-or-isFirst-or-createdAt-or-updatedAt-or-deletedAt-or-story-or-actions_"
 			},
-			"Pick_TSegmentModel.narrative_": {
+			"Pick_TSegmentModel.narrative-or-tags_": {
 				"properties": {
+					"tags": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
 					"narrative": {
 						"type": "string"
 					}
 				},
 				"required": [
+					"tags",
 					"narrative"
 				],
 				"type": "object",
 				"description": "From T, pick a set of properties whose keys are in the union K"
 			},
 			"TUpdateSegmentInput": {
-				"$ref": "#/components/schemas/Pick_TSegmentModel.narrative_"
+				"$ref": "#/components/schemas/Pick_TSegmentModel.narrative-or-tags_"
 			},
 			"Pick_TStoryModel.Exclude_keyofTStoryModel.id-or-createdAt-or-updatedAt-or-deletedAt__": {
 				"properties": {

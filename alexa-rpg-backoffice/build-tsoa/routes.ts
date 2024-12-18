@@ -103,14 +103,14 @@ const models: TsoaRoute.Models = {
         "type": {"ref":"Omit_TSegmentModel.id-or-isFirst-or-createdAt-or-updatedAt-or-deletedAt-or-story-or-actions_","validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "Pick_TSegmentModel.narrative_": {
+    "Pick_TSegmentModel.narrative-or-tags_": {
         "dataType": "refAlias",
-        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"narrative":{"dataType":"string","required":true}},"validators":{}},
+        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"tags":{"dataType":"array","array":{"dataType":"string"},"required":true},"narrative":{"dataType":"string","required":true}},"validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "TUpdateSegmentInput": {
         "dataType": "refAlias",
-        "type": {"ref":"Pick_TSegmentModel.narrative_","validators":{}},
+        "type": {"ref":"Pick_TSegmentModel.narrative-or-tags_","validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "Pick_TStoryModel.Exclude_keyofTStoryModel.id-or-createdAt-or-updatedAt-or-deletedAt__": {

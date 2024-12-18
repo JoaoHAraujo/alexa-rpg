@@ -5,9 +5,9 @@ import { FindOptionsWhere, Repository } from 'typeorm';
 
 import { TPagination } from '../../../../utils/interfaces/pagination';
 import { DatabaseProvider } from '../../config/database';
-import { TagEntity } from '../../entities';
+import { ActionEntity, SegmentEntity, TagEntity } from '../../entities';
 import { attributeSelector } from '../attribute-selector';
-import { TagRepositoryInterface, TOptions } from './tag.interface';
+import { TagRepositoryInterface, TEntitiesWithTags, TOptions } from './tag.interface';
 
 @provideSingleton(TagRepository)
 export class TagRepository implements TagRepositoryInterface {
@@ -64,6 +64,24 @@ export class TagRepository implements TagRepositoryInterface {
     });
 
     return result.map((i) => i.toModel());
+  }
+
+  async checkNonExistentTags(idStory: string, tagsToCheck: string[], entity: TEntitiesWithTags): Promise<string[]> {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    const missingTags: Array<{ tag: string; count: number }> = await this.repository.query(`SELECT
+        tags2.tag AS "tag",
+        COUNT(unnested_tags.tag) AS "tagCount"
+        FROM 
+          (SELECT unnest(ARRAY[${tagsToCheck.map((i) => `'${i}'`).join(',')}]) AS tag) AS tags2
+        LEFT JOIN 
+          (SELECT unnest(${entity}.tags) AS tag FROM ${entity} WHERE ${entity}.deleted_at IS NULL AND ${entity}.id_story = '${idStory}') AS unnested_tags 
+          ON unnested_tags.tag = tags2.tag
+        GROUP BY
+          tags2.tag
+        HAVING
+          COUNT(unnested_tags.tag) = 0;`);
+
+    return missingTags?.map((i) => i.tag);
   }
 
   async bulkCreate(data: Array<Partial<TTagModel>>): Promise<TTagModel[]> {
