@@ -1,13 +1,14 @@
 import { TTagModel } from '@src/domain/models';
+import { TEntitiesWithTags } from '@src/enums';
 import { formatPagination, makePagination, TPaginationParams } from '@src/utils/pagination';
 import { provideSingleton } from '@src/utils/provide-singleton';
 import { FindOptionsWhere, Repository } from 'typeorm';
 
 import { TPagination } from '../../../../utils/interfaces/pagination';
 import { DatabaseProvider } from '../../config/database';
-import { ActionEntity, SegmentEntity, TagEntity } from '../../entities';
+import { TagEntity } from '../../entities';
 import { attributeSelector } from '../attribute-selector';
-import { TagRepositoryInterface, TEntitiesWithTags, TOptions } from './tag.interface';
+import { TagRepositoryInterface, TOptions } from './tag.interface';
 
 @provideSingleton(TagRepository)
 export class TagRepository implements TagRepositoryInterface {

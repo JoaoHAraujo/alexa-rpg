@@ -1,10 +1,10 @@
 import { TTagModel } from '@src/domain/models';
-import { TagTypes } from '@src/enums';
+import { MapTagTypeToEntity, TagTypes, TEntitiesWithTags } from '@src/enums';
+import { InvalidParamError } from '@src/errors';
 import { TagRepositoryInterface } from '@src/infra/db/repositories';
 import { TYPES } from '@src/utils/inversify-types';
 import { provideSingleton } from '@src/utils/provide-singleton';
 import { inject } from 'inversify';
-import { In } from 'typeorm';
 
 import { ICreateResultingTagUseCase } from './create-resulting.interface';
 
@@ -16,30 +16,27 @@ export class CreateResultingTagUseCase implements ICreateResultingTagUseCase {
   ) {}
 
   async execute(idStory: string, tagsToCheck: string[], type: TagTypes): Promise<TTagModel[]> {
-    const existentTags = await this.tagRepository.selectMany({
-      idStory,
-      type,
-      name: In(tagsToCheck),
+    const entity = this.defineEntity(type);
+    const tagNamesToCreate = await this.tagRepository.checkNonExistentTags(idStory, tagsToCheck, entity);
+
+    const tagsToCreate = tagNamesToCreate.map((name): Partial<TTagModel> => {
+      return {
+        name,
+        idStory,
+        type,
+      };
     });
 
-    let createdTags: TTagModel[] = [];
-
-    if (existentTags.length !== tagsToCheck.length) {
-      const existentTagNames = existentTags.map((tag) => tag.name);
-
-      const tagNamesToCreate = tagsToCheck.filter((tagToCheck) => !existentTagNames.includes(tagToCheck));
-
-      const tagsToCreate = tagNamesToCreate.map((name): Partial<TTagModel> => {
-        return {
-          name,
-          idStory,
-          type,
-        };
-      });
-
-      createdTags = await this.tagRepository.bulkCreate(tagsToCreate);
-    }
+    const createdTags = await this.tagRepository.bulkCreate(tagsToCreate);
 
     return createdTags;
+  }
+
+  private defineEntity(type: TagTypes): TEntitiesWithTags {
+    const entity = MapTagTypeToEntity.get(type);
+
+    if (!entity) throw new InvalidParamError(`TagType: ${type}`);
+
+    return entity;
   }
 }

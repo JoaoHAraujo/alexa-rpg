@@ -1,4 +1,5 @@
 import { TTagModel } from '@src/domain/models';
+import { TEntitiesWithTags } from '@src/enums';
 import { TPaginationParams } from '@src/utils/pagination';
 import { FindOptionsWhere } from 'typeorm';
 
@@ -7,7 +8,6 @@ import { TagEntity } from '../../entities';
 import { AttributeOptions } from '../attribute-selector';
 
 export type TOptions = { attributes?: AttributeOptions; relations?: string[] };
-export type TEntitiesWithTags = 'segment' | 'action';
 
 export interface TagRepositoryInterface {
   selectPagination(
