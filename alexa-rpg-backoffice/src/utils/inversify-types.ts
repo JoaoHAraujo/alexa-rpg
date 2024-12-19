@@ -11,6 +11,7 @@ const StoryUseCaseTypes = {
   DeleteSegmentUseCase: 'DeleteSegmentUseCase',
   GetSegmentByIdUseCase: 'GetSegmentByIdUseCase',
   MakeSegmentFirstUseCase: 'MakeSegmentFirstUseCase',
+  SelectSegmentPaginationUseCase: 'SelectSegmentPaginationUseCase',
   UpdateSegmentUseCase: 'UpdateSegmentUseCase',
 
   // Story

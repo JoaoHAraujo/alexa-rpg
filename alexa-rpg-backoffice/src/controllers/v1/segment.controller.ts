@@ -1,14 +1,21 @@
-import { IDeleteSegmentUseCase, IGetSegmentByIdUseCase, IMakeSegmentFirstUseCase } from '@src/domain/usecases';
+import {
+  IDeleteSegmentUseCase,
+  IGetSegmentByIdUseCase,
+  IMakeSegmentFirstUseCase,
+  ISelectSegmentPaginationUseCase,
+} from '@src/domain/usecases';
 import { ICreateSegmentUseCase } from '@src/domain/usecases/segment/create';
 import { IUpdateSegmentUseCase } from '@src/domain/usecases/segment/update';
+import { InvalidParamError } from '@src/errors';
 import { ICustomRequest } from '@src/utils/interfaces/custom-request';
 import { TYPES } from '@src/utils/inversify-types';
 import { provideSingleton } from '@src/utils/provide-singleton';
 import { inject } from 'inversify';
 import { BaseHttpController, interfaces } from 'inversify-express-utils';
-import { Body, Delete, Get, Patch, Path, Post, Put, Request, Route, Tags } from 'tsoa';
+import { Body, Delete, Get, Patch, Path, Post, Put, Query, Request, Route, Tags } from 'tsoa';
 
 import { TCreateSegmentInput, TSegmentModel, TUpdateSegmentInput } from '../../domain/models';
+import { TPagination } from '../../utils/interfaces/pagination';
 
 @Route('v1/segment')
 @Tags('Segment')
@@ -25,6 +32,8 @@ export class SegmentController extends BaseHttpController implements interfaces.
     private readonly updateSegmentUseCase: IUpdateSegmentUseCase,
     @inject(TYPES.usecases.MakeSegmentFirstUseCase)
     private readonly makeFirstSegmentUseCase: IMakeSegmentFirstUseCase,
+    @inject(TYPES.usecases.SelectSegmentPaginationUseCase)
+    private readonly selectSegmentPaginationUseCase: ISelectSegmentPaginationUseCase,
   ) {
     super();
   }
@@ -35,6 +44,37 @@ export class SegmentController extends BaseHttpController implements interfaces.
     const result = await this.getSegmentByIdUseCase.execute(idSegment);
 
     return result;
+  }
+
+  @Get('/all/:idStory')
+  async getAllPaginated(
+    @Path('idStory') idStory: string,
+    @Request() _req: string,
+    @Query('narrative') narrative?: string,
+    @Query('tags') tags?: string,
+    @Query('isFirst') isFirst?: boolean,
+    @Query('page') page: number = 1,
+    @Query('pageSize') pageSize: number = 30,
+    @Query('orderBy') orderBy?: 'narrative',
+    @Query('isDesc') isDesc?: 'true' | 'false',
+  ): Promise<TPagination<TSegmentModel>> {
+    if ((orderBy && !isDesc) || (!orderBy && isDesc)) {
+      throw new InvalidParamError('orderBy and isDesc params should be used together');
+    }
+
+    const formattedTags = tags?.split(';');
+
+    const response = await this.selectSegmentPaginationUseCase.execute(
+      idStory,
+      {
+        ...(narrative && { narrative }),
+        ...(formattedTags?.length && { tags: formattedTags }),
+        ...(typeof isFirst === 'boolean' && { isFirst }),
+      },
+      { page, pageSize, ...(orderBy && isDesc && { order: { orderBy, isDesc } }) },
+    );
+
+    return response;
   }
 
   @Post()

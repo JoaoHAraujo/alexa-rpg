@@ -32,6 +32,7 @@ export class SelectTagPaginationUseCase implements ISelectTagPaginationUseCase {
 
     const response = await this.tagRepository.selectPagination(
       {
+        idStory,
         ...(searchParams.name && { name: ILike(`%${searchParams.name}%`) }),
         ...(searchParams.type && { type: searchParams.type }),
       },

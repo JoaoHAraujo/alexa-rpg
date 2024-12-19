@@ -347,6 +347,56 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"TPagination_TSegmentModel_": {
+				"properties": {
+					"pagination": {
+						"properties": {
+							"hasPreviousPage": {
+								"type": "boolean"
+							},
+							"hasNextPage": {
+								"type": "boolean"
+							},
+							"totalPages": {
+								"type": "number",
+								"format": "double"
+							},
+							"pageSize": {
+								"type": "number",
+								"format": "double"
+							},
+							"page": {
+								"type": "number",
+								"format": "double"
+							},
+							"totalRows": {
+								"type": "number",
+								"format": "double"
+							}
+						},
+						"required": [
+							"hasPreviousPage",
+							"hasNextPage",
+							"totalPages",
+							"pageSize",
+							"page",
+							"totalRows"
+						],
+						"type": "object"
+					},
+					"rows": {
+						"items": {
+							"$ref": "#/components/schemas/TSegmentModel"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"pagination",
+					"rows"
+				],
+				"type": "object"
+			},
 			"Pick_TSegmentModel.Exclude_keyofTSegmentModel.id-or-isFirst-or-createdAt-or-updatedAt-or-deletedAt-or-story-or-actions__": {
 				"properties": {
 					"idStory": {
@@ -872,6 +922,104 @@
 						"required": true,
 						"schema": {
 							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/v1/segment/all/{idStory}": {
+			"get": {
+				"operationId": "GetAllPaginated",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/TPagination_TSegmentModel_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Segment"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "idStory",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "narrative",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "tags",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "isFirst",
+						"required": false,
+						"schema": {
+							"type": "boolean"
+						}
+					},
+					{
+						"in": "query",
+						"name": "page",
+						"required": false,
+						"schema": {
+							"default": 1,
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "pageSize",
+						"required": false,
+						"schema": {
+							"default": 30,
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "orderBy",
+						"required": false,
+						"schema": {
+							"type": "string",
+							"enum": [
+								"narrative"
+							]
+						}
+					},
+					{
+						"in": "query",
+						"name": "isDesc",
+						"required": false,
+						"schema": {
+							"type": "string",
+							"enum": [
+								"true",
+								"false"
+							]
 						}
 					}
 				]

@@ -12,7 +12,7 @@ export type TOptions = { attributes?: AttributeOptions; relations?: string[] };
 export interface TagRepositoryInterface {
   selectPagination(
     where: FindOptionsWhere<TagEntity>,
-    paginationOptions: TPaginationParams<TagEntity>,
+    paginationParams: TPaginationParams<TagEntity>,
     options?: TOptions,
   ): Promise<TPagination<TTagModel>>;
   checkNonExistentTags(idStory: string, tagsToCheck: string[], entity: TEntitiesWithTags): Promise<string[]>;

@@ -98,6 +98,11 @@ const models: TsoaRoute.Models = {
         "additionalProperties": false,
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "TPagination_TSegmentModel_": {
+        "dataType": "refAlias",
+        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"pagination":{"dataType":"nestedObjectLiteral","nestedProperties":{"hasPreviousPage":{"dataType":"boolean","required":true},"hasNextPage":{"dataType":"boolean","required":true},"totalPages":{"dataType":"double","required":true},"pageSize":{"dataType":"double","required":true},"page":{"dataType":"double","required":true},"totalRows":{"dataType":"double","required":true}},"required":true},"rows":{"dataType":"array","array":{"dataType":"refAlias","ref":"TSegmentModel"},"required":true}},"validators":{}},
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "Pick_TSegmentModel.Exclude_keyofTSegmentModel.id-or-isFirst-or-createdAt-or-updatedAt-or-deletedAt-or-story-or-actions__": {
         "dataType": "refAlias",
         "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"idStory":{"dataType":"string","required":true},"tags":{"dataType":"array","array":{"dataType":"string"},"required":true},"narrative":{"dataType":"string","required":true}},"validators":{}},
@@ -401,6 +406,44 @@ export function RegisterRoutes(app: Router) {
 
 
               const promise = controller.getById.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, undefined, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.get('/v1/segment/all/:idStory',
+            ...(fetchMiddlewares<RequestHandler>(SegmentController)),
+            ...(fetchMiddlewares<RequestHandler>(SegmentController.prototype.getAllPaginated)),
+
+            async function SegmentController_getAllPaginated(request: any, response: any, next: any) {
+            const args = {
+                    idStory: {"in":"path","name":"idStory","required":true,"dataType":"string"},
+                    _req: {"in":"request","name":"_req","required":true,"dataType":"object"},
+                    narrative: {"in":"query","name":"narrative","dataType":"string"},
+                    tags: {"in":"query","name":"tags","dataType":"string"},
+                    isFirst: {"in":"query","name":"isFirst","dataType":"boolean"},
+                    page: {"default":1,"in":"query","name":"page","dataType":"double"},
+                    pageSize: {"default":30,"in":"query","name":"pageSize","dataType":"double"},
+                    orderBy: {"in":"query","name":"orderBy","dataType":"enum","enums":["narrative"]},
+                    isDesc: {"in":"query","name":"isDesc","dataType":"union","subSchemas":[{"dataType":"enum","enums":["true"]},{"dataType":"enum","enums":["false"]}]},
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const container: IocContainer = typeof iocContainer === 'function' ? (iocContainer as IocContainerFactory)(request) : iocContainer;
+
+                const controller: any = await container.get<SegmentController>(SegmentController);
+                if (typeof controller['setStatus'] === 'function') {
+                controller.setStatus(undefined);
+                }
+
+
+              const promise = controller.getAllPaginated.apply(controller, validatedArgs as any);
               promiseHandler(controller, promise, response, undefined, next);
             } catch (err) {
                 return next(err);
