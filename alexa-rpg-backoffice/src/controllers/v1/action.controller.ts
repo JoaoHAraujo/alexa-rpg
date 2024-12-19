@@ -1,5 +1,6 @@
 import { IGetSegmentActionsUseCase } from '@src/domain/usecases';
 import { ICreateActionUseCase } from '@src/domain/usecases/action/create/create.interface';
+import { IGetActionByIdUseCase } from '@src/domain/usecases/action/get-by-id';
 import { IUpdateActionUseCase } from '@src/domain/usecases/action/update';
 import { ICustomRequest } from '@src/utils/interfaces/custom-request';
 import { TYPES } from '@src/utils/inversify-types';
@@ -21,6 +22,8 @@ export class ActionController extends BaseHttpController implements interfaces.C
     private readonly getSegmentActionsUseCase: IGetSegmentActionsUseCase,
     @inject(TYPES.usecases.UpdateActionUseCase)
     private readonly updateActionUseCase: IUpdateActionUseCase,
+    @inject(TYPES.usecases.GetActionByIdUseCase)
+    private readonly getActionByIdUseCase: IGetActionByIdUseCase,
   ) {
     super();
   }
@@ -34,15 +37,26 @@ export class ActionController extends BaseHttpController implements interfaces.C
   }
 
   @Get('per-segment/:idSegment')
-  async getAction(@Path('idSegment') idSegment: string): Promise<TActionModel[]> {
+  async getAction(@Path('idSegment') idSegment: string, @Request() _req: ICustomRequest): Promise<TActionModel[]> {
     const result = await this.getSegmentActionsUseCase.execute(idSegment);
 
     return result;
   }
 
   @Put('/:idAction')
-  async update(@Path('idAction') idAction: string, @Body() body: TUpdateActionInput): Promise<TActionModel | null> {
+  async update(
+    @Path('idAction') idAction: string,
+    @Body() body: TUpdateActionInput,
+    @Request() _req: ICustomRequest,
+  ): Promise<TActionModel | null> {
     const result = await this.updateActionUseCase.execute(idAction, body);
+
+    return result;
+  }
+
+  @Get('/:idAction')
+  async getById(@Path('idAction') idAction: string, @Request() _req: ICustomRequest): Promise<TActionModel | null> {
+    const result = await this.getActionByIdUseCase.execute(idAction);
 
     return result;
   }
