@@ -21,6 +21,7 @@ export class TagController extends BaseHttpController implements interfaces.Cont
     super();
   }
 
+  // TODO authentication ADMIN and DEVICE
   @Get('/:idStory')
   async selectPagination(
     @Path('idStory') idStory: string,
