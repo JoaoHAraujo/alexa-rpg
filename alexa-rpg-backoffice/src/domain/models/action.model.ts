@@ -15,3 +15,8 @@ export type TActionModel = TBaseModel & {
 };
 
 export type TCreateActionInput = Omit<TActionModel, 'id' | 'idStory' | 'createdAt' | 'updatedAt' | 'deletedAt'>;
+
+export type TUpdateActionInput = Pick<
+  TActionModel,
+  'description' | 'idOriginSegment' | 'idSegmentFailure' | 'idSegmentSuccess' | 'successRate' | 'tags'
+>;

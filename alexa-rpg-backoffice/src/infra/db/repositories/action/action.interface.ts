@@ -12,4 +12,5 @@ export interface ActionRepositoryInterface {
   create(data: Partial<TActionModel>, attributes?: AttributeOptions): Promise<TActionModel>;
   bulkCreate(data: Array<Partial<TActionModel>>): Promise<TActionModel[]>;
   count(where: FindOptionsWhere<ActionEntity>): Promise<number>;
+  update(id: string, data: Partial<TActionModel>): Promise<TActionModel | null>;
 }

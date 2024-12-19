@@ -64,6 +64,16 @@ const models: TsoaRoute.Models = {
         "type": {"ref":"Omit_TActionModel.id-or-idStory-or-createdAt-or-updatedAt-or-deletedAt_","validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "Pick_TActionModel.description-or-idOriginSegment-or-idSegmentFailure-or-idSegmentSuccess-or-successRate-or-tags_": {
+        "dataType": "refAlias",
+        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"idOriginSegment":{"dataType":"string","required":true},"idSegmentSuccess":{"dataType":"string","required":true},"idSegmentFailure":{"dataType":"string"},"successRate":{"dataType":"double","required":true},"description":{"dataType":"string","required":true},"tags":{"dataType":"array","array":{"dataType":"string"},"required":true}},"validators":{}},
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "TUpdateActionInput": {
+        "dataType": "refAlias",
+        "type": {"ref":"Pick_TActionModel.description-or-idOriginSegment-or-idSegmentFailure-or-idSegmentSuccess-or-successRate-or-tags_","validators":{}},
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "Environment": {
         "dataType": "refEnum",
         "enums": ["development","homolog","production"],
@@ -208,6 +218,37 @@ export function RegisterRoutes(app: Router) {
 
 
               const promise = controller.getAction.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, undefined, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.put('/v1/action/:idAction',
+            ...(fetchMiddlewares<RequestHandler>(ActionController)),
+            ...(fetchMiddlewares<RequestHandler>(ActionController.prototype.update)),
+
+            async function ActionController_update(request: any, response: any, next: any) {
+            const args = {
+                    idAction: {"in":"path","name":"idAction","required":true,"dataType":"string"},
+                    body: {"in":"body","name":"body","required":true,"ref":"TUpdateActionInput"},
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const container: IocContainer = typeof iocContainer === 'function' ? (iocContainer as IocContainerFactory)(request) : iocContainer;
+
+                const controller: any = await container.get<ActionController>(ActionController);
+                if (typeof controller['setStatus'] === 'function') {
+                controller.setStatus(undefined);
+                }
+
+
+              const promise = controller.update.apply(controller, validatedArgs as any);
               promiseHandler(controller, promise, response, undefined, next);
             } catch (err) {
                 return next(err);

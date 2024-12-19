@@ -2,6 +2,7 @@ const StoryUseCaseTypes = {
   // Action
   CreateActionUseCase: 'CreateActionUseCase',
   GetSegmentActionsUseCase: 'GetSegmentActionsUseCase',
+  UpdateActionUseCase: 'UpdateActionUseCase',
 
   // Segment
   CreateSegmentUseCase: 'CreateSegmentUseCase',

@@ -60,4 +60,12 @@ export class ActionRepository implements ActionRepositoryInterface {
   async count(where: FindOptionsWhere<ActionEntity>): Promise<number> {
     return this.repository.count({ where });
   }
+
+  async update(id: string, data: Partial<TActionModel>): Promise<TActionModel | null> {
+    await this.repository.update({ id }, data);
+
+    const result = await this.selectOne({ id });
+
+    return result;
+  }
 }
