@@ -13,4 +13,5 @@ export interface ActionRepositoryInterface {
   bulkCreate(data: Array<Partial<TActionModel>>): Promise<TActionModel[]>;
   count(where: FindOptionsWhere<ActionEntity>): Promise<number>;
   update(id: string, data: Partial<TActionModel>): Promise<TActionModel | null>;
+  delete(where: FindOptionsWhere<ActionEntity>): Promise<void>;
 }

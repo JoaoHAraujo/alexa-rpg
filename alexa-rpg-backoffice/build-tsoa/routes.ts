@@ -225,6 +225,37 @@ export function RegisterRoutes(app: Router) {
             }
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.get('/v1/action/:idAction',
+            ...(fetchMiddlewares<RequestHandler>(ActionController)),
+            ...(fetchMiddlewares<RequestHandler>(ActionController.prototype.getById)),
+
+            async function ActionController_getById(request: any, response: any, next: any) {
+            const args = {
+                    idAction: {"in":"path","name":"idAction","required":true,"dataType":"string"},
+                    _req: {"in":"request","name":"_req","required":true,"dataType":"object"},
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const container: IocContainer = typeof iocContainer === 'function' ? (iocContainer as IocContainerFactory)(request) : iocContainer;
+
+                const controller: any = await container.get<ActionController>(ActionController);
+                if (typeof controller['setStatus'] === 'function') {
+                controller.setStatus(undefined);
+                }
+
+
+              const promise = controller.getById.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, undefined, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         app.put('/v1/action/:idAction',
             ...(fetchMiddlewares<RequestHandler>(ActionController)),
             ...(fetchMiddlewares<RequestHandler>(ActionController.prototype.update)),
@@ -257,11 +288,11 @@ export function RegisterRoutes(app: Router) {
             }
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        app.get('/v1/action/:idAction',
+        app.delete('/v1/action/:idAction',
             ...(fetchMiddlewares<RequestHandler>(ActionController)),
-            ...(fetchMiddlewares<RequestHandler>(ActionController.prototype.getById)),
+            ...(fetchMiddlewares<RequestHandler>(ActionController.prototype.delete)),
 
-            async function ActionController_getById(request: any, response: any, next: any) {
+            async function ActionController_delete(request: any, response: any, next: any) {
             const args = {
                     idAction: {"in":"path","name":"idAction","required":true,"dataType":"string"},
                     _req: {"in":"request","name":"_req","required":true,"dataType":"object"},
@@ -281,7 +312,7 @@ export function RegisterRoutes(app: Router) {
                 }
 
 
-              const promise = controller.getById.apply(controller, validatedArgs as any);
+              const promise = controller.delete.apply(controller, validatedArgs as any);
               promiseHandler(controller, promise, response, undefined, next);
             } catch (err) {
                 return next(err);

@@ -592,6 +592,40 @@
 			}
 		},
 		"/v1/action/{idAction}": {
+			"get": {
+				"operationId": "GetById",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"allOf": [
+										{
+											"$ref": "#/components/schemas/TActionModel"
+										}
+									],
+									"nullable": true
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Action"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "idAction",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
 			"put": {
 				"operationId": "Update",
 				"responses": {
@@ -636,20 +670,15 @@
 					}
 				}
 			},
-			"get": {
-				"operationId": "GetById",
+			"delete": {
+				"operationId": "Delete",
 				"responses": {
 					"200": {
 						"description": "Ok",
 						"content": {
 							"application/json": {
 								"schema": {
-									"allOf": [
-										{
-											"$ref": "#/components/schemas/TActionModel"
-										}
-									],
-									"nullable": true
+									"type": "boolean"
 								}
 							}
 						}

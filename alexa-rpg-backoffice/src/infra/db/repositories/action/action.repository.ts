@@ -68,4 +68,8 @@ export class ActionRepository implements ActionRepositoryInterface {
 
     return result;
   }
+
+  async delete(where: FindOptionsWhere<ActionEntity>): Promise<void> {
+    await this.repository.softDelete(where);
+  }
 }

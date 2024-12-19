@@ -1,4 +1,4 @@
-import { IGetSegmentActionsUseCase } from '@src/domain/usecases';
+import { IDeleteActionUseCase, IGetSegmentActionsUseCase } from '@src/domain/usecases';
 import { ICreateActionUseCase } from '@src/domain/usecases/action/create/create.interface';
 import { IGetActionByIdUseCase } from '@src/domain/usecases/action/get-by-id';
 import { IUpdateActionUseCase } from '@src/domain/usecases/action/update';
@@ -7,7 +7,7 @@ import { TYPES } from '@src/utils/inversify-types';
 import { provideSingleton } from '@src/utils/provide-singleton';
 import { inject } from 'inversify';
 import { BaseHttpController, interfaces } from 'inversify-express-utils';
-import { Body, Get, Path, Post, Put, Request, Route, Tags } from 'tsoa';
+import { Body, Delete, Get, Path, Post, Put, Request, Route, Tags } from 'tsoa';
 
 import { TActionModel, TCreateActionInput, TUpdateActionInput } from '../../domain/models';
 
@@ -24,6 +24,8 @@ export class ActionController extends BaseHttpController implements interfaces.C
     private readonly updateActionUseCase: IUpdateActionUseCase,
     @inject(TYPES.usecases.GetActionByIdUseCase)
     private readonly getActionByIdUseCase: IGetActionByIdUseCase,
+    @inject(TYPES.usecases.DeleteActionUseCase)
+    private readonly deleteActionUseCase: IDeleteActionUseCase,
   ) {
     super();
   }
@@ -43,6 +45,13 @@ export class ActionController extends BaseHttpController implements interfaces.C
     return result;
   }
 
+  @Get('/:idAction')
+  async getById(@Path('idAction') idAction: string, @Request() _req: ICustomRequest): Promise<TActionModel | null> {
+    const result = await this.getActionByIdUseCase.execute(idAction);
+
+    return result;
+  }
+
   @Put('/:idAction')
   async update(
     @Path('idAction') idAction: string,
@@ -54,9 +63,9 @@ export class ActionController extends BaseHttpController implements interfaces.C
     return result;
   }
 
-  @Get('/:idAction')
-  async getById(@Path('idAction') idAction: string, @Request() _req: ICustomRequest): Promise<TActionModel | null> {
-    const result = await this.getActionByIdUseCase.execute(idAction);
+  @Delete('/:idAction')
+  async delete(@Path('idAction') idAction: string, @Request() _req: ICustomRequest): Promise<boolean> {
+    const result = await this.deleteActionUseCase.execute(idAction);
 
     return result;
   }
