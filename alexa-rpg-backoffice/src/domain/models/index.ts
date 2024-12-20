@@ -1,4 +1,5 @@
 export * from './action.model';
+export * from './admin.model';
 export * from './auth';
 export * from './segment.model';
 export * from './story.model';
