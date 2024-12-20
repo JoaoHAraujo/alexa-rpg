@@ -10,6 +10,7 @@ export function configDependencies(): Container {
   try {
     const useCasesPaths = resolve(__dirname, '..', 'domain', 'usecases', '**', '**', '*.usecase.{ts,js}');
     const reposPaths = resolve(__dirname, '..', 'infra', 'db', 'repositories', '**', '*.repository.{ts,js}');
+    const adaptersPaths = resolve(__dirname, '..', 'adapters', '*.adapter.{ts,js}');
 
     const useCases = importClassesFromDirectories([useCasesPaths]);
     console.log(`Use-cases injected = ${useCases.length}`);
@@ -17,7 +18,10 @@ export function configDependencies(): Container {
     const repos = importClassesFromDirectories([reposPaths]);
     console.log(`Repositories injected = ${repos.length}`);
 
-    [...useCases, ...repos].forEach((injClass: any) => container.bind(injClass.name).to(injClass));
+    const adapters = importClassesFromDirectories([adaptersPaths]);
+    console.log(`Adapters injected = ${adapters.length}`);
+
+    [...useCases, ...repos, ...adapters].forEach((injClass: any) => container.bind(injClass.name).to(injClass));
 
     return container;
   } catch (err) {

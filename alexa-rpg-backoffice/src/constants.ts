@@ -10,6 +10,7 @@ export class Constants {
   debug: boolean;
   appName: string;
   port: number;
+  cryptoKey: string;
 
   database: {
     host: string;
@@ -25,6 +26,7 @@ export class Constants {
     this.debug = props.DEBUG === 'true';
     this.appName = props.APP_NAME;
     this.port = parseInt(props.PORT);
+    this.cryptoKey = props.CRYPTO_KEY || '1f3ac1f3-1b22-4385-a6e7-ee41939cbab4';
 
     this.database = {
       host: props.DATABASE_HOST,

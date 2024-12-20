@@ -5,3 +5,5 @@ export type TAdminModel = TBaseModel & {
   email: string;
   password: string;
 };
+
+export type TCreateAdminInput = Pick<TAdminModel, 'name' | 'email' | 'password'>;

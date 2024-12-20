@@ -7,6 +7,9 @@ const StoryUseCaseTypes = {
   SelectActionPaginationUseCase: 'SelectActionPaginationUseCase',
   UpdateActionUseCase: 'UpdateActionUseCase',
 
+  // Admin
+  CreateAdminUseCase: 'CreateAdminUseCase',
+
   // Segment
   CreateSegmentUseCase: 'CreateSegmentUseCase',
   DeleteSegmentUseCase: 'DeleteSegmentUseCase',
@@ -30,12 +33,18 @@ const StoryUseCaseTypes = {
 
 const RepositoryTypes = {
   ActionRepository: 'ActionRepository',
+  AdminRepository: 'AdminRepository',
   SegmentRepository: 'SegmentRepository',
   StoryRepository: 'StoryRepository',
   TagRepository: 'TagRepository',
 };
 
+const Adapters = {
+  CryptoAdapter: 'CryptoAdapter',
+};
+
 export const TYPES = {
+  adapters: { ...Adapters },
   usecases: { ...StoryUseCaseTypes },
   repositories: { ...RepositoryTypes },
 };

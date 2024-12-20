@@ -14,7 +14,6 @@ import {
   IDeleteActionUseCase,
   IGetSegmentActionsUseCase,
   ISelectActionPaginationUseCase,
-  TActionParams,
   TSuccessRateComparator,
 } from '../../domain/usecases';
 import { TPagination } from '../../utils/interfaces/pagination';

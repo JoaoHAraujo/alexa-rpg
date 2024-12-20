@@ -1,6 +1,7 @@
 export enum Entities {
-  STORY = 'Story',
-  SEGMENT = 'Segment',
   ACTION = 'Action',
+  ADMIN = 'ADMIN',
+  SEGMENT = 'Segment',
+  STORY = 'Story',
   TAG = 'Tag',
 }

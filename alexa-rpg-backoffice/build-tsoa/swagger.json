@@ -365,6 +365,55 @@
 			"TUpdateActionInput": {
 				"$ref": "#/components/schemas/Pick_TActionModel.description-or-idOriginSegment-or-idSegmentFailure-or-idSegmentSuccess-or-successRate-or-tags_"
 			},
+			"TAdminModel": {
+				"allOf": [
+					{
+						"$ref": "#/components/schemas/TBaseModel"
+					},
+					{
+						"properties": {
+							"password": {
+								"type": "string"
+							},
+							"email": {
+								"type": "string"
+							},
+							"name": {
+								"type": "string"
+							}
+						},
+						"required": [
+							"password",
+							"email",
+							"name"
+						],
+						"type": "object"
+					}
+				]
+			},
+			"Pick_TAdminModel.name-or-email-or-password_": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"name",
+					"email",
+					"password"
+				],
+				"type": "object",
+				"description": "From T, pick a set of properties whose keys are in the union K"
+			},
+			"TCreateAdminInput": {
+				"$ref": "#/components/schemas/Pick_TAdminModel.name-or-email-or-password_"
+			},
 			"Environment": {
 				"enum": [
 					"development",
@@ -915,6 +964,43 @@
 						}
 					}
 				]
+			}
+		},
+		"/v1/admin": {
+			"post": {
+				"operationId": "Create",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"allOf": [
+										{
+											"$ref": "#/components/schemas/TAdminModel"
+										}
+									],
+									"nullable": true
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Admin"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/TCreateAdminInput"
+							}
+						}
+					}
+				}
 			}
 		},
 		"/v1/health/status": {
