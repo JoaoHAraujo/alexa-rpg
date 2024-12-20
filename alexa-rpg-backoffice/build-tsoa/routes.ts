@@ -64,6 +64,16 @@ const models: TsoaRoute.Models = {
         "type": {"ref":"Omit_TActionModel.id-or-idStory-or-createdAt-or-updatedAt-or-deletedAt_","validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "TPagination_TActionModel_": {
+        "dataType": "refAlias",
+        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"pagination":{"dataType":"nestedObjectLiteral","nestedProperties":{"hasPreviousPage":{"dataType":"boolean","required":true},"hasNextPage":{"dataType":"boolean","required":true},"totalPages":{"dataType":"double","required":true},"pageSize":{"dataType":"double","required":true},"page":{"dataType":"double","required":true},"totalRows":{"dataType":"double","required":true}},"required":true},"rows":{"dataType":"array","array":{"dataType":"refAlias","ref":"TActionModel"},"required":true}},"validators":{}},
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "TSuccessRateComparator": {
+        "dataType": "refAlias",
+        "type": {"dataType":"union","subSchemas":[{"dataType":"enum","enums":["lt"]},{"dataType":"enum","enums":["lte"]},{"dataType":"enum","enums":["bt"]},{"dataType":"enum","enums":["bte"]}],"validators":{}},
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "Pick_TActionModel.description-or-idOriginSegment-or-idSegmentFailure-or-idSegmentSuccess-or-successRate-or-tags_": {
         "dataType": "refAlias",
         "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"idOriginSegment":{"dataType":"string","required":true},"idSegmentSuccess":{"dataType":"string","required":true},"idSegmentFailure":{"dataType":"string"},"successRate":{"dataType":"double","required":true},"description":{"dataType":"string","required":true},"tags":{"dataType":"array","array":{"dataType":"string"},"required":true}},"validators":{}},
@@ -255,6 +265,45 @@ export function RegisterRoutes(app: Router) {
 
 
               const promise = controller.getById.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, undefined, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.get('/v1/action/all/:idStory',
+            ...(fetchMiddlewares<RequestHandler>(ActionController)),
+            ...(fetchMiddlewares<RequestHandler>(ActionController.prototype.getAllPaginated)),
+
+            async function ActionController_getAllPaginated(request: any, response: any, next: any) {
+            const args = {
+                    idStory: {"in":"path","name":"idStory","required":true,"dataType":"string"},
+                    _req: {"in":"request","name":"_req","required":true,"dataType":"object"},
+                    description: {"in":"query","name":"description","dataType":"string"},
+                    tags: {"in":"query","name":"tags","dataType":"string"},
+                    successRate: {"in":"query","name":"successRate","dataType":"double"},
+                    successRateComparator: {"in":"query","name":"successRateComparator","ref":"TSuccessRateComparator"},
+                    page: {"default":1,"in":"query","name":"page","dataType":"double"},
+                    pageSize: {"default":30,"in":"query","name":"pageSize","dataType":"double"},
+                    orderBy: {"in":"query","name":"orderBy","dataType":"union","subSchemas":[{"dataType":"enum","enums":["description"]},{"dataType":"enum","enums":["successRate"]}]},
+                    isDesc: {"in":"query","name":"isDesc","dataType":"union","subSchemas":[{"dataType":"enum","enums":["true"]},{"dataType":"enum","enums":["false"]}]},
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const container: IocContainer = typeof iocContainer === 'function' ? (iocContainer as IocContainerFactory)(request) : iocContainer;
+
+                const controller: any = await container.get<ActionController>(ActionController);
+                if (typeof controller['setStatus'] === 'function') {
+                controller.setStatus(undefined);
+                }
+
+
+              const promise = controller.getAllPaginated.apply(controller, validatedArgs as any);
               promiseHandler(controller, promise, response, undefined, next);
             } catch (err) {
                 return next(err);

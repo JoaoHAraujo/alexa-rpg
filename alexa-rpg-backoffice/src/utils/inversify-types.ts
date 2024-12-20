@@ -4,6 +4,7 @@ const StoryUseCaseTypes = {
   DeleteActionUseCase: 'DeleteActionUseCase',
   GetSegmentActionsUseCase: 'GetSegmentActionsUseCase',
   GetActionByIdUseCase: 'GetActionByIdUseCase',
+  SelectActionPaginationUseCase: 'SelectActionPaginationUseCase',
   UpdateActionUseCase: 'UpdateActionUseCase',
 
   // Segment
