@@ -4,7 +4,7 @@ import { inject } from 'inversify';
 import { BaseHttpController, interfaces } from 'inversify-express-utils';
 import { Body, Post, Route, Tags } from 'tsoa';
 
-import { ILoginUseCase, TLoginInput } from '../../domain/usecases';
+import { ILoginUseCase, TLoginInput, TLoginOutput } from '../../domain/usecases';
 
 @Route('v1/auth')
 @Tags('Auth')
@@ -18,7 +18,7 @@ export class AuthController extends BaseHttpController implements interfaces.Con
   }
 
   @Post('/login')
-  async login(@Body() body: TLoginInput): Promise<string> {
+  async login(@Body() body: TLoginInput): Promise<TLoginOutput> {
     const result = await this.loginUseCase.execute(body);
 
     return result;

@@ -6,7 +6,7 @@ import { TYPES } from '@src/utils/inversify-types';
 import { provideSingleton } from '@src/utils/provide-singleton';
 import { inject } from 'inversify';
 
-import { ILoginUseCase, TLoginInput } from './login.interface';
+import { ILoginUseCase, TLoginInput, TLoginOutput } from './login.interface';
 
 @provideSingleton(LoginUseCase)
 export class LoginUseCase implements ILoginUseCase {
@@ -19,7 +19,7 @@ export class LoginUseCase implements ILoginUseCase {
     private readonly jwtAdapter: JwtAdapter,
   ) {}
 
-  async execute(input: TLoginInput): Promise<string> {
+  async execute(input: TLoginInput): Promise<TLoginOutput> {
     const { email, password } = input;
 
     const adminExists = await this.adminRepository.selectOne(
@@ -35,6 +35,6 @@ export class LoginUseCase implements ILoginUseCase {
 
     const token = this.jwtAdapter.createToken({ idUser: adminExists.id });
 
-    return token;
+    return { token };
   }
 }
