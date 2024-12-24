@@ -1037,6 +1037,35 @@
 						}
 					}
 				]
+			},
+			"delete": {
+				"operationId": "DeleteById",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "boolean"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Admin"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "idAdmin",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
 			}
 		},
 		"/v1/health/status": {

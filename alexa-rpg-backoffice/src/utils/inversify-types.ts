@@ -9,6 +9,7 @@ const StoryUseCaseTypes = {
 
   // Admin
   CreateAdminUseCase: 'CreateAdminUseCase',
+  DeleteAdminUseCase: 'DeleteAdminUseCase',
   GetAdminByIdUseCase: 'GetAdminByIdUseCase',
 
   // Segment

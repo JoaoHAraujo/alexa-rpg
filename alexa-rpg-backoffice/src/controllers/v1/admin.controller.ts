@@ -1,3 +1,4 @@
+import { IDeleteAdminUseCase } from '@src/domain/usecases';
 import { ICreateAdminUseCase } from '@src/domain/usecases/admin/create';
 import { IGetAdminByIdUseCase } from '@src/domain/usecases/admin/get-by-id';
 import { ICustomRequest } from '@src/utils/interfaces/custom-request';
@@ -5,7 +6,7 @@ import { TYPES } from '@src/utils/inversify-types';
 import { provideSingleton } from '@src/utils/provide-singleton';
 import { inject } from 'inversify';
 import { BaseHttpController, interfaces } from 'inversify-express-utils';
-import { Body, Get, Path, Post, Request, Route, Tags } from 'tsoa';
+import { Body, Delete, Get, Path, Post, Request, Route, Tags } from 'tsoa';
 
 import { TAdminModel, TCreateAdminInput } from '../../domain/models';
 
@@ -16,6 +17,7 @@ export class AdminController extends BaseHttpController implements interfaces.Co
   constructor(
     @inject(TYPES.usecases.CreateAdminUseCase) private readonly createAdminUseCase: ICreateAdminUseCase,
     @inject(TYPES.usecases.GetAdminByIdUseCase) private readonly getAdminByIdUseCase: IGetAdminByIdUseCase,
+    @inject(TYPES.usecases.DeleteAdminUseCase) private readonly deleteAdminUseCase: IDeleteAdminUseCase,
   ) {
     super();
   }
@@ -33,5 +35,12 @@ export class AdminController extends BaseHttpController implements interfaces.Co
     const result = await this.getAdminByIdUseCase.execute(idAdmin);
 
     return result;
+  }
+
+  @Delete('/:idAdmin')
+  async deleteById(@Path('idAdmin') idAdmin: string): Promise<boolean> {
+    await this.deleteAdminUseCase.execute(idAdmin);
+
+    return true;
   }
 }

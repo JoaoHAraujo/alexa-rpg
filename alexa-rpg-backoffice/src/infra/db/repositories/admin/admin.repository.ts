@@ -36,4 +36,8 @@ export class AdminRepository implements AdminRepositoryInterface {
 
     return result!;
   }
+
+  async delete(where: FindOptionsWhere<AdminEntity>): Promise<void> {
+    await this.repository.softDelete(where);
+  }
 }
