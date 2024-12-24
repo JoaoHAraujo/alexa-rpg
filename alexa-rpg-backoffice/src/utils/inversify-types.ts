@@ -14,6 +14,9 @@ const StoryUseCaseTypes = {
   SelectAdminPaginationUseCase: 'SelectAdminPaginationUseCase',
   UpdateAdminUseCase: 'UpdateAdminUseCase',
 
+  // Auth
+  LoginUseCase: 'LoginUseCase',
+
   // Segment
   CreateSegmentUseCase: 'CreateSegmentUseCase',
   DeleteSegmentUseCase: 'DeleteSegmentUseCase',
@@ -45,6 +48,7 @@ const RepositoryTypes = {
 
 const Adapters = {
   CryptoAdapter: 'CryptoAdapter',
+  JwtAdapter: 'JwtAdapter',
 };
 
 export const TYPES = {
