@@ -1,5 +1,5 @@
 import { CryptoAdapter } from '@src/adapters/crypto.adapter';
-import { JwtAdapter } from '@src/adapters/jwt-adapter';
+import { JwtAdapter } from '@src/adapters/jwt.adapter';
 import { UnauthorizedError } from '@src/errors';
 import { AdminRepositoryInterface } from '@src/infra/db/repositories';
 import { TYPES } from '@src/utils/inversify-types';

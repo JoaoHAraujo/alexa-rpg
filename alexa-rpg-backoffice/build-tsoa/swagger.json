@@ -479,6 +479,21 @@
 			"TUpdateAdminInput": {
 				"$ref": "#/components/schemas/Partial_Pick_TAdminModel.name-or-email__"
 			},
+			"TLoginInput": {
+				"properties": {
+					"password": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"password",
+					"email"
+				],
+				"type": "object"
+			},
 			"Environment": {
 				"enum": [
 					"development",
@@ -1247,6 +1262,38 @@
 						"application/json": {
 							"schema": {
 								"$ref": "#/components/schemas/TUpdateAdminInput"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/v1/auth/login": {
+			"post": {
+				"operationId": "Login",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Auth"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/TLoginInput"
 							}
 						}
 					}
