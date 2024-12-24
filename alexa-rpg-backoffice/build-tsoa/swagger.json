@@ -414,6 +414,21 @@
 			"TCreateAdminInput": {
 				"$ref": "#/components/schemas/Pick_TAdminModel.name-or-email-or-password_"
 			},
+			"Partial_Pick_TAdminModel.name-or-email__": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					}
+				},
+				"type": "object",
+				"description": "Make all properties in T optional"
+			},
+			"TUpdateAdminInput": {
+				"$ref": "#/components/schemas/Partial_Pick_TAdminModel.name-or-email__"
+			},
 			"Environment": {
 				"enum": [
 					"development",
@@ -1066,6 +1081,45 @@
 						}
 					}
 				]
+			},
+			"put": {
+				"operationId": "Update",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/TAdminModel"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Admin"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "idAdmin",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/TUpdateAdminInput"
+							}
+						}
+					}
+				}
 			}
 		},
 		"/v1/health/status": {

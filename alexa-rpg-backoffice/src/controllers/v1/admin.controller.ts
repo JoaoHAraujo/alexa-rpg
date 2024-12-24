@@ -1,4 +1,4 @@
-import { IDeleteAdminUseCase } from '@src/domain/usecases';
+import { IDeleteAdminUseCase, IUpdateAdminUseCase } from '@src/domain/usecases';
 import { ICreateAdminUseCase } from '@src/domain/usecases/admin/create';
 import { IGetAdminByIdUseCase } from '@src/domain/usecases/admin/get-by-id';
 import { ICustomRequest } from '@src/utils/interfaces/custom-request';
@@ -6,9 +6,9 @@ import { TYPES } from '@src/utils/inversify-types';
 import { provideSingleton } from '@src/utils/provide-singleton';
 import { inject } from 'inversify';
 import { BaseHttpController, interfaces } from 'inversify-express-utils';
-import { Body, Delete, Get, Path, Post, Request, Route, Tags } from 'tsoa';
+import { Body, Delete, Get, Path, Post, Put, Request, Route, Tags } from 'tsoa';
 
-import { TAdminModel, TCreateAdminInput } from '../../domain/models';
+import { TAdminModel, TCreateAdminInput, TUpdateAdminInput } from '../../domain/models';
 
 @Route('v1/admin')
 @Tags('Admin')
@@ -18,6 +18,7 @@ export class AdminController extends BaseHttpController implements interfaces.Co
     @inject(TYPES.usecases.CreateAdminUseCase) private readonly createAdminUseCase: ICreateAdminUseCase,
     @inject(TYPES.usecases.GetAdminByIdUseCase) private readonly getAdminByIdUseCase: IGetAdminByIdUseCase,
     @inject(TYPES.usecases.DeleteAdminUseCase) private readonly deleteAdminUseCase: IDeleteAdminUseCase,
+    @inject(TYPES.usecases.UpdateAdminUseCase) private readonly updateAdminUseCase: IUpdateAdminUseCase,
   ) {
     super();
   }
@@ -38,9 +39,20 @@ export class AdminController extends BaseHttpController implements interfaces.Co
   }
 
   @Delete('/:idAdmin')
-  async deleteById(@Path('idAdmin') idAdmin: string): Promise<boolean> {
+  async deleteById(@Path('idAdmin') idAdmin: string, @Request() _req: ICustomRequest): Promise<boolean> {
     await this.deleteAdminUseCase.execute(idAdmin);
 
     return true;
+  }
+
+  @Put('/:idAdmin')
+  async update(
+    @Path('idAdmin') idAdmin: string,
+    @Body() body: TUpdateAdminInput,
+    @Request() _req: ICustomRequest,
+  ): Promise<TAdminModel> {
+    const result = await this.updateAdminUseCase.execute(idAdmin, body);
+
+    return result;
   }
 }

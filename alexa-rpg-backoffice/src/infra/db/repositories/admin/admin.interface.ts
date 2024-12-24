@@ -10,5 +10,6 @@ export type TOptions = { attributes?: TAdminAttributeOptions; relations?: string
 export interface AdminRepositoryInterface {
   selectOne(where: FindOptionsWhere<AdminEntity>, options?: TOptions): Promise<TAdminModel | null>;
   create(data: Partial<TAdminModel>, attributes?: TAdminAttributeOptions): Promise<TAdminModel>;
+  update(id: string, data: Partial<TAdminModel>): Promise<TAdminModel>;
   delete(where: FindOptionsWhere<AdminEntity>): Promise<void>;
 }

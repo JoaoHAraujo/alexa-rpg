@@ -101,6 +101,16 @@ const models: TsoaRoute.Models = {
         "type": {"ref":"Pick_TAdminModel.name-or-email-or-password_","validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "Partial_Pick_TAdminModel.name-or-email__": {
+        "dataType": "refAlias",
+        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"name":{"dataType":"string"},"email":{"dataType":"string"}},"validators":{}},
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "TUpdateAdminInput": {
+        "dataType": "refAlias",
+        "type": {"ref":"Partial_Pick_TAdminModel.name-or-email__","validators":{}},
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "Environment": {
         "dataType": "refEnum",
         "enums": ["development","homolog","production"],
@@ -459,6 +469,7 @@ export function RegisterRoutes(app: Router) {
             async function AdminController_deleteById(request: any, response: any, next: any) {
             const args = {
                     idAdmin: {"in":"path","name":"idAdmin","required":true,"dataType":"string"},
+                    _req: {"in":"request","name":"_req","required":true,"dataType":"object"},
             };
 
             // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
@@ -476,6 +487,38 @@ export function RegisterRoutes(app: Router) {
 
 
               const promise = controller.deleteById.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, undefined, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.put('/v1/admin/:idAdmin',
+            ...(fetchMiddlewares<RequestHandler>(AdminController)),
+            ...(fetchMiddlewares<RequestHandler>(AdminController.prototype.update)),
+
+            async function AdminController_update(request: any, response: any, next: any) {
+            const args = {
+                    idAdmin: {"in":"path","name":"idAdmin","required":true,"dataType":"string"},
+                    body: {"in":"body","name":"body","required":true,"ref":"TUpdateAdminInput"},
+                    _req: {"in":"request","name":"_req","required":true,"dataType":"object"},
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const container: IocContainer = typeof iocContainer === 'function' ? (iocContainer as IocContainerFactory)(request) : iocContainer;
+
+                const controller: any = await container.get<AdminController>(AdminController);
+                if (typeof controller['setStatus'] === 'function') {
+                controller.setStatus(undefined);
+                }
+
+
+              const promise = controller.update.apply(controller, validatedArgs as any);
               promiseHandler(controller, promise, response, undefined, next);
             } catch (err) {
                 return next(err);
