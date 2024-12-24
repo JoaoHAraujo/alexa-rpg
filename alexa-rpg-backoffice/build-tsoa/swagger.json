@@ -414,6 +414,56 @@
 			"TCreateAdminInput": {
 				"$ref": "#/components/schemas/Pick_TAdminModel.name-or-email-or-password_"
 			},
+			"TPagination_TAdminModel_": {
+				"properties": {
+					"pagination": {
+						"properties": {
+							"hasPreviousPage": {
+								"type": "boolean"
+							},
+							"hasNextPage": {
+								"type": "boolean"
+							},
+							"totalPages": {
+								"type": "number",
+								"format": "double"
+							},
+							"pageSize": {
+								"type": "number",
+								"format": "double"
+							},
+							"page": {
+								"type": "number",
+								"format": "double"
+							},
+							"totalRows": {
+								"type": "number",
+								"format": "double"
+							}
+						},
+						"required": [
+							"hasPreviousPage",
+							"hasNextPage",
+							"totalPages",
+							"pageSize",
+							"page",
+							"totalRows"
+						],
+						"type": "object"
+					},
+					"rows": {
+						"items": {
+							"$ref": "#/components/schemas/TAdminModel"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"pagination",
+					"rows"
+				],
+				"type": "object"
+			},
 			"Partial_Pick_TAdminModel.name-or-email__": {
 				"properties": {
 					"name": {
@@ -1016,6 +1066,87 @@
 						}
 					}
 				}
+			},
+			"get": {
+				"operationId": "GetPaginated",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/TPagination_TAdminModel_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Admin"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "name",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "email",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "page",
+						"required": false,
+						"schema": {
+							"default": 1,
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "pageSize",
+						"required": false,
+						"schema": {
+							"default": 30,
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "orderBy",
+						"required": false,
+						"schema": {
+							"type": "string",
+							"enum": [
+								"name",
+								"email"
+							]
+						}
+					},
+					{
+						"in": "query",
+						"name": "isDesc",
+						"required": false,
+						"schema": {
+							"type": "string",
+							"enum": [
+								"true",
+								"false"
+							]
+						}
+					}
+				]
 			}
 		},
 		"/v1/admin/{idAdmin}": {

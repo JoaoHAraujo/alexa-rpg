@@ -101,6 +101,11 @@ const models: TsoaRoute.Models = {
         "type": {"ref":"Pick_TAdminModel.name-or-email-or-password_","validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "TPagination_TAdminModel_": {
+        "dataType": "refAlias",
+        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"pagination":{"dataType":"nestedObjectLiteral","nestedProperties":{"hasPreviousPage":{"dataType":"boolean","required":true},"hasNextPage":{"dataType":"boolean","required":true},"totalPages":{"dataType":"double","required":true},"pageSize":{"dataType":"double","required":true},"page":{"dataType":"double","required":true},"totalRows":{"dataType":"double","required":true}},"required":true},"rows":{"dataType":"array","array":{"dataType":"refAlias","ref":"TAdminModel"},"required":true}},"validators":{}},
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "Partial_Pick_TAdminModel.name-or-email__": {
         "dataType": "refAlias",
         "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"name":{"dataType":"string"},"email":{"dataType":"string"}},"validators":{}},
@@ -425,6 +430,42 @@ export function RegisterRoutes(app: Router) {
 
 
               const promise = controller.create.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, undefined, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.get('/v1/admin',
+            ...(fetchMiddlewares<RequestHandler>(AdminController)),
+            ...(fetchMiddlewares<RequestHandler>(AdminController.prototype.getPaginated)),
+
+            async function AdminController_getPaginated(request: any, response: any, next: any) {
+            const args = {
+                    _req: {"in":"request","name":"_req","required":true,"dataType":"object"},
+                    name: {"in":"query","name":"name","dataType":"string"},
+                    email: {"in":"query","name":"email","dataType":"string"},
+                    page: {"default":1,"in":"query","name":"page","dataType":"double"},
+                    pageSize: {"default":30,"in":"query","name":"pageSize","dataType":"double"},
+                    orderBy: {"in":"query","name":"orderBy","dataType":"union","subSchemas":[{"dataType":"enum","enums":["name"]},{"dataType":"enum","enums":["email"]}]},
+                    isDesc: {"in":"query","name":"isDesc","dataType":"union","subSchemas":[{"dataType":"enum","enums":["true"]},{"dataType":"enum","enums":["false"]}]},
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const container: IocContainer = typeof iocContainer === 'function' ? (iocContainer as IocContainerFactory)(request) : iocContainer;
+
+                const controller: any = await container.get<AdminController>(AdminController);
+                if (typeof controller['setStatus'] === 'function') {
+                controller.setStatus(undefined);
+                }
+
+
+              const promise = controller.getPaginated.apply(controller, validatedArgs as any);
               promiseHandler(controller, promise, response, undefined, next);
             } catch (err) {
                 return next(err);

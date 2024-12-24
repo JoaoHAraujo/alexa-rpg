@@ -87,8 +87,6 @@ export class ActionController extends BaseHttpController implements interfaces.C
 
     const formattedTags = tags?.split(';');
 
-    console.log(pageSize);
-
     const response = await this.selectActionPaginationUseCase.execute(
       idStory,
       {
