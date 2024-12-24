@@ -3,4 +3,5 @@ dist/
 *.log
 *lock.json
 .vscode/
+.env
 LICENSE
