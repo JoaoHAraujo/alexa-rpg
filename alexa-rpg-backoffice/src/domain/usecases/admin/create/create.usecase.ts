@@ -2,6 +2,7 @@ import { CryptoAdapter } from '@src/adapters/crypto.adapter';
 import { TAdminModel, TCreateAdminInput } from '@src/domain/models';
 import { Entities } from '@src/enums';
 import { EntityAlreadyExistsError } from '@src/errors';
+import { validatePasswordFormat } from '@src/helpers/validate-password-format';
 import { AdminRepositoryInterface } from '@src/infra/db/repositories/admin';
 import { TYPES } from '@src/utils/inversify-types';
 import { provideSingleton } from '@src/utils/provide-singleton';
@@ -19,13 +20,14 @@ export class CreateAdminUseCase implements ICreateAdminUseCase {
   ) {}
 
   async execute(input: TCreateAdminInput): Promise<TAdminModel> {
+    validatePasswordFormat(input.password);
+
     const adminExists = await this.adminRepository.selectOne(
       { email: input.email },
       { attributes: { password: true, timestamps: false } },
     );
 
     if (adminExists) {
-      console.log(this.cryptoAdapter.validateHash(input.password, adminExists.password));
       throw new EntityAlreadyExistsError(Entities.ADMIN);
     }
 

@@ -464,12 +464,15 @@
 				],
 				"type": "object"
 			},
-			"Partial_Pick_TAdminModel.name-or-email__": {
+			"Partial_Pick_TAdminModel.name-or-email-or-password__": {
 				"properties": {
 					"name": {
 						"type": "string"
 					},
 					"email": {
+						"type": "string"
+					},
+					"password": {
 						"type": "string"
 					}
 				},
@@ -477,7 +480,7 @@
 				"description": "Make all properties in T optional"
 			},
 			"TUpdateAdminInput": {
-				"$ref": "#/components/schemas/Partial_Pick_TAdminModel.name-or-email__"
+				"$ref": "#/components/schemas/Partial_Pick_TAdminModel.name-or-email-or-password__"
 			},
 			"TLoginOutput": {
 				"properties": {

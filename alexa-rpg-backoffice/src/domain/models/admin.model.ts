@@ -7,4 +7,4 @@ export type TAdminModel = TBaseModel & {
 };
 
 export type TCreateAdminInput = Pick<TAdminModel, 'name' | 'email' | 'password'>;
-export type TUpdateAdminInput = Partial<Pick<TAdminModel, 'name' | 'email'>>;
+export type TUpdateAdminInput = Partial<Pick<TAdminModel, 'name' | 'email' | 'password'>>;
