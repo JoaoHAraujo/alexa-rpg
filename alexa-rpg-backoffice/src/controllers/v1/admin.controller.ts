@@ -2,15 +2,15 @@ import { IDeleteAdminUseCase, ISelectAdminPaginationUseCase, IUpdateAdminUseCase
 import { ICreateAdminUseCase } from '@src/domain/usecases/admin/create';
 import { IGetAdminByIdUseCase } from '@src/domain/usecases/admin/get-by-id';
 import { InvalidParamError } from '@src/errors';
-import { ICustomRequest } from '@src/utils/interfaces/custom-request';
 import { TYPES } from '@src/utils/inversify-types';
 import { provideSingleton } from '@src/utils/provide-singleton';
 import { inject } from 'inversify';
 import { BaseHttpController, interfaces } from 'inversify-express-utils';
-import { Body, Delete, Get, Path, Post, Put, Query, Request, Route, Tags } from 'tsoa';
+import { Body, Delete, Get, Middlewares, Path, Post, Put, Query, Route, Tags } from 'tsoa';
 
 import { TAdminModel, TCreateAdminInput, TUpdateAdminInput } from '../../domain/models';
 import { TPagination } from '../../utils/interfaces/pagination';
+import { authorize } from '../middlewares/authorize.middleware';
 
 @Route('v1/admin')
 @Tags('Admin')
@@ -31,17 +31,17 @@ export class AdminController extends BaseHttpController implements interfaces.Co
     super();
   }
 
-  // TODO authentication ADMIN and DEVICE
   @Post()
-  async create(@Body() body: TCreateAdminInput, @Request() _req: ICustomRequest): Promise<TAdminModel | null> {
+  @Middlewares(authorize)
+  async create(@Body() body: TCreateAdminInput): Promise<TAdminModel | null> {
     const result = await this.createAdminUseCase.execute(body);
 
     return result;
   }
 
   @Get()
+  @Middlewares(authorize)
   async getPaginated(
-    @Request() _req: ICustomRequest,
     @Query('name') name?: string,
     @Query('email') email?: string,
     @Query('page') page: number = 1,
@@ -65,25 +65,24 @@ export class AdminController extends BaseHttpController implements interfaces.Co
   }
 
   @Get('/:idAdmin')
-  async getById(@Path('idAdmin') idAdmin: string, @Request() _req: ICustomRequest): Promise<TAdminModel | null> {
+  @Middlewares(authorize)
+  async getById(@Path('idAdmin') idAdmin: string): Promise<TAdminModel | null> {
     const result = await this.getAdminByIdUseCase.execute(idAdmin);
 
     return result;
   }
 
   @Delete('/:idAdmin')
-  async deleteById(@Path('idAdmin') idAdmin: string, @Request() _req: ICustomRequest): Promise<boolean> {
+  @Middlewares(authorize)
+  async deleteById(@Path('idAdmin') idAdmin: string): Promise<boolean> {
     await this.deleteAdminUseCase.execute(idAdmin);
 
     return true;
   }
 
   @Put('/:idAdmin')
-  async update(
-    @Path('idAdmin') idAdmin: string,
-    @Body() body: TUpdateAdminInput,
-    @Request() _req: ICustomRequest,
-  ): Promise<TAdminModel> {
+  @Middlewares(authorize)
+  async update(@Path('idAdmin') idAdmin: string, @Body() body: TUpdateAdminInput): Promise<TAdminModel> {
     const result = await this.updateAdminUseCase.execute(idAdmin, body);
 
     return result;

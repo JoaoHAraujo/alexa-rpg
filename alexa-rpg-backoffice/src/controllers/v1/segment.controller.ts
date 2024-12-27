@@ -7,15 +7,15 @@ import {
 import { ICreateSegmentUseCase } from '@src/domain/usecases/segment/create';
 import { IUpdateSegmentUseCase } from '@src/domain/usecases/segment/update';
 import { InvalidParamError } from '@src/errors';
-import { ICustomRequest } from '@src/utils/interfaces/custom-request';
 import { TYPES } from '@src/utils/inversify-types';
 import { provideSingleton } from '@src/utils/provide-singleton';
 import { inject } from 'inversify';
 import { BaseHttpController, interfaces } from 'inversify-express-utils';
-import { Body, Delete, Get, Patch, Path, Post, Put, Query, Request, Route, Tags } from 'tsoa';
+import { Body, Delete, Get, Middlewares, Patch, Path, Post, Put, Query, Route, Tags } from 'tsoa';
 
 import { TCreateSegmentInput, TSegmentModel, TUpdateSegmentInput } from '../../domain/models';
 import { TPagination } from '../../utils/interfaces/pagination';
+import { authorize } from '../middlewares/authorize.middleware';
 
 @Route('v1/segment')
 @Tags('Segment')
@@ -38,8 +38,8 @@ export class SegmentController extends BaseHttpController implements interfaces.
     super();
   }
 
-  // TODO authentication ADMIN and DEVICE
   @Get('/:idSegment')
+  @Middlewares(authorize)
   async getById(@Path('idSegment') idSegment: string): Promise<TSegmentModel | null> {
     const result = await this.getSegmentByIdUseCase.execute(idSegment);
 
@@ -47,9 +47,9 @@ export class SegmentController extends BaseHttpController implements interfaces.
   }
 
   @Get('/all/:idStory')
+  @Middlewares(authorize)
   async getAllPaginated(
     @Path('idStory') idStory: string,
-    @Request() _req: string,
     @Query('narrative') narrative?: string,
     @Query('tags') tags?: string,
     @Query('isFirst') isFirst?: boolean,
@@ -78,24 +78,23 @@ export class SegmentController extends BaseHttpController implements interfaces.
   }
 
   @Post()
-  async create(@Body() body: TCreateSegmentInput, @Request() _req: ICustomRequest): Promise<TSegmentModel> {
+  @Middlewares(authorize)
+  async create(@Body() body: TCreateSegmentInput): Promise<TSegmentModel> {
     const result = await this.createSegmentUseCase.execute(body);
 
     return result;
   }
 
   @Put('/:idSegment')
-  async update(
-    @Path('idSegment') idSegment: string,
-    @Body() body: TUpdateSegmentInput,
-    @Request() _req: ICustomRequest,
-  ): Promise<TSegmentModel> {
+  @Middlewares(authorize)
+  async update(@Path('idSegment') idSegment: string, @Body() body: TUpdateSegmentInput): Promise<TSegmentModel> {
     const response = await this.updateSegmentUseCase.execute(idSegment, body);
 
     return response;
   }
 
   @Patch('/:idSegment')
+  @Middlewares(authorize)
   async makeFirstSegment(@Path('idSegment') idSegment: string): Promise<boolean> {
     await this.makeFirstSegmentUseCase.execute(idSegment);
 
@@ -103,7 +102,8 @@ export class SegmentController extends BaseHttpController implements interfaces.
   }
 
   @Delete('/:idSegment')
-  async delete(@Path('idSegment') idSegment: string, @Request() _req: ICustomRequest): Promise<boolean> {
+  @Middlewares(authorize)
+  async delete(@Path('idSegment') idSegment: string): Promise<boolean> {
     await this.deleteSegmentUseCase.execute(idSegment);
 
     return true;

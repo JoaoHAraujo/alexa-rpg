@@ -4,11 +4,12 @@ import { TYPES } from '@src/utils/inversify-types';
 import { provideSingleton } from '@src/utils/provide-singleton';
 import { inject } from 'inversify';
 import { BaseHttpController, interfaces } from 'inversify-express-utils';
-import { Get, Path, Query, Route, Tags } from 'tsoa';
+import { Get, Middlewares, Path, Query, Route, Tags } from 'tsoa';
 
 import { TTagModel } from '../../domain/models';
 import { TagTypes } from '../../enums';
 import { TPagination } from '../../utils/interfaces/pagination';
+import { authorize } from '../middlewares/authorize.middleware';
 
 @Route('v1/tag')
 @Tags('Tag')
@@ -21,8 +22,8 @@ export class TagController extends BaseHttpController implements interfaces.Cont
     super();
   }
 
-  // TODO authentication ADMIN and DEVICE
   @Get('/:idStory')
+  @Middlewares(authorize)
   async selectPagination(
     @Path('idStory') idStory: string,
     @Query('name') name?: string,

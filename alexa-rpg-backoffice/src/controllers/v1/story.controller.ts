@@ -2,16 +2,16 @@ import { ICreateStoryUseCase, IGetRandomStoriesUseCase, IGetStoryByIdUseCase } f
 import { IDeleteStoryUseCase } from '@src/domain/usecases/story/delete';
 import { IUpdateStoryUseCase } from '@src/domain/usecases/story/update';
 import { InvalidParamError } from '@src/errors';
-import { ICustomRequest } from '@src/utils/interfaces/custom-request';
 import { TYPES } from '@src/utils/inversify-types';
 import { provideSingleton } from '@src/utils/provide-singleton';
 import { inject } from 'inversify';
 import { BaseHttpController, interfaces } from 'inversify-express-utils';
-import { Body, Delete, Get, Path, Post, Put, Query, Request, Route, Tags } from 'tsoa';
+import { Body, Delete, Get, Middlewares, Path, Post, Put, Query, Route, Tags } from 'tsoa';
 import { validate } from 'uuid';
 
 import { TCreateStoryInput, TStoryModel, TUpdateStoryInput } from '../../domain/models';
 import { TGetStoryByIdResponse } from '../../domain/usecases/story/get-by-id/get-by-id.interface';
+import { authorize } from '../middlewares/authorize.middleware';
 
 @Route('v1/story')
 @Tags('Story')
@@ -32,15 +32,16 @@ export class StoryController extends BaseHttpController implements interfaces.Co
     super();
   }
 
-  // TODO authentication ADMIN and DEVICE
   @Post()
-  async create(@Body() httpRequest: TCreateStoryInput, @Request() _req: ICustomRequest): Promise<TStoryModel> {
+  @Middlewares(authorize)
+  async create(@Body() httpRequest: TCreateStoryInput): Promise<TStoryModel> {
     const result = await this.createStoryUseCase.create(httpRequest);
 
     return result;
   }
 
   @Get('/random')
+  @Middlewares(authorize)
   async getRandom(@Query('limit') limit = 5): Promise<TStoryModel[]> {
     const response = await this.getRandomStoriesUseCase.getRandom(limit);
 
@@ -48,6 +49,7 @@ export class StoryController extends BaseHttpController implements interfaces.Co
   }
 
   @Get('/:idStory')
+  @Middlewares(authorize)
   async getById(@Path('idStory') idStory: string): Promise<TGetStoryByIdResponse> {
     if (!idStory || !validate(idStory)) throw new InvalidParamError('idStory');
 
@@ -57,6 +59,7 @@ export class StoryController extends BaseHttpController implements interfaces.Co
   }
 
   @Put('/:idStory')
+  @Middlewares(authorize)
   async updateStory(@Path('idStory') idStory: string, @Body() input: TUpdateStoryInput): Promise<TStoryModel> {
     const result = await this.updateStoryUseCase.execute(idStory, input);
 
@@ -64,6 +67,7 @@ export class StoryController extends BaseHttpController implements interfaces.Co
   }
 
   @Delete('/:idStory')
+  @Middlewares(authorize)
   async deleteById(@Path('idStory') idStory: string): Promise<boolean> {
     await this.deleteStoryUseCase.execute(idStory);
 

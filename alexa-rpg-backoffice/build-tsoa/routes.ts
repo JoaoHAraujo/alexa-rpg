@@ -229,7 +229,6 @@ export function RegisterRoutes(app: Router) {
             async function ActionController_create(request: any, response: any, next: any) {
             const args = {
                     body: {"in":"body","name":"body","required":true,"ref":"TCreateActionInput"},
-                    _req: {"in":"request","name":"_req","required":true,"dataType":"object"},
             };
 
             // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
@@ -260,7 +259,6 @@ export function RegisterRoutes(app: Router) {
             async function ActionController_getAction(request: any, response: any, next: any) {
             const args = {
                     idSegment: {"in":"path","name":"idSegment","required":true,"dataType":"string"},
-                    _req: {"in":"request","name":"_req","required":true,"dataType":"object"},
             };
 
             // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
@@ -291,7 +289,6 @@ export function RegisterRoutes(app: Router) {
             async function ActionController_getById(request: any, response: any, next: any) {
             const args = {
                     idAction: {"in":"path","name":"idAction","required":true,"dataType":"string"},
-                    _req: {"in":"request","name":"_req","required":true,"dataType":"object"},
             };
 
             // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
@@ -322,7 +319,6 @@ export function RegisterRoutes(app: Router) {
             async function ActionController_getAllPaginated(request: any, response: any, next: any) {
             const args = {
                     idStory: {"in":"path","name":"idStory","required":true,"dataType":"string"},
-                    _req: {"in":"request","name":"_req","required":true,"dataType":"object"},
                     description: {"in":"query","name":"description","dataType":"string"},
                     tags: {"in":"query","name":"tags","dataType":"string"},
                     successRate: {"in":"query","name":"successRate","dataType":"double"},
@@ -362,7 +358,6 @@ export function RegisterRoutes(app: Router) {
             const args = {
                     idAction: {"in":"path","name":"idAction","required":true,"dataType":"string"},
                     body: {"in":"body","name":"body","required":true,"ref":"TUpdateActionInput"},
-                    _req: {"in":"request","name":"_req","required":true,"dataType":"object"},
             };
 
             // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
@@ -393,7 +388,6 @@ export function RegisterRoutes(app: Router) {
             async function ActionController_delete(request: any, response: any, next: any) {
             const args = {
                     idAction: {"in":"path","name":"idAction","required":true,"dataType":"string"},
-                    _req: {"in":"request","name":"_req","required":true,"dataType":"object"},
             };
 
             // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
@@ -424,7 +418,6 @@ export function RegisterRoutes(app: Router) {
             async function AdminController_create(request: any, response: any, next: any) {
             const args = {
                     body: {"in":"body","name":"body","required":true,"ref":"TCreateAdminInput"},
-                    _req: {"in":"request","name":"_req","required":true,"dataType":"object"},
             };
 
             // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
@@ -454,7 +447,6 @@ export function RegisterRoutes(app: Router) {
 
             async function AdminController_getPaginated(request: any, response: any, next: any) {
             const args = {
-                    _req: {"in":"request","name":"_req","required":true,"dataType":"object"},
                     name: {"in":"query","name":"name","dataType":"string"},
                     email: {"in":"query","name":"email","dataType":"string"},
                     page: {"default":1,"in":"query","name":"page","dataType":"double"},
@@ -491,7 +483,6 @@ export function RegisterRoutes(app: Router) {
             async function AdminController_getById(request: any, response: any, next: any) {
             const args = {
                     idAdmin: {"in":"path","name":"idAdmin","required":true,"dataType":"string"},
-                    _req: {"in":"request","name":"_req","required":true,"dataType":"object"},
             };
 
             // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
@@ -522,7 +513,6 @@ export function RegisterRoutes(app: Router) {
             async function AdminController_deleteById(request: any, response: any, next: any) {
             const args = {
                     idAdmin: {"in":"path","name":"idAdmin","required":true,"dataType":"string"},
-                    _req: {"in":"request","name":"_req","required":true,"dataType":"object"},
             };
 
             // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
@@ -554,7 +544,6 @@ export function RegisterRoutes(app: Router) {
             const args = {
                     idAdmin: {"in":"path","name":"idAdmin","required":true,"dataType":"string"},
                     body: {"in":"body","name":"body","required":true,"ref":"TUpdateAdminInput"},
-                    _req: {"in":"request","name":"_req","required":true,"dataType":"object"},
             };
 
             // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
@@ -703,7 +692,6 @@ export function RegisterRoutes(app: Router) {
             async function SegmentController_getAllPaginated(request: any, response: any, next: any) {
             const args = {
                     idStory: {"in":"path","name":"idStory","required":true,"dataType":"string"},
-                    _req: {"in":"request","name":"_req","required":true,"dataType":"object"},
                     narrative: {"in":"query","name":"narrative","dataType":"string"},
                     tags: {"in":"query","name":"tags","dataType":"string"},
                     isFirst: {"in":"query","name":"isFirst","dataType":"boolean"},
@@ -741,7 +729,6 @@ export function RegisterRoutes(app: Router) {
             async function SegmentController_create(request: any, response: any, next: any) {
             const args = {
                     body: {"in":"body","name":"body","required":true,"ref":"TCreateSegmentInput"},
-                    _req: {"in":"request","name":"_req","required":true,"dataType":"object"},
             };
 
             // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
@@ -773,7 +760,6 @@ export function RegisterRoutes(app: Router) {
             const args = {
                     idSegment: {"in":"path","name":"idSegment","required":true,"dataType":"string"},
                     body: {"in":"body","name":"body","required":true,"ref":"TUpdateSegmentInput"},
-                    _req: {"in":"request","name":"_req","required":true,"dataType":"object"},
             };
 
             // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
@@ -834,7 +820,6 @@ export function RegisterRoutes(app: Router) {
             async function SegmentController_delete(request: any, response: any, next: any) {
             const args = {
                     idSegment: {"in":"path","name":"idSegment","required":true,"dataType":"string"},
-                    _req: {"in":"request","name":"_req","required":true,"dataType":"object"},
             };
 
             // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
@@ -865,7 +850,6 @@ export function RegisterRoutes(app: Router) {
             async function StoryController_create(request: any, response: any, next: any) {
             const args = {
                     httpRequest: {"in":"body","name":"httpRequest","required":true,"ref":"TCreateStoryInput"},
-                    _req: {"in":"request","name":"_req","required":true,"dataType":"object"},
             };
 
             // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
