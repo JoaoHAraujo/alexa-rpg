@@ -1,4 +1,4 @@
-import { TStoryModel, TCreateStoryInput } from '@src/domain/models';
+import { TCreateStoryInput, TStoryModel } from '@src/domain/models';
 import { Entities } from '@src/enums';
 import { EntityAlreadyExistsError } from '@src/errors';
 import { StoryRepositoryInterface } from '@src/infra/db/repositories';

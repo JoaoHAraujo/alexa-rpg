@@ -1,3 +1,4 @@
+import { CryptoAdapter } from '@src/adapters/crypto.adapter';
 import { TAdminModel, TUpdateAdminInput } from '@src/domain/models';
 import { Entities } from '@src/enums';
 import { EntityNotFoundError } from '@src/errors';
@@ -14,6 +15,8 @@ export class UpdateAdminUseCase implements IUpdateAdminUseCase {
   constructor(
     @inject(TYPES.repositories.AdminRepository)
     private readonly adminRepository: AdminRepositoryInterface,
+    @inject(TYPES.adapters.CryptoAdapter)
+    private readonly cryptoAdapter: CryptoAdapter,
   ) {}
 
   async execute(idAdmin: string, input: TUpdateAdminInput): Promise<TAdminModel> {
@@ -26,7 +29,7 @@ export class UpdateAdminUseCase implements IUpdateAdminUseCase {
     const updatedAdmin = await this.adminRepository.update(idAdmin, {
       ...(input.email && { email: input.email }),
       ...(input.name && { name: input.name }),
-      ...(shouldUpdatePassword && { password: input.password }),
+      ...(shouldUpdatePassword && { password: this.cryptoAdapter.generateHash(input.password as string) }),
     });
 
     return updatedAdmin;

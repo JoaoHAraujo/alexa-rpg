@@ -14,6 +14,9 @@ export class StoryEntity extends BaseEntity {
   @Column({ name: 'is_active' })
   public isActive: boolean;
 
+  @Column({ name: 'age_class' })
+  public ageClass: number;
+
   @OneToMany(() => SegmentEntity, (segment) => segment.story)
   public segments?: SegmentEntity[];
 
@@ -28,6 +31,7 @@ export class StoryEntity extends BaseEntity {
       id: this.id,
       title: this.title,
       isActive: this.isActive,
+      ageClass: this.ageClass,
       ...(this.actions?.length && { actions: this.actions.map((i) => i.toModel()) }),
       ...(this.segments?.length && { segments: this.segments.map((i) => i.toModel()) }),
       ...(this.tags?.length && { tags: this.tags.map((i) => i.toModel()) }),

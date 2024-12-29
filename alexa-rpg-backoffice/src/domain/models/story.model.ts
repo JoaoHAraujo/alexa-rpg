@@ -5,6 +5,7 @@ import { TTagModel } from './tag.model';
 export type TStoryModel = TBaseModel & {
   title: string;
   isActive: boolean;
+  ageClass: number;
   segments?: TSegmentModel[];
   tags?: TTagModel[];
 };
