@@ -1,8 +1,8 @@
-export class StoryModel {
-  id: string;
+import { TBaseModel } from './base.model';
+import { TSegmentModel } from './segment.model';
+
+export type TStoryModel = TBaseModel & {
   title: string;
   isActive: boolean;
-  createdAt?: Date | string;
-  updatedAt?: Date | string;
-  deletedAt?: Date | string;
-}
+  segments?: TSegmentModel[];
+};

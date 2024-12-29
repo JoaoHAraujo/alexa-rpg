@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { StoryModel } from '../../models';
+import { TStoryModel } from '../../models';
 import { apiHandleError } from '../../utils';
 import { IStoryApi } from './story.interface';
 
