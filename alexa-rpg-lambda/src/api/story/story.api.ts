@@ -9,7 +9,7 @@ const baseUrl = `${process.env.BACKOFFICE_URL}/story`;
 export const StoryApi: IStoryApi = {
   async getById(idStory: string) {
     try {
-      const { data } = await axios.get<StoryModel>(`${baseUrl}/${idStory}`);
+      const { data } = await axios.get<TStoryModel>(`${baseUrl}/${idStory}`);
 
       return data;
     } catch (err: any) {
@@ -19,7 +19,7 @@ export const StoryApi: IStoryApi = {
 
   async getRandom(limit: number) {
     try {
-      const { data } = await axios.get<StoryModel[]>(`${baseUrl}/random`, { params: { limit } });
+      const { data } = await axios.get<TStoryModel[]>(`${baseUrl}/random`, { params: { limit } });
 
       return data;
     } catch (err: any) {
