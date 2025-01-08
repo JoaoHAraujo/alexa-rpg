@@ -1,25 +1,18 @@
 import { getRequestType, HandlerInput, RequestHandler } from 'ask-sdk-core';
 import { Response } from 'ask-sdk-model';
 
-import { StoryApi } from '../../api';
-
 export const LaunchRequestHandler: RequestHandler = {
   canHandle(handlerInput: HandlerInput): boolean {
     return getRequestType(handlerInput.requestEnvelope) === 'LaunchRequest';
   },
   async handle(handlerInput: HandlerInput): Promise<Response> {
     try {
-      const stories = await StoryApi.getRandom(5);
-
-      handlerInput.attributesManager.setSessionAttributes({ stories });
-
-      const storyTitles = stories.map((story) => story.title).join(', ');
-
-      const speechText = `Bem-vindo à primeira versão da skill de histórias interativas. Escolha uma história: ${storyTitles}`;
+      const speechText = 'Bem-vindo à primeira versão da skill "Decida e Viva".';
+      const askBirthDateText = 'Para começar, informe sua data de nascimento';
 
       const responseBuilder = handlerInput.responseBuilder
-        .speak(`${speechText}`)
-        .reprompt('Não entendi. Tá com medo da aventura? Escolha uma história para começar.');
+        .speak(speechText + askBirthDateText)
+        .reprompt('Por favor, diga sua data de nascimento para continuarmos.');
 
       return responseBuilder.getResponse();
     } catch (err: any) {

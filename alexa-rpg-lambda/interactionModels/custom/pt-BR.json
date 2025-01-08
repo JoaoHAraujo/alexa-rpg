@@ -15,13 +15,22 @@
           "samples": []
         },
         {
+          "name": "AMAZON.NavigateHomeIntent",
+          "samples": []
+        },
+        {
           "name": "ChooseStoryIntent",
           "slots": [{ "name": "storyName", "type": "StoryNameType" }],
           "samples": ["{storyName}", "História {storyName}", "Quero jogar {storyName}"]
         },
         {
-          "name": "AMAZON.NavigateHomeIntent",
-          "samples": []
+          "name": "CaptureDateOfBirthIntent",
+          "slots": [{"name": "dateOfBirth", "type": "AMAZON.DATE" }],
+          "samples": [
+            "Minha date de nascimento é {dateOfBirth}",
+            "Nasci em {dateOfBirth}",
+            "{dateOfBirth}"
+          ]
         }
       ],
       "types": [
@@ -36,7 +45,7 @@
           ]
         }
       ],
-      "invocationName": "guerreiro de luz"
+      "invocationName": "decida e viva"
     }
   }
 }
