@@ -6,3 +6,4 @@ export * from './v1/health.controller';
 export * from './v1/segment.controller';
 export * from './v1/story.controller';
 export * from './v1/tag.controller';
+export * from './v1/user-progress.controller';

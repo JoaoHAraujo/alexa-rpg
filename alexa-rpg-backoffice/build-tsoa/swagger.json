@@ -766,6 +766,42 @@
 					"rows"
 				],
 				"type": "object"
+			},
+			"TUserProgressModel": {
+				"allOf": [
+					{
+						"$ref": "#/components/schemas/TBaseModel"
+					},
+					{
+						"properties": {
+							"story": {
+								"$ref": "#/components/schemas/TStoryModel"
+							},
+							"segment": {
+								"$ref": "#/components/schemas/TSegmentModel"
+							},
+							"finalized": {
+								"type": "boolean"
+							},
+							"idSegment": {
+								"type": "string"
+							},
+							"idStory": {
+								"type": "string"
+							},
+							"idAmazon": {
+								"type": "string"
+							}
+						},
+						"required": [
+							"finalized",
+							"idSegment",
+							"idStory",
+							"idAmazon"
+						],
+						"type": "object"
+					}
+				]
 			}
 		},
 		"securitySchemes": {
@@ -1893,6 +1929,41 @@
 								"true",
 								"false"
 							]
+						}
+					}
+				]
+			}
+		},
+		"/v1/user-progress/all": {
+			"get": {
+				"operationId": "SelectAll",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/TUserProgressModel"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"UserProgress"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "age",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
 						}
 					}
 				]

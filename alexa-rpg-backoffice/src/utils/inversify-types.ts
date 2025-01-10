@@ -1,41 +1,46 @@
 const StoryUseCaseTypes = {
-  // Action
+  CreateStoryUseCase: 'CreateStoryUseCase',
+  DeleteStoryUseCase: 'DeleteStoryUseCase',
+  GetStoryByIdUseCase: 'GetStoryByIdUseCase',
+  GetRandomStoriesUseCase: 'GetRandomStoriesUseCase',
+  UpdateStoryUseCase: 'UpdateStoryUseCase',
+};
+
+const ActionUseCaseTypes = {
   CreateActionUseCase: 'CreateActionUseCase',
   DeleteActionUseCase: 'DeleteActionUseCase',
   GetSegmentActionsUseCase: 'GetSegmentActionsUseCase',
   GetActionByIdUseCase: 'GetActionByIdUseCase',
   SelectActionPaginationUseCase: 'SelectActionPaginationUseCase',
   UpdateActionUseCase: 'UpdateActionUseCase',
+};
 
-  // Admin
+const AdminUseCaseTypes = {
   CreateAdminUseCase: 'CreateAdminUseCase',
   DeleteAdminUseCase: 'DeleteAdminUseCase',
   GetAdminByIdUseCase: 'GetAdminByIdUseCase',
+  LoginUseCase: 'LoginUseCase',
   SelectAdminPaginationUseCase: 'SelectAdminPaginationUseCase',
   UpdateAdminUseCase: 'UpdateAdminUseCase',
+};
 
-  // Auth
-  LoginUseCase: 'LoginUseCase',
-
-  // Segment
+const SegmentUseCaseTypes = {
   CreateSegmentUseCase: 'CreateSegmentUseCase',
   DeleteSegmentUseCase: 'DeleteSegmentUseCase',
   GetSegmentByIdUseCase: 'GetSegmentByIdUseCase',
   MakeSegmentFirstUseCase: 'MakeSegmentFirstUseCase',
   SelectSegmentPaginationUseCase: 'SelectSegmentPaginationUseCase',
   UpdateSegmentUseCase: 'UpdateSegmentUseCase',
+};
 
-  // Story
-  CreateStoryUseCase: 'CreateStoryUseCase',
-  DeleteStoryUseCase: 'DeleteStoryUseCase',
-  GetStoryByIdUseCase: 'GetStoryByIdUseCase',
-  GetRandomStoriesUseCase: 'GetRandomStoriesUseCase',
-  UpdateStoryUseCase: 'UpdateStoryUseCase',
-
-  // Tag
+const TagUseCaseTypes = {
   CreateResultingTagUseCase: 'CreateResultingTagUseCase',
   DeleteDepreciatedTagUseCase: 'DeleteDepreciatedTagUseCase',
   SelectTagPaginationUseCase: 'SelectTagPaginationUseCase',
+};
+
+const UserProgressUseCaseTypes = {
+  SelectUserProgressesUseCase: 'SelectUserProgressesUseCase',
 };
 
 const RepositoryTypes = {
@@ -44,6 +49,7 @@ const RepositoryTypes = {
   SegmentRepository: 'SegmentRepository',
   StoryRepository: 'StoryRepository',
   TagRepository: 'TagRepository',
+  UserProgressRepository: 'UserProgressRepository',
 };
 
 const Adapters = {
@@ -53,6 +59,13 @@ const Adapters = {
 
 export const TYPES = {
   adapters: { ...Adapters },
-  usecases: { ...StoryUseCaseTypes },
   repositories: { ...RepositoryTypes },
+  usecases: {
+    ...StoryUseCaseTypes,
+    ...ActionUseCaseTypes,
+    ...AdminUseCaseTypes,
+    ...SegmentUseCaseTypes,
+    ...TagUseCaseTypes,
+    ...UserProgressUseCaseTypes,
+  },
 };
