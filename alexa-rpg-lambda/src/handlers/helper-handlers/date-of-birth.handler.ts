@@ -1,11 +1,13 @@
 import { getIntentName, getRequestType, getSlotValue, HandlerInput, RequestHandler } from 'ask-sdk-core';
 import { Response } from 'ask-sdk-model';
 
+import { IntentName } from '../../enums';
+
 export const DateOfBirthIntentHandler: RequestHandler = {
   canHandle(handlerInput: HandlerInput): boolean {
     return (
       getRequestType(handlerInput.requestEnvelope) === 'IntentRequest' &&
-      getIntentName(handlerInput.requestEnvelope) === 'CaptureDateOfBirthIntent'
+      getIntentName(handlerInput.requestEnvelope) === IntentName.CaptureDateOfBirthIntent
     );
   },
   handle(handlerInput: HandlerInput): Response {
@@ -33,8 +35,10 @@ export const DateOfBirthIntentHandler: RequestHandler = {
 
     // TROCAR POR DELEGATE PARA ESCOLHA DE HISTORIA
     return handlerInput.responseBuilder
-      .speak(`Thank you! I saved your date of birth as ${dateOfBirthSlot}. How can I help you next?`)
-      .reprompt('How can I assist you?')
+      .addDelegateDirective({
+        name: IntentName.ChooseStoryIntent,
+        confirmationStatus: 'NONE',
+      })
       .getResponse();
   },
 };
