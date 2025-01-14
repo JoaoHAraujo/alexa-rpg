@@ -42,14 +42,8 @@ export class StoryController extends BaseHttpController implements interfaces.Co
 
   @Get('/random')
   @Middlewares(authorize)
-  async getRandom(@Query('limit') limit = 5, @Query('dateOfBirth') dateOfBirth: string): Promise<TStoryModel[]> {
-    const informedDateOfBirth = new Date(dateOfBirth);
-
-    if (isNaN(informedDateOfBirth.getTime())) {
-      throw new InvalidParamError('dateOfBirth invalid');
-    }
-
-    const response = await this.getRandomStoriesUseCase.getRandom(informedDateOfBirth, limit);
+  async getRandom(@Query('limit') limit = 5, @Query('age') age: number): Promise<TStoryModel[]> {
+    const response = await this.getRandomStoriesUseCase.getRandom(age, limit);
 
     return response;
   }

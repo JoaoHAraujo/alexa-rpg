@@ -1,5 +1,4 @@
 import { TStoryModel } from '@src/domain/models';
-import { calculateAge } from '@src/helpers/calculate-age';
 import { StoryRepositoryInterface } from '@src/infra/db/repositories';
 import { TYPES } from '@src/utils/inversify-types';
 import { provideSingleton } from '@src/utils/provide-singleton';
@@ -15,12 +14,10 @@ export class GetRandomStoriesUseCase implements IGetRandomStoriesUseCase {
     private readonly storyRepository: StoryRepositoryInterface,
   ) {}
 
-  async getRandom(dateOfBirth: string | Date, limit: number): Promise<TStoryModel[]> {
-    const userAge = calculateAge(new Date(dateOfBirth));
-
+  async getRandom(age: number, limit: number): Promise<TStoryModel[]> {
     const response = await this.storyRepository.selectRandom(limit, {
       isActive: true,
-      ageClass: LessThanOrEqual(userAge),
+      ageClass: LessThanOrEqual(age),
     });
 
     return response;
