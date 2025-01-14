@@ -887,7 +887,8 @@ export function RegisterRoutes(app: Router) {
             async function StoryController_getRandom(request: any, response: any, next: any) {
             const args = {
                     limit: {"default":5,"in":"query","name":"limit","dataType":"double"},
-                    dateOfBirth: {"in":"query","name":"dateOfBirth","required":true,"dataType":"string"},
+                    age: {"in":"query","name":"age","required":true,"dataType":"double"},
+                    req: {"in":"request","name":"req","required":true,"dataType":"object"},
             };
 
             // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa

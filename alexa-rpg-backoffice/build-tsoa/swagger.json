@@ -1734,10 +1734,11 @@
 					},
 					{
 						"in": "query",
-						"name": "dateOfBirth",
+						"name": "age",
 						"required": true,
 						"schema": {
-							"type": "string"
+							"format": "double",
+							"type": "number"
 						}
 					}
 				]

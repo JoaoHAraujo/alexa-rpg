@@ -2,11 +2,12 @@ import { ICreateStoryUseCase, IGetRandomStoriesUseCase, IGetStoryByIdUseCase } f
 import { IDeleteStoryUseCase } from '@src/domain/usecases/story/delete';
 import { IUpdateStoryUseCase } from '@src/domain/usecases/story/update';
 import { InvalidParamError } from '@src/errors';
+import { ICustomRequest } from '@src/utils/interfaces/custom-request';
 import { TYPES } from '@src/utils/inversify-types';
 import { provideSingleton } from '@src/utils/provide-singleton';
 import { inject } from 'inversify';
 import { BaseHttpController, interfaces } from 'inversify-express-utils';
-import { Body, Delete, Get, Middlewares, Path, Post, Put, Query, Route, Tags } from 'tsoa';
+import { Body, Delete, Get, Middlewares, Path, Post, Put, Query, Request, Route, Tags } from 'tsoa';
 import { validate } from 'uuid';
 
 import { TCreateStoryInput, TStoryModel, TUpdateStoryInput } from '../../domain/models';
@@ -42,8 +43,15 @@ export class StoryController extends BaseHttpController implements interfaces.Co
 
   @Get('/random')
   @Middlewares(authorize)
-  async getRandom(@Query('limit') limit = 5, @Query('age') age: number): Promise<TStoryModel[]> {
-    const response = await this.getRandomStoriesUseCase.getRandom(age, limit);
+  async getRandom(
+    @Query('limit') limit = 5,
+    @Query('age') age: number,
+    @Request() req: ICustomRequest,
+  ): Promise<TStoryModel[]> {
+    const { idAmazon } = req.user;
+
+    if (!idAmazon) throw new InvalidParamError('idAmazon');
+    const response = await this.getRandomStoriesUseCase.getRandom(req.user.idAmazon as string, age, limit);
 
     return response;
   }

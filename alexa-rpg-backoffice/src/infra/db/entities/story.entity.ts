@@ -5,6 +5,7 @@ import { ActionEntity } from './action.entity';
 import BaseEntity from './base-entity';
 import { SegmentEntity } from './segment.entity';
 import { TagEntity } from './tag.entity';
+import { UserProgressEntity } from './user-progress.entity';
 
 @Entity('story')
 export class StoryEntity extends BaseEntity {
@@ -25,6 +26,9 @@ export class StoryEntity extends BaseEntity {
 
   @OneToMany(() => TagEntity, (tag) => tag.story)
   public tags?: TagEntity[];
+
+  @OneToMany(() => UserProgressEntity, (userProgress) => userProgress.story)
+  public userProgresses: UserProgressEntity[];
 
   public toModel(): TStoryModel {
     return {

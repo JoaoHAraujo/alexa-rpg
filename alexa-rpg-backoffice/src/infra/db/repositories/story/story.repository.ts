@@ -37,8 +37,24 @@ export class StoryRepository implements StoryRepositoryInterface {
     return result!;
   }
 
-  async selectRandom(limit: number, where: FindOptionsWhere<StoryEntity>): Promise<TStoryModel[]> {
-    const result = await this.repository.createQueryBuilder().where(where).orderBy('RANDOM()').take(limit).getMany();
+  async selectRandom(idAmazon: string, limit: number, where: FindOptionsWhere<StoryEntity>): Promise<TStoryModel[]> {
+    const subquery = this.repository
+      .createQueryBuilder('story')
+      .leftJoin('story.userProgresses', 'userProgress')
+      .where(where)
+      .andWhere('(userProgress.id IS NULL OR userProgress.idAmazon != :idAmazon OR userProgress.finalized = TRUE)', {
+        idAmazon,
+      })
+      .andWhere('story.deletedAt IS NULL')
+      .select('story.id')
+      .orderBy('RANDOM()')
+      .limit(limit);
+
+    const result = await this.repository
+      .createQueryBuilder('story')
+      .where(`story.id IN (${subquery.getQuery()})`)
+      .setParameters(subquery.getParameters())
+      .getMany();
 
     return result.map((story) => story.toModel());
   }

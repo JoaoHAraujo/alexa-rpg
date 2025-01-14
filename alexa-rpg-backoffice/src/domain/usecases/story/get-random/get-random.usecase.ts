@@ -14,8 +14,8 @@ export class GetRandomStoriesUseCase implements IGetRandomStoriesUseCase {
     private readonly storyRepository: StoryRepositoryInterface,
   ) {}
 
-  async getRandom(age: number, limit: number): Promise<TStoryModel[]> {
-    const response = await this.storyRepository.selectRandom(limit, {
+  async getRandom(idAmazon: string, age: number, limit: number): Promise<TStoryModel[]> {
+    const response = await this.storyRepository.selectRandom(idAmazon, limit, {
       isActive: true,
       ageClass: LessThanOrEqual(age),
     });
