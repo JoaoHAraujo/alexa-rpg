@@ -1,4 +1,3 @@
-import { ISelectUserProgressesUseCase } from '@src/domain/usecases/user-progress/select-user-progresses';
 import { InvalidParamError } from '@src/errors';
 import { ICustomRequest } from '@src/utils/interfaces/custom-request';
 import { TYPES } from '@src/utils/inversify-types';
@@ -8,7 +7,12 @@ import { BaseHttpController, interfaces } from 'inversify-express-utils';
 import { Body, Get, Middlewares, Path, Put, Query, Request, Route, Tags } from 'tsoa';
 
 import { TUserProgressModel } from '../../domain/models';
-import { IUpsertUserProgressUseCase, TUpsertUserProgressInput } from '../../domain/usecases';
+import {
+  IFinalizeUserProgressUseCase,
+  ISelectUserProgressesUseCase,
+  IUpsertUserProgressUseCase,
+  TUpsertUserProgressInput,
+} from '../../domain/usecases';
 import { authorize } from '../middlewares/authorize.middleware';
 
 type TUpsertPayload = Pick<TUpsertUserProgressInput, 'idNewSegment' | 'idStory'>;
@@ -22,6 +26,8 @@ export class UserProgressController extends BaseHttpController implements interf
     private readonly selectUserProgressesUseCase: ISelectUserProgressesUseCase,
     @inject(TYPES.usecases.UpsertUserProgressUseCase)
     private readonly upsertUserProgressUseCase: IUpsertUserProgressUseCase,
+    @inject(TYPES.usecases.FinalizeUserProgressUseCase)
+    private readonly finalizeUserProgressUseCase: IFinalizeUserProgressUseCase,
   ) {
     super();
   }
@@ -45,5 +51,17 @@ export class UserProgressController extends BaseHttpController implements interf
     const result = await this.upsertUserProgressUseCase.execute({ idAmazon, idStory, idNewSegment });
 
     return result;
+  }
+
+  @Put('/finalize/:idProgress')
+  @Middlewares(authorize)
+  async finalizeProgress(@Path('idProgress') idProgress: string, @Request() req: ICustomRequest): Promise<boolean> {
+    const { idAmazon } = req.user;
+
+    if (!idAmazon) throw new InvalidParamError('idAmazon');
+
+    await this.finalizeUserProgressUseCase.execute(idProgress, idAmazon);
+
+    return true;
   }
 }

@@ -40,6 +40,7 @@ const TagUseCaseTypes = {
 };
 
 const UserProgressUseCaseTypes = {
+  FinalizeUserProgressUseCase: 'FinalizeUserProgressUseCase',
   SelectUserProgressesUseCase: 'SelectUserProgressesUseCase',
   UpsertUserProgressUseCase: 'UpsertUserProgressUseCase',
 };

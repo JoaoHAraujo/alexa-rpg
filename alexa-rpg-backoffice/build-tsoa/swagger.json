@@ -2020,6 +2020,37 @@
 					}
 				}
 			}
+		},
+		"/v1/user-progress/finalize/{idProgress}": {
+			"put": {
+				"operationId": "FinalizeProgress",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "boolean"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"UserProgress"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "idProgress",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
 		}
 	},
 	"servers": [
