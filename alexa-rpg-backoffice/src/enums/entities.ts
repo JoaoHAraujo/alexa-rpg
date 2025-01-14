@@ -4,4 +4,5 @@ export enum Entities {
   SEGMENT = 'Segment',
   STORY = 'Story',
   TAG = 'Tag',
+  USER_PROGRESS = 'User Progress',
 }

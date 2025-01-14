@@ -41,6 +41,7 @@ const TagUseCaseTypes = {
 
 const UserProgressUseCaseTypes = {
   SelectUserProgressesUseCase: 'SelectUserProgressesUseCase',
+  UpsertUserProgressUseCase: 'UpsertUserProgressUseCase',
 };
 
 const RepositoryTypes = {

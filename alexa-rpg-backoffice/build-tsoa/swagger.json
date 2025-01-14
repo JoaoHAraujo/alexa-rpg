@@ -802,6 +802,25 @@
 						"type": "object"
 					}
 				]
+			},
+			"Pick_TUpsertUserProgressInput.idNewSegment-or-idStory_": {
+				"properties": {
+					"idStory": {
+						"type": "string"
+					},
+					"idNewSegment": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"idStory",
+					"idNewSegment"
+				],
+				"type": "object",
+				"description": "From T, pick a set of properties whose keys are in the union K"
+			},
+			"TUpsertPayload": {
+				"$ref": "#/components/schemas/Pick_TUpsertUserProgressInput.idNewSegment-or-idStory_"
 			}
 		},
 		"securitySchemes": {
@@ -1968,6 +1987,38 @@
 						}
 					}
 				]
+			}
+		},
+		"/v1/user-progress": {
+			"put": {
+				"operationId": "UpdateProgress",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/TUserProgressModel"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"UserProgress"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/TUpsertPayload"
+							}
+						}
+					}
+				}
 			}
 		}
 	},
