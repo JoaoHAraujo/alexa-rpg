@@ -2,6 +2,7 @@ import { getIntentName, getRequestType, getSlotValue, HandlerInput, RequestHandl
 import { Response } from 'ask-sdk-model';
 
 import { IntentName } from '../../enums';
+import { calculateAge } from '../../helpers/calculate-age';
 
 export const DateOfBirthIntentHandler: RequestHandler = {
   canHandle(handlerInput: HandlerInput): boolean {
@@ -30,7 +31,7 @@ export const DateOfBirthIntentHandler: RequestHandler = {
     }
 
     const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
-    sessionAttributes.dateOfBirth = dateOfBirthSlot;
+    sessionAttributes.userAge = calculateAge(dateOfBirth);
     handlerInput.attributesManager.setSessionAttributes(sessionAttributes);
 
     // TROCAR POR DELEGATE PARA ESCOLHA DE HISTORIA
