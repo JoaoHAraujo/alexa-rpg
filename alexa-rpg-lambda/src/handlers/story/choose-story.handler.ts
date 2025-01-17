@@ -1,21 +1,27 @@
 import { getIntentName, getRequestType, getSlotValue, HandlerInput, RequestHandler } from 'ask-sdk-core';
 import { Response } from 'ask-sdk-model';
 
+import { IntentName } from '../../enums';
 import { TStoryModel } from '../../models';
+
+type TSessionAttributes = {
+  stories: TStoryModel[];
+  idAmazon: string;
+  age: number;
+};
 
 export const ChooseStoryIntentHandler: RequestHandler = {
   canHandle(handlerInput: HandlerInput): boolean {
     return (
       getRequestType(handlerInput.requestEnvelope) === 'IntentRequest' &&
-      getIntentName(handlerInput.requestEnvelope) === 'ChooseStoryIntent'
+      getIntentName(handlerInput.requestEnvelope) === IntentName.ChooseStoryIntent
     );
   },
   handle(handlerInput: HandlerInput): Response {
     try {
-      const chosenStoryName = getSlotValue(handlerInput.requestEnvelope, 'storyName'); //TODO enum
-      const sessionAttributes = handlerInput.attributesManager.getSessionAttributes<{ stories: TStoryModel[] }>();
+      const chosenStoryName = getSlotValue(handlerInput.requestEnvelope, 'storyName');
+      const sessionAttributes = handlerInput.attributesManager.getSessionAttributes<TSessionAttributes>();
       const stories = sessionAttributes.stories || [];
-      console.log(JSON.stringify(handlerInput, null, 2));
 
       const chosenStory = stories.find((story) => story.title?.toLowerCase() === chosenStoryName?.toLowerCase());
 
