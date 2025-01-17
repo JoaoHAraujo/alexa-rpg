@@ -19,7 +19,7 @@ export class SelectUserProgressesUseCase implements ISelectUserProgressesUseCase
       {
         idAmazon,
         finalized: false,
-        ...(typeof age === 'number' && { story: { ageClass: LessThanOrEqual(age) } }),
+        ...(typeof age === 'number' && { story: { ageClass: LessThanOrEqual(age), isActive: true } }),
       },
       { relations: ['story'] },
     );
