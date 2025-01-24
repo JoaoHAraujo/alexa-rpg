@@ -1,0 +1,69 @@
+import { getIntentName, getRequestType, getSlotValue, getUserId, HandlerInput, RequestHandler } from 'ask-sdk-core';
+import { Response } from 'ask-sdk-model';
+
+import { UserProgressApi } from '../../api';
+import { ContinueStoryChoice, IntentName } from '../../enums';
+import { getSessionAttributes, setSessionAttributes } from '../../helpers/session-attributes';
+import { ChooseProgressStoryHandler } from './choose-progress-story';
+
+export const ChooseContinueOrNewStoryHandler: RequestHandler = {
+  canHandle(handlerInput: HandlerInput): boolean {
+    return (
+      getRequestType(handlerInput.requestEnvelope) === 'IntentRequest' &&
+      getIntentName(handlerInput.requestEnvelope) === IntentName.ChooseContinueOrNewStoryIntent
+    );
+  },
+  async handle(handlerInput: HandlerInput): Promise<Response> {
+    try {
+      const idAmazon = getUserId(handlerInput.requestEnvelope);
+      const sessionAttributes = getSessionAttributes(handlerInput);
+
+      if (!sessionAttributes.userAge) throw new Error('Age not defined');
+
+      if (!idAmazon) throw new Error('idAmazon not defined');
+
+      const progressStories = await UserProgressApi.getAllFromUser(idAmazon, sessionAttributes.userAge);
+      const continueStoryChoice = getSlotValue(handlerInput.requestEnvelope, 'continueStoryChoice');
+
+      const responseBuilder = handlerInput.responseBuilder;
+
+      // Segunda execução. Já foi feita a escolha. Redirecionamentos.
+      if (continueStoryChoice) {
+        switch (continueStoryChoice.toLowerCase()) {
+          case ContinueStoryChoice.savedProgress:
+            setSessionAttributes(handlerInput, { ...sessionAttributes, choseToContinueStory: true });
+
+            return ChooseProgressStoryHandler.handle(handlerInput);
+
+          case ContinueStoryChoice.newStory:
+            return responseBuilder
+              .speak('Ainda falta implementar o delegar para escolha randômica de histórias')
+              .getResponse();
+
+          default:
+            break;
+        }
+      }
+
+      if (progressStories.length) {
+        sessionAttributes.progressStories = progressStories;
+
+        setSessionAttributes(handlerInput, { ...sessionAttributes, progressStories });
+
+        responseBuilder
+          .speak(
+            'Você possui histórias em andamento salvas. Diga "história salva" para escolher uma delas ou "nova história" para começar uma nova.',
+          )
+          .reprompt('Diga "história salva" para continuar ou "nova história" para começar uma nova.');
+      } else {
+        // TODO delegar para busca random
+        responseBuilder.speak('Ainda falta implementar o delegar para escolha randômica de histórias');
+      }
+
+      return responseBuilder.getResponse();
+    } catch (err: any) {
+      console.log(err);
+      return handlerInput.responseBuilder.speak(err.message).getResponse();
+    }
+  },
+};

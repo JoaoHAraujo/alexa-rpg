@@ -31,7 +31,13 @@
             "Nasci em {dateOfBirth}",
             "{dateOfBirth}"
           ]
+        },
+        {
+          "name": "ChooseContinueOrNewStoryIntent",
+          "slots": [{"name": "continueStoryChoice", "type": "ContinueStoryChoiceType"}],
+          "samples": ["{continueStoryChoice}"]
         }
+
       ],
       "types": [
         {
@@ -41,6 +47,17 @@
               "name": {
                 "value": "229f6e43-035d-46a5-a997-7c79191a23ca"
               }
+            }
+          ]
+        },
+        {
+          "name": "ContinueStoryChoiceType",
+          "values": [
+            {
+              "name": {"value": "história salva"}
+            },
+            {
+              "name": {"value": "nova história"}
             }
           ]
         }

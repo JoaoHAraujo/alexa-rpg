@@ -14,7 +14,7 @@
   "dependencies": {
     "ask-sdk-core": "2.14.0",
     "ask-sdk-model": "1.86.0",
-    "axios": "1.6.2",
+    "axios": "^1.7.9",
     "http-status": "1.7.3",
     "module-alias": "2.2.3",
     "reflect-metadata": "0.1.14"

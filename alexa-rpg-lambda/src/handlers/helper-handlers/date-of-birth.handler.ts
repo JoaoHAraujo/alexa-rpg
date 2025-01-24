@@ -1,9 +1,10 @@
 import { getIntentName, getRequestType, getSlotValue, HandlerInput, RequestHandler } from 'ask-sdk-core';
 import { Response } from 'ask-sdk-model';
 
-import { IntentName } from '../../enums';
+import { IntentName, SlotsName } from '../../enums';
 import { calculateAge } from '../../helpers/calculate-age';
-import { ContinueStoryHandler } from '../story/continue-story.handler';
+import { getSessionAttributes, setSessionAttributes } from '../../helpers/session-attributes';
+import { ChooseContinueOrNewStoryHandler } from '../story/choose-continue-or-new-story.handler';
 
 export const DateOfBirthIntentHandler: RequestHandler = {
   canHandle(handlerInput: HandlerInput): boolean {
@@ -14,7 +15,7 @@ export const DateOfBirthIntentHandler: RequestHandler = {
   },
   async handle(handlerInput: HandlerInput): Promise<Response> {
     try {
-      const dateOfBirthSlot = getSlotValue(handlerInput.requestEnvelope, 'dateOfBirth');
+      const dateOfBirthSlot = getSlotValue(handlerInput.requestEnvelope, SlotsName.dateOfBirth);
 
       if (!dateOfBirthSlot) {
         return handlerInput.responseBuilder
@@ -32,11 +33,11 @@ export const DateOfBirthIntentHandler: RequestHandler = {
           .getResponse();
       }
 
-      const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+      const sessionAttributes = getSessionAttributes(handlerInput);
       sessionAttributes.userAge = calculateAge(dateOfBirth);
-      handlerInput.attributesManager.setSessionAttributes(sessionAttributes);
+      setSessionAttributes(handlerInput, sessionAttributes);
 
-      return ContinueStoryHandler.handle(handlerInput);
+      return ChooseContinueOrNewStoryHandler.handle(handlerInput);
     } catch (err: any) {
       console.log(err);
       return handlerInput.responseBuilder.speak(err.message).getResponse();
