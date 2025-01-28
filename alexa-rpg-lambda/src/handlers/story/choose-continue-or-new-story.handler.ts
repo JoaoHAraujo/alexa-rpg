@@ -5,6 +5,7 @@ import { UserProgressApi } from '../../api';
 import { ContinueStoryChoice, IntentName } from '../../enums';
 import { getSessionAttributes, setSessionAttributes } from '../../helpers/session-attributes';
 import { ChooseProgressStoryHandler } from './choose-progress-story';
+import { NewStoryHandler } from './new-story.handler';
 
 export const ChooseContinueOrNewStoryHandler: RequestHandler = {
   canHandle(handlerInput: HandlerInput): boolean {
@@ -18,49 +19,40 @@ export const ChooseContinueOrNewStoryHandler: RequestHandler = {
       const idAmazon = getUserId(handlerInput.requestEnvelope);
       const sessionAttributes = getSessionAttributes(handlerInput);
 
-      if (!sessionAttributes.userAge) throw new Error('Age not defined');
+      if (!sessionAttributes.userAge || sessionAttributes.userAge < 0) throw new Error('Age not defined');
 
       if (!idAmazon) throw new Error('idAmazon not defined');
 
-      const progressStories = await UserProgressApi.getAllFromUser(idAmazon, sessionAttributes.userAge);
       const continueStoryChoice = getSlotValue(handlerInput.requestEnvelope, 'continueStoryChoice');
 
-      const responseBuilder = handlerInput.responseBuilder;
-
-      // Segunda execução. Já foi feita a escolha. Redirecionamentos.
+      // Second time this handler executes. Redirects flow.
       if (continueStoryChoice) {
         switch (continueStoryChoice.toLowerCase()) {
           case ContinueStoryChoice.savedProgress:
-            setSessionAttributes(handlerInput, { ...sessionAttributes, choseToContinueStory: true });
-
             return ChooseProgressStoryHandler.handle(handlerInput);
 
           case ContinueStoryChoice.newStory:
-            return responseBuilder
-              .speak('Ainda falta implementar o delegar para escolha randômica de histórias')
-              .getResponse();
+            return NewStoryHandler.handle(handlerInput);
 
           default:
-            break;
+            throw new Error('Invalid Choice');
         }
       }
 
-      if (progressStories.length) {
-        sessionAttributes.progressStories = progressStories;
+      const progressStories = await UserProgressApi.getAllFromUser(idAmazon, sessionAttributes.userAge);
 
+      if (progressStories.length) {
         setSessionAttributes(handlerInput, { ...sessionAttributes, progressStories });
 
-        responseBuilder
+        return handlerInput.responseBuilder
           .speak(
             'Você possui histórias em andamento salvas. Diga "história salva" para escolher uma delas ou "nova história" para começar uma nova.',
           )
-          .reprompt('Diga "história salva" para continuar ou "nova história" para começar uma nova.');
+          .reprompt('Diga "história salva" para continuar ou "nova história" para começar uma nova.')
+          .getResponse();
       } else {
-        // TODO delegar para busca random
-        responseBuilder.speak('Ainda falta implementar o delegar para escolha randômica de histórias');
+        return NewStoryHandler.handle(handlerInput);
       }
-
-      return responseBuilder.getResponse();
     } catch (err: any) {
       console.log(err);
       return handlerInput.responseBuilder.speak(err.message).getResponse();

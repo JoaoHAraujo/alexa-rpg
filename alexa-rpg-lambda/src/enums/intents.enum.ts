@@ -3,4 +3,5 @@ export enum IntentName {
   ChooseStoryIntent = 'ChooseStoryIntent',
   ChooseProgressStoryIntent = 'ChooseProgressStoryIntent',
   ChooseContinueOrNewStoryIntent = 'ChooseContinueOrNewStoryIntent',
+  NewStoryIntent = 'NewStoryIntent',
 }

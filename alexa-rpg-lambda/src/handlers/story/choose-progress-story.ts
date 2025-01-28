@@ -4,7 +4,7 @@ import { Response } from 'ask-sdk-model';
 import { ContinueStoryChoice, IntentName, SlotsName } from '../../enums';
 import { getSessionAttributes, setSessionAttributes } from '../../helpers/session-attributes';
 import { TStoryModel } from '../../models';
-import { ChooseStoryIntentHandler } from './choose-story.handler';
+import { ChooseStoryHandler } from './choose-story.handler';
 
 export const ChooseProgressStoryHandler: RequestHandler = {
   canHandle(handlerInput: HandlerInput): boolean {
@@ -29,7 +29,7 @@ export const ChooseProgressStoryHandler: RequestHandler = {
 
       setSessionAttributes(handlerInput, { ...sessionAttributes, stories, choseToContinueStory: true });
 
-      return ChooseStoryIntentHandler.handle(handlerInput);
+      return ChooseStoryHandler.handle(handlerInput);
     } catch (err: any) {
       console.log(err);
       return handlerInput.responseBuilder.speak(err.message).getResponse();

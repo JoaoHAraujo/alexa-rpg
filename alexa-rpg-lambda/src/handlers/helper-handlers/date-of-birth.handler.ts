@@ -6,7 +6,7 @@ import { calculateAge } from '../../helpers/calculate-age';
 import { getSessionAttributes, setSessionAttributes } from '../../helpers/session-attributes';
 import { ChooseContinueOrNewStoryHandler } from '../story/choose-continue-or-new-story.handler';
 
-export const DateOfBirthIntentHandler: RequestHandler = {
+export const DateOfBirthHandler: RequestHandler = {
   canHandle(handlerInput: HandlerInput): boolean {
     return (
       getRequestType(handlerInput.requestEnvelope) === 'IntentRequest' &&

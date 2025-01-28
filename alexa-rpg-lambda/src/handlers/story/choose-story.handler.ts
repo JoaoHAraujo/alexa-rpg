@@ -5,7 +5,7 @@ import { IntentName, SlotsName, SlotsType } from '../../enums';
 import { generateDirective } from '../../helpers/generate-directives';
 import { getSessionAttributes } from '../../helpers/session-attributes';
 
-export const ChooseStoryIntentHandler: RequestHandler = {
+export const ChooseStoryHandler: RequestHandler = {
   canHandle(handlerInput: HandlerInput): boolean {
     return (
       getRequestType(handlerInput.requestEnvelope) === 'IntentRequest' &&
@@ -21,12 +21,7 @@ export const ChooseStoryIntentHandler: RequestHandler = {
 
       const chosenStory = stories.find((story) => story.title?.toLowerCase() === chosenStoryName?.toLowerCase());
 
-      if (chosenStory) {
-        // TODO configurar segmento e levar ao modulo de narração de segmento
-        const speechOutput = `Você escolheu a história: ${chosenStory.title}`;
-
-        return handlerInput.responseBuilder.speak(speechOutput).getResponse();
-      } else {
+      if (!chosenStory) {
         const storyTitles = stories.map((story) => story.title);
 
         const storyNameDirective = generateDirective(SlotsType.StoryNameType, storyTitles);
@@ -39,6 +34,11 @@ export const ChooseStoryIntentHandler: RequestHandler = {
           .speak(baseSpeechText)
           .reprompt(`Não entendi. ${baseSpeechText}`)
           .getResponse();
+      } else {
+        // TODO configurar segmento e levar ao modulo de narração de segmento
+        const speechOutput = `Você escolheu a história: ${chosenStory.title}`;
+
+        return handlerInput.responseBuilder.speak(speechOutput).getResponse();
       }
     } catch (err: any) {
       console.log(err);

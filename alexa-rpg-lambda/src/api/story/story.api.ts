@@ -1,10 +1,11 @@
 import axios from 'axios';
 
+import { getEnv } from '../../constants';
 import { TStoryModel } from '../../models';
 import { apiHandleError } from '../../utils';
 import { IStoryApi } from './story.interface';
 
-const baseUrl = `${process.env.BACKOFFICE_URL}/story`;
+const baseUrl = `${getEnv().backofficeBaseUrl}/story`;
 
 export const StoryApi: IStoryApi = {
   async getById(idStory: string) {
@@ -17,9 +18,9 @@ export const StoryApi: IStoryApi = {
     }
   },
 
-  async getRandom(limit: number) {
+  async getRandom(limit: number, age: number) {
     try {
-      const { data } = await axios.get<TStoryModel[]>(`${baseUrl}/random`, { params: { limit } });
+      const { data } = await axios.get<TStoryModel[]>(`${baseUrl}/random`, { params: { limit, age } });
 
       return data;
     } catch (err: any) {

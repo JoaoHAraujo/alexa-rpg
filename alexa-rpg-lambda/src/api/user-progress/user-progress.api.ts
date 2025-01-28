@@ -1,10 +1,11 @@
 import axios from 'axios';
 
+import { getEnv } from '../../constants';
 import { TUserProgressModel } from '../../models';
 import { apiHandleError } from '../../utils';
 import { IUserProgressApi } from './user-progress.interface';
 
-const baseUrl = `${process.env.BACKOFFICE_URL}/user-progress`;
+const baseUrl = `${getEnv().backofficeBaseUrl}/user-progress`;
 const baseHeaders = (idAmazon: string) => {
   return { 'x-id-amazon': idAmazon };
 };
