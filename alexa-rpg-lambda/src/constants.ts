@@ -6,7 +6,7 @@ export class Constants {
   constructor(props: { [key: string]: string }) {
     this.appName = props.APP_NAME || 'alexa_rpg_lambda';
     this.backofficeBaseUrl = props.BACKOFFICE_URL;
-    this.listStoryLimit = Number(props.STORY_LIMIT) || 5;
+    this.listStoryLimit = Number(props.LIST_STORY_LIMIT) || 5;
   }
 }
 

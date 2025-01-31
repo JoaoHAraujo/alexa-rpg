@@ -11,9 +11,10 @@ export const ChooseContinueOrNewStoryHandler: RequestHandler = {
   canHandle(handlerInput: HandlerInput): boolean {
     return (
       getRequestType(handlerInput.requestEnvelope) === 'IntentRequest' &&
-      getIntentName(handlerInput.requestEnvelope) === IntentName.ChooseContinueOrNewStoryIntent
+      getSessionAttributes(handlerInput).step === IntentName.ChooseContinueOrNewStoryIntent
     );
   },
+
   async handle(handlerInput: HandlerInput): Promise<Response> {
     try {
       const idAmazon = getUserId(handlerInput.requestEnvelope);
@@ -29,9 +30,19 @@ export const ChooseContinueOrNewStoryHandler: RequestHandler = {
       if (continueStoryChoice) {
         switch (continueStoryChoice.toLowerCase()) {
           case ContinueStoryChoice.savedProgress:
+            setSessionAttributes(handlerInput, {
+              choseToContinueStory: true,
+              step: IntentName.ChooseProgressStoryIntent,
+            });
+
             return ChooseProgressStoryHandler.handle(handlerInput);
 
           case ContinueStoryChoice.newStory:
+            setSessionAttributes(handlerInput, {
+              choseToContinueStory: false,
+              step: IntentName.NewStoryIntent,
+            });
+
             return NewStoryHandler.handle(handlerInput);
 
           default:
@@ -42,7 +53,7 @@ export const ChooseContinueOrNewStoryHandler: RequestHandler = {
       const progressStories = await UserProgressApi.getAllFromUser(idAmazon, sessionAttributes.userAge);
 
       if (progressStories.length) {
-        setSessionAttributes(handlerInput, { ...sessionAttributes, progressStories });
+        setSessionAttributes(handlerInput, { progressStories });
 
         return handlerInput.responseBuilder
           .speak(
@@ -51,6 +62,11 @@ export const ChooseContinueOrNewStoryHandler: RequestHandler = {
           .reprompt('Diga "história salva" para continuar ou "nova história" para começar uma nova.')
           .getResponse();
       } else {
+        setSessionAttributes(handlerInput, {
+          choseToContinueStory: false,
+          step: IntentName.NewStoryIntent,
+        });
+
         return NewStoryHandler.handle(handlerInput);
       }
     } catch (err: any) {

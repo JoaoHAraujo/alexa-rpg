@@ -6,7 +6,7 @@ import { apiHandleError } from '../../utils';
 import { IUserProgressApi } from './user-progress.interface';
 
 const baseUrl = `${getEnv().backofficeBaseUrl}/user-progress`;
-const baseHeaders = (idAmazon: string) => {
+const getBaseHeaders = (idAmazon: string) => {
   return { 'x-id-amazon': idAmazon };
 };
 
@@ -15,7 +15,7 @@ export const UserProgressApi: IUserProgressApi = {
     try {
       const { data } = await axios.get<TUserProgressModel[]>(`${baseUrl}/all`, {
         params: { age },
-        headers: baseHeaders(idAmazon),
+        headers: getBaseHeaders(idAmazon),
       });
 
       return data;
@@ -26,7 +26,7 @@ export const UserProgressApi: IUserProgressApi = {
 
   async updateProgress(idAmazon: string, body: { idStory: string; idNewSegment: string }): Promise<TUserProgressModel> {
     try {
-      const { data } = await axios.put<TUserProgressModel>(baseUrl, body, { headers: baseHeaders(idAmazon) });
+      const { data } = await axios.put<TUserProgressModel>(baseUrl, body, { headers: getBaseHeaders(idAmazon) });
 
       return data;
     } catch (err) {
@@ -37,7 +37,7 @@ export const UserProgressApi: IUserProgressApi = {
   async finalizeProgress(idAmazon: string, idProgress: string): Promise<boolean> {
     try {
       const { data } = await axios.put<boolean>(`${baseUrl}/finalize/${idProgress}`, undefined, {
-        headers: baseHeaders(idAmazon),
+        headers: getBaseHeaders(idAmazon),
       });
 
       return data;

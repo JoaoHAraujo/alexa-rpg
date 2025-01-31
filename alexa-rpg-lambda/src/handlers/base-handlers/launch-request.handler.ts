@@ -1,6 +1,9 @@
 import { getRequestType, HandlerInput, RequestHandler } from 'ask-sdk-core';
 import { Response } from 'ask-sdk-model';
 
+import { IntentName } from '../../enums';
+import { getSessionAttributes, setSessionAttributes } from '../../helpers/session-attributes';
+
 export const LaunchRequestHandler: RequestHandler = {
   canHandle(handlerInput: HandlerInput): boolean {
     return getRequestType(handlerInput.requestEnvelope) === 'LaunchRequest';
@@ -13,6 +16,8 @@ export const LaunchRequestHandler: RequestHandler = {
       const responseBuilder = handlerInput.responseBuilder
         .speak(speechText + askBirthDateText)
         .reprompt('Por favor, diga sua data de nascimento para continuarmos.');
+
+      setSessionAttributes(handlerInput, { step: IntentName.CaptureDateOfBirthIntent });
 
       return responseBuilder.getResponse();
     } catch (err: any) {

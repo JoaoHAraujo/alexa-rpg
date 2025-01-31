@@ -9,9 +9,10 @@ export const ChooseStoryHandler: RequestHandler = {
   canHandle(handlerInput: HandlerInput): boolean {
     return (
       getRequestType(handlerInput.requestEnvelope) === 'IntentRequest' &&
-      getIntentName(handlerInput.requestEnvelope) === IntentName.ChooseStoryIntent
+      getSessionAttributes(handlerInput).step === IntentName.ChooseStoryIntent
     );
   },
+
   handle(handlerInput: HandlerInput): Response {
     try {
       const chosenStoryName = getSlotValue(handlerInput.requestEnvelope, SlotsName.storyName);

@@ -12,7 +12,7 @@ export const ChooseProgressStoryHandler: RequestHandler = {
 
     return (
       getRequestType(handlerInput.requestEnvelope) === 'IntentRequest' &&
-      getIntentName(handlerInput.requestEnvelope) === IntentName.ChooseProgressStoryIntent &&
+      getSessionAttributes(handlerInput).step === IntentName.ChooseProgressStoryIntent &&
       storyChoice === ContinueStoryChoice.savedProgress
     );
   },
@@ -27,7 +27,11 @@ export const ChooseProgressStoryHandler: RequestHandler = {
         .map((userProgress) => userProgress.story)
         .filter((story) => !!story) as TStoryModel[];
 
-      setSessionAttributes(handlerInput, { ...sessionAttributes, stories, choseToContinueStory: true });
+      setSessionAttributes(handlerInput, {
+        stories,
+        choseToContinueStory: true,
+        step: IntentName.ChooseStoryIntent,
+      });
 
       return ChooseStoryHandler.handle(handlerInput);
     } catch (err: any) {

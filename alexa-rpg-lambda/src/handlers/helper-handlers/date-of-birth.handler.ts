@@ -10,7 +10,7 @@ export const DateOfBirthHandler: RequestHandler = {
   canHandle(handlerInput: HandlerInput): boolean {
     return (
       getRequestType(handlerInput.requestEnvelope) === 'IntentRequest' &&
-      getIntentName(handlerInput.requestEnvelope) === IntentName.CaptureDateOfBirthIntent
+      getSessionAttributes(handlerInput).step === IntentName.CaptureDateOfBirthIntent
     );
   },
   async handle(handlerInput: HandlerInput): Promise<Response> {
@@ -33,9 +33,10 @@ export const DateOfBirthHandler: RequestHandler = {
           .getResponse();
       }
 
-      const sessionAttributes = getSessionAttributes(handlerInput);
-      sessionAttributes.userAge = calculateAge(dateOfBirth);
-      setSessionAttributes(handlerInput, sessionAttributes);
+      setSessionAttributes(handlerInput, {
+        userAge: calculateAge(dateOfBirth),
+        step: IntentName.ChooseContinueOrNewStoryIntent,
+      });
 
       return ChooseContinueOrNewStoryHandler.handle(handlerInput);
     } catch (err: any) {
