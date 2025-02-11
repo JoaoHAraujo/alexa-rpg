@@ -1,11 +1,14 @@
-import { HandlerInput, RequestHandler } from 'ask-sdk-core';
+import { getRequestType, HandlerInput, RequestHandler } from 'ask-sdk-core';
 
 export const SessionEndedRequestHandler: RequestHandler = {
   canHandle(handlerInput: HandlerInput) {
-    const request = handlerInput.requestEnvelope.request;
-    return request.type === 'SessionEndedRequest';
+    return getRequestType(handlerInput.requestEnvelope) === 'SessionEndedRequest';
   },
+
   handle(handlerInput: HandlerInput) {
-    return handlerInput.responseBuilder.speak('Fechando skill').getResponse();
+    return handlerInput.responseBuilder
+      .speak('Até a próxima! Se quiser continuar a história ou iniciar uma nova aventura, é só me chamar.')
+      .withShouldEndSession(true)
+      .getResponse();
   },
 };

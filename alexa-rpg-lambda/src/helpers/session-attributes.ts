@@ -13,6 +13,7 @@ export type TSessionAttributesModel = {
   idSegment?: string;
   actions?: TActionModel[];
   isStoryFinished?: boolean;
+  idUserProgress?: string;
 };
 
 export function getSessionAttributes(handlerInput: HandlerInput): TSessionAttributesModel {

@@ -9,8 +9,8 @@
             "default": {
               "lambda": {
                 "arn": "arn:aws:lambda:us-east-1:220798161082:function:ask-custom-rpg-skill-default-default-1702610338292",
-                "lastModified": "2025-02-11T04:54:24.000+0000",
-                "revisionId": "f590e126-c056-4ead-9926-b30b73c15203"
+                "lastModified": "2025-02-11T20:52:44.000+0000",
+                "revisionId": "8588b8ba-2e74-4d6c-9576-561cbddea847"
               },
               "iamRole": "arn:aws:iam::220798161082:role/ask-lambda-custom-rpg-skill-1702610337516"
             }
@@ -19,16 +19,16 @@
       },
       "deploymentStatus": "COMPLETE",
       "skillMetadata": {
-        "lastImportId": "amzn1.ask-package.import.23fa5dd3-7a6e-4b3c-a4d0-f419bd602d22",
-        "lastImportTimestamp": "2025-02-11T04:53:36.733Z",
-        "lastDeployHash": "4xcblZ8kmdK0+H3xGPlXP65/00o=",
+        "lastImportId": "amzn1.ask-package.import.ced7231b-078e-4da4-a227-076f8e4d11c1",
+        "lastImportTimestamp": "2025-02-11T20:51:41.329Z",
+        "lastDeployHash": "oP4B8EyfUumdbfEQBFjQqH9Y7UQ=",
         "lastDeployType": "interaction-model"
       },
       "code": {
         "default": {
-          "lastDeployHash": "iJOoCw4ScXHShu9G9GJVJuB+I7c="
+          "lastDeployHash": "vbU7qvLCCqfqmLomuQtMh/D5cug="
         },
-        "lastDeployTimestamp": "2025-02-11T04:54:25.033Z"
+        "lastDeployTimestamp": "2025-02-11T20:52:44.684Z"
       }
     }
   }

@@ -1,5 +1,7 @@
 export enum IntentName {
+  // Base and Helpers
   CaptureDateOfBirthIntent = 'CaptureDateOfBirthIntent',
+  EndStoryIntent = 'EndStoryIntent',
 
   // Story
   ChooseStoryIntent = 'ChooseStoryIntent',

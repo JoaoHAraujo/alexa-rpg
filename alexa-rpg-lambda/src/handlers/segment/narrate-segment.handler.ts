@@ -9,6 +9,7 @@ import { generateDirective } from '../../helpers/generate-directives';
 import { getListPrompt } from '../../helpers/get-list-prompt';
 import { deleteSessionAttributes, getSessionAttributes, setSessionAttributes } from '../../helpers/session-attributes';
 import { TSegmentModel } from '../../models';
+import { EndStoryHandler } from '../helper-handlers';
 
 const narrateSegment = async (handlerInput: HandlerInput): Promise<Response> => {
   const idAmazon = getUserId(handlerInput.requestEnvelope);
@@ -25,8 +26,7 @@ const narrateSegment = async (handlerInput: HandlerInput): Promise<Response> => 
   return promptActionChoice(handlerInput, segment);
 };
 
-const promptActionChoice = (handlerInput: HandlerInput, segment: TSegmentModel): Response => {
-  let actionPrompt = '';
+const promptActionChoice = async (handlerInput: HandlerInput, segment: TSegmentModel): Promise<Response> => {
   const responseBuilder = handlerInput.responseBuilder;
 
   if (segment.actions?.length) {
@@ -36,35 +36,34 @@ const promptActionChoice = (handlerInput: HandlerInput, segment: TSegmentModel):
 
     const actionNameDirectives = generateDirective(SlotsType.ActionNameType, actionDescriptions);
 
-    actionPrompt = `O que deseja fazer? ${getListPrompt(actionDescriptions)}`;
+    const actionPrompt = ` O que deseja fazer? ${getListPrompt(actionDescriptions)}`;
 
-    responseBuilder.addDirective(actionNameDirectives);
+    const speechText = `${segment.narrative}. ${actionPrompt}`;
+
+    return responseBuilder
+      .addDirective(actionNameDirectives)
+      .speak(speechText)
+      .reprompt(`Não entendi. ${speechText}`)
+      .getResponse();
   } else {
-    setSessionAttributes(handlerInput, { isStoryFinished: true });
+    setSessionAttributes(handlerInput, { isStoryFinished: true, step: IntentName.EndStoryIntent });
 
-    responseBuilder.withShouldEndSession(true); // TODO chamar handler de encerramento de skill (customizar)
+    handlerInput.attributesManager.setRequestAttributes({
+      ...handlerInput.attributesManager.getRequestAttributes(),
+      finalSegmentNarrative: segment.narrative,
+    });
+    // TODO chamar handler de encerramento de skill (customizar)
+    // responseBuilder.speak(segment.narrative);
+
+    return EndStoryHandler.handle(handlerInput);
   }
-
-  const speechText = `${segment.narrative}. ${actionPrompt}`;
-
-  responseBuilder.speak(speechText);
-
-  if (segment.actions?.length) {
-    responseBuilder.reprompt(`Não entendi. ${speechText}`).getResponse();
-  }
-
-  return responseBuilder.getResponse();
 };
 
 export const NarrateSegmentHandler: RequestHandler = {
   canHandle(handlerInput: HandlerInput): boolean {
-    const { step, isStoryFinished } = getSessionAttributes(handlerInput);
+    const { step } = getSessionAttributes(handlerInput);
 
-    return (
-      getRequestType(handlerInput.requestEnvelope) === 'IntentRequest' &&
-      step === IntentName.NarrateSegmentIntent &&
-      !isStoryFinished
-    );
+    return getRequestType(handlerInput.requestEnvelope) === 'IntentRequest' && step === IntentName.NarrateSegmentIntent;
   },
 
   async handle(handlerInput: HandlerInput): Promise<Response> {
