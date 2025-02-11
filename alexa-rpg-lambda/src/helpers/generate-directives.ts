@@ -13,7 +13,8 @@ export function generateDirective(slotType: SlotsType, values: string[]): Direct
         values: values.map((value) => ({
           id: randomUUID(),
           name: {
-            value: value,
+            value: value.toLowerCase(),
+            synonyms: [value],
           },
         })),
       },

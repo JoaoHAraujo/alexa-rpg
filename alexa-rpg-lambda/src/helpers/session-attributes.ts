@@ -1,7 +1,7 @@
 import { HandlerInput } from 'ask-sdk-core';
 
 import { IntentName } from '../enums';
-import { TStoryModel, TUserProgressModel } from '../models';
+import { TActionModel, TStoryModel, TUserProgressModel } from '../models';
 
 export type TSessionAttributesModel = {
   step: IntentName;
@@ -10,6 +10,9 @@ export type TSessionAttributesModel = {
   stories?: TStoryModel[];
   currentStory?: TStoryModel;
   choseToContinueStory?: boolean;
+  idSegment?: string;
+  actions?: TActionModel[];
+  isStoryFinished?: boolean;
 };
 
 export function getSessionAttributes(handlerInput: HandlerInput): TSessionAttributesModel {

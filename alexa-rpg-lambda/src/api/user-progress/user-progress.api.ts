@@ -3,12 +3,10 @@ import axios from 'axios';
 import { getEnv } from '../../constants';
 import { TUserProgressModel } from '../../models';
 import { apiHandleError } from '../../utils';
+import { getBaseHeaders } from '../../helpers/get-base-headers';
 import { IUserProgressApi } from './user-progress.interface';
 
 const baseUrl = `${getEnv().backofficeBaseUrl}/user-progress`;
-const getBaseHeaders = (idAmazon: string) => {
-  return { 'x-id-amazon': idAmazon };
-};
 
 export const UserProgressApi: IUserProgressApi = {
   async getAllFromUser(idAmazon: string, age: number): Promise<TUserProgressModel[]> {

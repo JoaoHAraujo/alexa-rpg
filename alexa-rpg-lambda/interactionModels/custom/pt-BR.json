@@ -24,10 +24,15 @@
           "samples": ["{storyName}", "História {storyName}", "Quero jogar {storyName}"]
         },
         {
+          "name": "NarrateSegmentIntent",
+          "slots": [{ "name": "actionName", "type": "ActionNameType" }],
+          "samples": ["Minha ação é {actionName}", "{actionName}"]
+        },
+        {
           "name": "CaptureDateOfBirthIntent",
           "slots": [{"name": "dateOfBirth", "type": "AMAZON.DATE" }],
           "samples": [
-            "Minha date de nascimento é {dateOfBirth}",
+            "Minha data de nascimento é {dateOfBirth}",
             "Nasci em {dateOfBirth}",
             "{dateOfBirth}"
           ]
@@ -46,6 +51,16 @@
             {
               "name": {
                 "value": "229f6e43-035d-46a5-a997-7c79191a23ca"
+              }
+            }
+          ]
+        },
+        {
+          "name": "ActionNameType",
+          "values": [
+            {
+              "name": {
+              "value": "1113513b-9172-494b-aed8-2bc0c98f473b"
               }
             }
           ]

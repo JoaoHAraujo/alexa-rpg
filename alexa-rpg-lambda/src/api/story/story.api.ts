@@ -1,19 +1,19 @@
 import axios from 'axios';
 
 import { getEnv } from '../../constants';
+import { getBaseHeaders } from '../../helpers/get-base-headers';
 import { TStoryModel } from '../../models';
 import { apiHandleError } from '../../utils';
-import { IStoryApi } from './story.interface';
+import { IStoryApi, TGetSegmentByIdResponse } from './story.interface';
 
 const baseUrl = `${getEnv().backofficeBaseUrl}/story`;
-const getBaseHeaders = (idAmazon: string) => {
-  return { 'x-id-amazon': idAmazon };
-};
 
 export const StoryApi: IStoryApi = {
   async getById(idAmazon: string, idStory: string) {
     try {
-      const { data } = await axios.get<TStoryModel>(`${baseUrl}/${idStory}`, { headers: getBaseHeaders(idAmazon) });
+      const { data } = await axios.get<TGetSegmentByIdResponse>(`${baseUrl}/${idStory}`, {
+        headers: getBaseHeaders(idAmazon),
+      });
 
       return data;
     } catch (err: any) {

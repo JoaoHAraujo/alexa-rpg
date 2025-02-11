@@ -1,6 +1,7 @@
 import { RequestHandler } from 'ask-sdk-core';
 
 import { DateOfBirthHandler } from '../helper-handlers';
+import { NarrateSegmentHandler } from '../segment';
 import {
   ChooseContinueOrNewStoryHandler,
   ChooseProgressStoryHandler,
@@ -8,10 +9,13 @@ import {
   NewStoryHandler,
 } from '../story';
 
-export const IntentHandlers: RequestHandler[] = [
-  DateOfBirthHandler,
+const StoryIntentHandlers: RequestHandler[] = [
   ChooseStoryHandler,
   ChooseContinueOrNewStoryHandler,
   ChooseProgressStoryHandler,
   NewStoryHandler,
 ];
+
+const SegmentIntentHandlers: RequestHandler[] = [NarrateSegmentHandler];
+
+export const IntentHandlers: RequestHandler[] = [DateOfBirthHandler, ...StoryIntentHandlers, ...SegmentIntentHandlers];
