@@ -14,6 +14,6 @@ export class GetSegmentByIdUseCase implements IGetSegmentByIdUseCase {
   ) {}
 
   async execute(idSegment: string): Promise<TSegmentModel | null> {
-    return this.segmentRepository.selectOne({ id: idSegment });
+    return this.segmentRepository.selectOne({ id: idSegment }, { relations: ['actions'] });
   }
 }
