@@ -1,9 +1,9 @@
 import axios from 'axios';
 
 import { getEnv } from '../../constants';
+import { getBaseHeaders } from '../../helpers/get-base-headers';
 import { TUserProgressModel } from '../../models';
 import { apiHandleError } from '../../utils';
-import { getBaseHeaders } from '../../helpers/get-base-headers';
 import { IUserProgressApi } from './user-progress.interface';
 
 const baseUrl = `${getEnv().backofficeBaseUrl}/user-progress`;

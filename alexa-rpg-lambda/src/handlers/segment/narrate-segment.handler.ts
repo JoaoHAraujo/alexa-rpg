@@ -1,6 +1,7 @@
 import { getRequestType, getSlotValue, getUserId, HandlerInput, RequestHandler } from 'ask-sdk-core';
 import { Response } from 'ask-sdk-model';
 
+import { UserProgressApi } from '../../api';
 import { SegmentApi } from '../../api/segment';
 import { IntentName, SlotsName, SlotsType } from '../../enums';
 import { calculateSuccess } from '../../helpers/calculate-success';
@@ -69,7 +70,7 @@ export const NarrateSegmentHandler: RequestHandler = {
   async handle(handlerInput: HandlerInput): Promise<Response> {
     try {
       const chosenActionDescription = getSlotValue(handlerInput.requestEnvelope, SlotsName.actionName);
-      const { actions } = getSessionAttributes(handlerInput);
+      const { actions, currentStory } = getSessionAttributes(handlerInput);
 
       const chosenAction = actions?.find(
         (action) => action.description.toLowerCase() === chosenActionDescription?.toLowerCase(),
@@ -85,12 +86,18 @@ export const NarrateSegmentHandler: RequestHandler = {
       // Set step and next idSegment
       const isSuccess = calculateSuccess(chosenAction.successRate);
 
+      const idNextSegment = isSuccess ? chosenAction.idSegmentSuccess : chosenAction.idSegmentFailure;
+
+      if (!idNextSegment) throw new Error('idNextSegment not set on session');
+      if (!currentStory) throw new Error('currentStory not set on session');
+
       setSessionAttributes(handlerInput, {
-        idSegment: isSuccess ? chosenAction.idSegmentSuccess : chosenAction.idSegmentFailure,
+        idSegment: idNextSegment,
         step: IntentName.NarrateSegmentIntent,
       });
 
-      // TODO chamar api para salvar progresso
+      const idAmazon = getUserId(handlerInput.requestEnvelope);
+      await UserProgressApi.updateProgress(idAmazon, { idStory: currentStory.id, idNewSegment: idNextSegment });
 
       return narrateSegment(handlerInput);
     } catch (err: any) {
