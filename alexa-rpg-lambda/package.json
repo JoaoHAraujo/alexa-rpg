@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "tsc --skipLibCheck",
+    "build-lambda": "tsc --skipLibCheck",
     "lint": "eslint ./src --ext .ts",
-    "deploy": "npm run build && npm run install-prod-deps && ask deploy && npm i",
+    "deploy": "npm run build-lambda && npm run install-prod-deps && ask deploy && npm i",
     "install-prod-deps": "npm install --production && xcopy /E /I node_modules dist\\node_modules /Y"
   },
   "author": "",
