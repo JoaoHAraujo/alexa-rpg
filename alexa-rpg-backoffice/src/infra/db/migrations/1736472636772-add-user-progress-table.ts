@@ -1,4 +1,4 @@
-import { MigrationInterface, QueryRunner, Table } from 'typeorm';
+import { MigrationInterface, QueryRunner, Table, TableForeignKey } from 'typeorm';
 
 import { baseColumns } from '../config/base-columns';
 
@@ -30,6 +30,20 @@ export class AddUserProgressTable1736472636772 implements MigrationInterface {
             default: false,
           },
           ...baseColumns,
+        ],
+        foreignKeys: [
+          new TableForeignKey({
+            name: 'FK_id_story',
+            referencedTableName: 'story',
+            referencedColumnNames: ['id'],
+            columnNames: ['id_story'],
+          }),
+          new TableForeignKey({
+            name: 'FK_id_segment',
+            referencedTableName: 'segment',
+            referencedColumnNames: ['id'],
+            columnNames: ['id_segment'],
+          }),
         ],
       }),
     );

@@ -5,16 +5,11 @@ import { getEnv } from '../../../constants';
 
 export const DatabaseProvider = new DataSource({
   type: 'postgres',
-  port: getEnv()?.database?.port ?? 5432,
   maxQueryExecutionTime: 5000,
   uuidExtension: 'uuid-ossp',
 
-  host: getEnv()?.database?.host,
-  username: getEnv()?.database?.user,
-  password: getEnv()?.database?.password,
-  database: getEnv()?.database?.name,
+  url: getEnv().databaseUrl,
 
-  migrationsRun: true,
   extra: {
     poll: {
       max: 40,
@@ -23,9 +18,11 @@ export const DatabaseProvider = new DataSource({
       idle: 20000,
     },
   },
-  migrationsTransactionMode: 'each',
+
   synchronize: false,
   logging: !!getEnv()?.debug,
+  migrationsTransactionMode: 'each',
+  migrationsRun: true,
   migrations: [`${join(__dirname, '../migrations/*.{js,ts}')}`],
   entities: [`${join(__dirname, '../entities/*.entity.{js,ts}')}`],
 });

@@ -17,13 +17,7 @@ export class Constants {
     expiresIn: string;
   };
 
-  database: {
-    host: string;
-    name: string;
-    user: string;
-    password: string;
-    port: number;
-  };
+  databaseUrl: string;
   actionLimit: number;
 
   constructor(props: { [key: string]: string }) {
@@ -37,13 +31,7 @@ export class Constants {
       expiresIn: props.JWT_EXPIRATION,
     };
 
-    this.database = {
-      host: props.DATABASE_HOST,
-      name: props.DATABASE_NAME,
-      user: props.DATABASE_USER,
-      password: props.DATABASE_PASSWORD,
-      port: parseInt(props.DATABASE_PORT),
-    };
+    this.databaseUrl = props.DATABASE_URL;
 
     this.actionLimit = parseInt(props.ACTION_LIMIT) || 4;
   }
