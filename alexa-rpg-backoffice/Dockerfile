@@ -1,5 +1,5 @@
 # Stage 1: Build
-FROM node:21 as build
+FROM node:20 as build
 WORKDIR /usr/src/app
 COPY package*.json ./
 RUN npm i --frozen-lockfile
@@ -7,7 +7,7 @@ COPY . .
 RUN npm run build
 
 # Stage 2: Run
-FROM node:21
+FROM node:20
 WORKDIR /usr/src/app
 COPY package*.json ./
 RUN npm i --production --frozen-lockfile
