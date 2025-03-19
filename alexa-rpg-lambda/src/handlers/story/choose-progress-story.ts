@@ -1,4 +1,4 @@
-import { getIntentName, getRequestType, getSlotValue, HandlerInput, RequestHandler } from 'ask-sdk-core';
+import { getRequestType, getSlotValue, HandlerInput, RequestHandler } from 'ask-sdk-core';
 import { Response } from 'ask-sdk-model';
 
 import { ContinueStoryChoice, IntentName, SlotsName } from '../../enums';

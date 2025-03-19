@@ -2,7 +2,7 @@ import { getRequestType, HandlerInput, RequestHandler } from 'ask-sdk-core';
 import { Response } from 'ask-sdk-model';
 
 import { IntentName } from '../../enums';
-import { getSessionAttributes, setSessionAttributes } from '../../helpers/session-attributes';
+import { setSessionAttributes } from '../../helpers/session-attributes';
 
 export const LaunchRequestHandler: RequestHandler = {
   canHandle(handlerInput: HandlerInput): boolean {
