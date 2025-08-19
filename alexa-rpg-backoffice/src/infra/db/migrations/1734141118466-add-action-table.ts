@@ -66,6 +66,6 @@ export class AddActionTable1734141118466 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('action');
+    await queryRunner.dropTable('action', true);
   }
 }

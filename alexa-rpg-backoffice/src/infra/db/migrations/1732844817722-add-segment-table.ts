@@ -39,6 +39,6 @@ export class AddSegmentTable1732844817722 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('segment');
+    await queryRunner.dropTable('segment', true);
   }
 }

@@ -46,10 +46,11 @@ export class AddUserProgressTable1736472636772 implements MigrationInterface {
           }),
         ],
       }),
+      true,
     );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('user_progress');
+    await queryRunner.dropTable('user_progress', true);
   }
 }

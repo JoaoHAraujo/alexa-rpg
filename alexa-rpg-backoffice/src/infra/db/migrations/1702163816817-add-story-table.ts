@@ -22,10 +22,11 @@ export class AddStoryTable1702163816817 implements MigrationInterface {
           ...baseColumns,
         ],
       }),
+      true,
     );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('story');
+    await queryRunner.dropTable('story', true);
   }
 }

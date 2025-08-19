@@ -31,6 +31,6 @@ export class AddAdminTable1734718846847 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('admin');
+    await queryRunner.dropTable('admin', true);
   }
 }
