@@ -1,4 +1,4 @@
-import { MigrationInterface, QueryRunner, Table } from 'typeorm';
+import { MigrationInterface, QueryRunner, Table, TableForeignKey } from 'typeorm';
 
 import { baseColumns } from '../config/base-columns';
 
@@ -24,6 +24,14 @@ export class AddTagTable1734212061118 implements MigrationInterface {
             isNullable: false,
           },
           ...baseColumns,
+        ],
+        foreignKeys: [
+          new TableForeignKey({
+            name: 'FK_id_story',
+            referencedTableName: 'story',
+            referencedColumnNames: ['id'],
+            columnNames: ['id_story'],
+          }),
         ],
       }),
       true,

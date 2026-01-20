@@ -42,6 +42,12 @@ export class AddActionTable1734141118466 implements MigrationInterface {
         ],
         foreignKeys: [
           new TableForeignKey({
+            name: 'FK_id_story',
+            referencedTableName: 'story',
+            referencedColumnNames: ['id'],
+            columnNames: ['id_story'],
+          }),
+          new TableForeignKey({
             name: 'FK_id_origin_segment',
             referencedTableName: 'segment',
             referencedColumnNames: ['id'],
