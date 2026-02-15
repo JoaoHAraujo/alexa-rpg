@@ -10,7 +10,7 @@ export const LaunchRequestHandler: RequestHandler = {
   },
   async handle(handlerInput: HandlerInput): Promise<Response> {
     try {
-      const speechText = 'Bem-vindo à primeira versão da skill "Voz e Ação". ';
+      const speechText = 'Bem-vindo à primeira versão da skill "Voz da Aventura". ';
       const askBirthDateText = 'Para começar, informe sua data de nascimento';
 
       const responseBuilder = handlerInput.responseBuilder
